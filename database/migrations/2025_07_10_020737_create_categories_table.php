@@ -8,7 +8,7 @@ return new class extends Migration {
     public function up(): void {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('super_category_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignId('super_category_id')->nullable()->constrained();
             $table->string('name');
             $table->text('description')->nullable();
             $table->timestamps();
