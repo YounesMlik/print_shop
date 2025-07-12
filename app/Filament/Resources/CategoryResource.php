@@ -12,6 +12,9 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\Select;
 
 class CategoryResource extends Resource
 {
@@ -21,11 +24,26 @@ class CategoryResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                //
-            ]);
+        return $form->schema([
+            Select::make('super_category_id')
+                ->label('Parent Super Category')
+                ->relationship('parent', 'name')
+                ->nullable()
+                ->preload(),
+
+            TextInput::make('name')->required(),
+            Textarea::make('description')->rows(3),
+
+            // Showing related OptionAttributes (hasMany)
+            Select::make('products')
+                ->relationship('products', 'name')
+                ->multiple()
+                ->preload()
+                ->disabled()
+                ->helperText('Option attributes managed from their resource.'),
+        ]);
     }
+
 
     public static function table(Table $table): Table
     {

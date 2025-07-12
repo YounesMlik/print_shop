@@ -12,6 +12,9 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\Select;
 
 class ProductResource extends Resource
 {
@@ -21,11 +24,26 @@ class ProductResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                //
-            ]);
+        return $form->schema([
+            TextInput::make('name')->required(),
+            Textarea::make('description')->rows(3),
+
+            // For tags relationship with OptionAttribute
+            Select::make('tags')
+                ->relationship('tags', 'name')
+                ->multiple()
+                ->preload(),
+
+            // For optionTypes relationship (hasMany OptionAttribute)
+            Select::make('optionTypes')
+                ->relationship('optionTypes', 'name')
+                ->multiple()
+                ->preload()
+                ->disabled() // hasMany - display only, not editable in select
+                ->helperText('Option types are managed elsewhere'),
+        ]);
     }
+
 
     public static function table(Table $table): Table
     {
