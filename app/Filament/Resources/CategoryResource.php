@@ -28,7 +28,7 @@ class CategoryResource extends Resource
             Select::make('super_category_id')
                 ->label('Parent Super Category')
                 ->relationship('parent', 'name')
-                ->nullable()
+                ->required()
                 ->preload(),
 
             TextInput::make('name')->required(),
