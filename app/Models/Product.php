@@ -8,11 +8,11 @@ class Product extends Model
 {
     protected $fillable = ['name', 'description'];
 
-    public function optionTypes()
+    public function options()
     {
         return $this->hasMany(OptionAttribute::class, );
-    }    
-    
+    }
+
     public function tags()
     {
         return $this->belongsToMany(OptionAttribute::class, );
