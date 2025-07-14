@@ -6,16 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    protected $fillable = ['name', 'description'];
+    protected $fillable = ['name', 'description', 'super_category_id'];
 
-    public function parent()
+    public function superCategory()
     {
         return $this->belongsTo(SuperCategory::class);
     }
 
     public function products()
     {
-        return $this->hasMany(OptionAttribute::class, );
+        return $this->hasMany(Product::class, );
     }
 
 }

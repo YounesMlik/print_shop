@@ -26,8 +26,8 @@ class CategoryResource extends Resource
     {
         return $form->schema([
             Select::make('super_category_id')
-                ->label('Parent Super Category')
-                ->relationship('parent', 'name')
+                ->label('Super Category')
+                ->relationship('superCategory', 'name')
                 ->required()
                 ->preload(),
 
