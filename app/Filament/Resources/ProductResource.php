@@ -28,19 +28,19 @@ class ProductResource extends Resource
             TextInput::make('name')->required(),
             Textarea::make('description')->rows(3),
 
-            // For tags relationship with OptionAttribute
+            // For tags relationship with Tag
             Select::make('tags')
                 ->relationship('tags', 'name')
                 ->multiple()
                 ->preload(),
 
-            // For optionTypes relationship (hasMany OptionAttribute)
-            Select::make('optionTypes')
-                ->relationship('optionTypes', 'name')
+            // For optionTypes relationship (hasMany Option)
+            Select::make('options')
+                ->relationship('options', 'name')
                 ->multiple()
                 ->preload()
                 ->disabled() // hasMany - display only, not editable in select
-                ->helperText('Option types are managed elsewhere'),
+                ->helperText('Options are managed elsewhere'),
         ]);
     }
 
