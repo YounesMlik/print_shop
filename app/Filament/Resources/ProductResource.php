@@ -24,10 +24,16 @@ class ProductResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form->schema([
+        return $form->schema([  
             TextInput::make('name')->required(),
             Textarea::make('description')->rows(3),
-
+            
+            Select::make('category_id')
+            ->relationship('category', 'name')
+            ->label('Category')
+            ->required()
+            ->preload(),
+        
             // For tags relationship with Tag
             Select::make('tags')
                 ->relationship('tags', 'name')
