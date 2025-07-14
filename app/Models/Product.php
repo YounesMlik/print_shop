@@ -15,12 +15,12 @@ class Product extends Model
 
     public function options()
     {
-        return $this->hasMany(OptionAttribute::class, );
+        return $this->hasMany(Option::class, );
     }
 
     public function tags()
     {
-        return $this->belongsToMany(OptionAttribute::class, );
+        return $this->belongsToMany(Tag::class, );
     }
 
 }
