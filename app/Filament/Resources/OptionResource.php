@@ -36,12 +36,12 @@ class OptionResource extends Resource
             TextInput::make('name')->required(),
             Textarea::make('description')->rows(3),
 
-            Repeater::make('optionAttributes')
+            Repeater::make('optionAttributeLinks')
                 ->relationship()
                 ->schema([
                     Select::make('option_attribute_id')
                         ->label('Attribute')
-                        ->relationship('optionAttributes', 'name')
+                        ->options(\App\Models\OptionAttribute::pluck('name', 'id'))
                         ->required(),
 
                     Textarea::make('description')
@@ -49,10 +49,9 @@ class OptionResource extends Resource
                         ->rows(2)
                         ->nullable(),
                 ])
-                ->label('Attributes')
                 ->defaultItems(0)
                 ->columns(1)
-                ->collapsible()
+                ->label("Attributes"),
 
         ]);
     }

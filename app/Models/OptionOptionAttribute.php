@@ -13,4 +13,14 @@ class OptionOptionAttribute extends Pivot
         'option_attribute_id',
         'description',
     ];
+
+    public function option()
+    {
+        return $this->belongsTo(Option::class);
+    }
+
+    public function option_attribute()
+    {
+        return $this->belongsTo(OptionAttribute::class);
+    }
 }

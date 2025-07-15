@@ -21,4 +21,9 @@ class Option extends Model
             ->withTimestamps();
     }
 
+    public function optionAttributeLinks()
+    {
+        return $this->hasMany(OptionOptionAttribute::class);
+    }
+
 }
