@@ -15,6 +15,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Select;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 
 class ProductResource extends Resource
 {
@@ -24,16 +26,16 @@ class ProductResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form->schema([  
+        return $form->schema([
             TextInput::make('name')->required(),
             Textarea::make('description')->rows(3),
-            
+
             Select::make('category_id')
-            ->relationship('category', 'name')
-            ->label('Category')
-            ->required()
-            ->preload(),
-        
+                ->relationship('category', 'name')
+                ->label('Category')
+                ->required()
+                ->preload(),
+
             // For tags relationship with Tag
             Select::make('tags')
                 ->relationship('tags', 'name')
@@ -55,20 +57,23 @@ class ProductResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('name')->searchable()->sortable(),
+                TextColumn::make('category.name')->label('Category')->sortable(),
+                TextColumn::make('description')->limit(50)->wrap(),
+                TextColumn::make('tags.name')
+                    ->label('Tags')
+                    ->badge()
+                    ->separator(', ')
+                    ->limit(3),
             ])
             ->filters([
-                //
+                SelectFilter::make('category_id')
+                    ->label('Category')
+                    ->relationship('category', 'name'),
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+            ->defaultSort('name');
     }
+
 
     public static function getRelations(): array
     {

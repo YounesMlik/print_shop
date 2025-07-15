@@ -15,6 +15,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Select;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 
 class TagResource extends Resource
 {
@@ -40,20 +42,16 @@ class TagResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('name')->searchable()->sortable(),
+                TextColumn::make('description')->limit(50)->wrap(),
+                TextColumn::make('products_count')
+                    ->counts('products')
+                    ->label('Products')
+                    ->sortable(),
             ])
-            ->filters([
-                //
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+            ->defaultSort('name');
     }
+
 
     public static function getRelations(): array
     {

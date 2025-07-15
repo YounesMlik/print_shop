@@ -15,6 +15,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Select;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 
 class OptionResource extends Resource
 {
@@ -45,20 +47,23 @@ class OptionResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('name')->searchable()->sortable(),
+                TextColumn::make('product.name')->label('Product')->sortable(),
+                TextColumn::make('description')->limit(50)->wrap(),
+                TextColumn::make('optionAttributes.name')
+                    ->label('Attributes')
+                    ->badge()
+                    ->separator(', ')
+                    ->limit(3),
             ])
             ->filters([
-                //
+                SelectFilter::make('product_id')
+                    ->label('Product')
+                    ->relationship('product', 'name'),
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+            ->defaultSort('name');
     }
+
 
     public static function getRelations(): array
     {
