@@ -61,7 +61,15 @@ class OptionResource extends Resource
                     ->label('Product')
                     ->relationship('product', 'name'),
             ])
-            ->defaultSort('name');
+            ->defaultSort('name')
+            ->actions([
+                // Tables\Actions\EditAction::make(),
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
+            ]);
     }
 
 

@@ -49,7 +49,15 @@ class TagResource extends Resource
                     ->label('Products')
                     ->sortable(),
             ])
-            ->defaultSort('name');
+            ->defaultSort('name')
+            ->actions([
+                // Tables\Actions\EditAction::make(),
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
+            ]);
     }
 
 
