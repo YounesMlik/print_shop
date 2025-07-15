@@ -17,6 +17,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Forms\Components\Repeater;
 
 class OptionResource extends Resource
 {
@@ -35,12 +36,27 @@ class OptionResource extends Resource
             TextInput::make('name')->required(),
             Textarea::make('description')->rows(3),
 
-            Select::make('optionAttributes')
-                ->relationship('optionAttributes', 'name')
-                ->multiple()
-                ->preload(),
+            Repeater::make('optionAttributes')
+                ->relationship()
+                ->schema([
+                    Select::make('option_attribute_id')
+                        ->label('Attribute')
+                        ->relationship('optionAttributes', 'name')
+                        ->required(),
+
+                    Textarea::make('description')
+                        ->label('Override Description')
+                        ->rows(2)
+                        ->nullable(),
+                ])
+                ->label('Attributes')
+                ->defaultItems(0)
+                ->columns(1)
+                ->collapsible()
+
         ]);
     }
+
 
 
     public static function table(Table $table): Table

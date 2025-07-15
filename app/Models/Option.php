@@ -15,7 +15,10 @@ class Option extends Model
 
     public function optionAttributes()
     {
-        return $this->belongsToMany(OptionAttribute::class);
+        return $this->belongsToMany(OptionAttribute::class)
+            ->using(OptionOptionAttribute::class)
+            ->withPivot('description')
+            ->withTimestamps();
     }
 
 }

@@ -7,10 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 class OptionAttribute extends Model
 {
     protected $fillable = ['name', 'description'];
+    protected $appends = ['effective_description'];
 
     public function options()
     {
-        return $this->belongsToMany(Option::class);
+        return $this->belongsToMany(Option::class)
+            ->using(OptionOptionAttribute::class)
+            ->withPivot('description')
+            ->withTimestamps();
+    }
+
+    public function getEffectiveDescriptionAttribute(): ?string
+    {
+        // If it's loaded via an Option (many-to-many), use pivot description if set
+        return $this->pivot->description ?? $this->description;
     }
 
 }
