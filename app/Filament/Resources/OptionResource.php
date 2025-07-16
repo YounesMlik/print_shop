@@ -44,6 +44,10 @@ class OptionResource extends Resource
                         ->options(\App\Models\OptionAttribute::pluck('name', 'id'))
                         ->required(),
 
+                    TextInput::make('value')
+                        ->label('Value')
+                        ->required(),
+
                     Textarea::make('description')
                         ->label('Override Description')
                         ->rows(2)

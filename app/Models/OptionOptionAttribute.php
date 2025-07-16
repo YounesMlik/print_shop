@@ -11,6 +11,7 @@ class OptionOptionAttribute extends Pivot
     protected $fillable = [
         'option_id',
         'option_attribute_id',
+        'value',
         'description',
     ];
 
