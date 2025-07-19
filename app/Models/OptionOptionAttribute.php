@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class OptionOptionAttribute extends Pivot
 {
+    use HasFactory;
+
     protected $table = 'option_option_attribute';
 
     protected $fillable = [
