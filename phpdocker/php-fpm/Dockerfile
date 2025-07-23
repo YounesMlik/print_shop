@@ -6,5 +6,7 @@ RUN apt-get update \
         git \
         php8.4-mysql \
         php8.4-pgsql \
+        nodejs \
+        npm \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
