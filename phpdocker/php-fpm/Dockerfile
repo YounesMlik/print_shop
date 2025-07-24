@@ -6,6 +6,7 @@ RUN apt-get update \
         git \
         php8.4-mysql \
         php8.4-pgsql \
+        php8.4-intl \
         nodejs \
         npm \
     && apt-get clean \
