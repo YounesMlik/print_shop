@@ -2,48 +2,63 @@
 
 namespace Database\Seeders;
 
-use App\Models\Category;
-use App\Models\Option;
-use App\Models\OptionAttribute;
-use App\Models\Product;
-use App\Models\SuperCategory;
-use App\Models\Tag;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\{
+    SuperCategory,
+    Category,
+    Product,
+    Tag,
+    Option,
+    OptionAttribute
+};
 
 class LocalSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
+        // Step 1: Independent Tables
+        Tag::factory(10)->create();
+        OptionAttribute::factory(10)->create();
+
+        // Step 2: SuperCategory → Category
         SuperCategory::factory(3)->create()->each(function ($superCategory) {
             Category::factory(rand(2, 4))->create([
                 'super_category_id' => $superCategory->id,
             ])->each(function ($category) {
-                Product::factory(rand(2, 4))->create([
+                // Step 3: Category → Products
+                Product::factory(rand(3, 6))->create([
                     'category_id' => $category->id,
                 ])->each(function ($product) {
-                    $tags = Tag::inRandomOrder()->take(2)->pluck('id');
-                    $product->tags()->attach($tags);
+                    // Attach 1–3 Tags
+                    $product->tags()->attach(
+                        Tag::inRandomOrder()->take(rand(1, 3))->pluck('id')
+                    );
 
-                    Option::factory(rand(2, 3))->create([
+                    // Step 4: Product → Options
+                    Option::factory(rand(2, 4))->create([
                         'product_id' => $product->id,
                     ])->each(function ($option) {
-                        $attributes = OptionAttribute::inRandomOrder()->take(3)->get();
+                        // Attach OptionAttributes with pivot descriptions
+                        OptionAttribute::inRandomOrder()
+                            ->take(rand(1, 3))
+                            ->each(function ($attribute) use ($option) {
+                                $value = match ($attribute->name) {
+                                    'Size' => fake()->randomElement(['S', 'M', 'L']),
+                                    'Color' => fake()->safeColorName(),
+                                    'Pages' => fake()->numberBetween(1, 200),
+                                    default => fake()->word(),
+                                };
 
-                        foreach ($attributes as $attribute) {
-                            $option->optionAttributes()->attach($attribute->id, [
-                                'description' => fake()->sentence(),
-                            ]);
-                        }
+                                $option->optionAttributes()->attach($attribute->id, [
+                                    'description' => fake()->boolean(50)
+                                        ? 'Override: ' . fake()->sentence()
+                                        : $attribute->description,
+                                    'value' => $value,
+                                ]);
+                            });
                     });
                 });
             });
         });
-
-        Tag::factory(10)->create();
-        OptionAttribute::factory(10)->create();
     }
 }
