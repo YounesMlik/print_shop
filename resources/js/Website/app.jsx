@@ -10,7 +10,10 @@ root.render(
   <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
     <InertiaApp
       initialPage={JSON.parse(el.dataset.page)}
-      resolveComponent={name => import(`./Pages/${name}`).then(module => module.default)}
+      resolveComponent={name => {
+        const pages = import.meta.glob('./Pages/*/*.jsx', { eager: true })
+        return pages[`./Pages/${name}.jsx`].default
+      }}
     />
   </ThemeProvider>
 );
