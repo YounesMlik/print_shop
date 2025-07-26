@@ -1,14 +1,15 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { InertiaApp } from '@inertiajs/inertia-react';
-import { ThemeProvider } from "@/components/theme-provider.tsx"
+import { ThemeProvider } from "@/components/theme-provider.tsx";
+import Layout from '@/Layouts/Layout';
 
 const el = document.getElementById('app');
 const root = createRoot(el);
 
 root.render(
   <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-    <div className="container mx-auto px-4 py-4">
+    <Layout>
       <InertiaApp
         initialPage={JSON.parse(el.dataset.page)}
         resolveComponent={(name) => {
@@ -16,6 +17,6 @@ root.render(
           return pages[`./Pages/${name}.jsx`].default
         }}
       />
-    </div>
+    </Layout>
   </ThemeProvider>
 )
