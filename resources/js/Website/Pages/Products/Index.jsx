@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { Head, usePage } from '@inertiajs/inertia-react'
 import { Inertia } from '@inertiajs/inertia'
 import AsyncSelect from 'react-select/async'
@@ -6,6 +6,7 @@ import AsyncSelect from 'react-select/async'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
+import { Button } from '@/components/ui/button'
 
 export default function ProductsIndex({ products, availableTags, filters }) {
   const [selectedTags, setSelectedTags] = useState(
@@ -33,10 +34,21 @@ export default function ProductsIndex({ products, availableTags, filters }) {
     })
 
   const handleChange = (newValue) => {
-    setSelectedTags(newValue || [])
-    const tagIds = (newValue || []).map(tag => tag.value)
+    const updated = newValue || []
+    setSelectedTags(updated)
+
+    const tagIds = updated.map(tag => tag.value)
 
     Inertia.get(route('products.index'), { tags: tagIds }, {
+      preserveState: true,
+      preserveScroll: true,
+    })
+  }
+
+  const handlePagination = (url) => {
+    const tagIds = selectedTags.map(tag => tag.value)
+
+    Inertia.get(url, { tags: tagIds }, {
       preserveState: true,
       preserveScroll: true,
     })
@@ -101,11 +113,11 @@ export default function ProductsIndex({ products, availableTags, filters }) {
         <Separator />
 
         {/* Product list */}
-        {products.length === 0 ? (
+        {products.data.length === 0 ? (
           <p className="text-muted-foreground">No products found.</p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {products.map(product => (
+            {products.data.map(product => (
               <Card key={product.id}>
                 <CardHeader>
                   <CardTitle>{product.name}</CardTitle>
@@ -114,6 +126,21 @@ export default function ProductsIndex({ products, availableTags, filters }) {
                   <p>{product.description}</p>
                 </CardContent>
               </Card>
+            ))}
+          </div>
+        )}
+
+        {/* Pagination */}
+        {products.last_page > 1 && (
+          <div className="flex gap-2 flex-wrap mt-6">
+            {products.links.map((link, i) => (
+              <Button
+                key={i}
+                variant={link.active ? 'default' : 'outline'}
+                disabled={!link.url}
+                onClick={() => link.url && handlePagination(link.url)}
+                dangerouslySetInnerHTML={{ __html: link.label }}
+              />
             ))}
           </div>
         )}

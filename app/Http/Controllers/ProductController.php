@@ -18,9 +18,9 @@ class ProductController extends Controller
                 foreach ($tagIds as $tagId) {
                     $query->whereHas('tags', fn($q) => $q->where('tags.id', $tagId));
                 }
-                return $query;
             })
-            ->get();
+            ->paginate(12) // You can change 12 to whatever per-page size you prefer
+            ->withQueryString(); // Keeps the query parameters (e.g., tags) in the pagination links
 
         return Inertia::render('Products/Index', [
             'products' => $products,
@@ -30,6 +30,7 @@ class ProductController extends Controller
             ],
         ]);
     }
+
 
 
 
