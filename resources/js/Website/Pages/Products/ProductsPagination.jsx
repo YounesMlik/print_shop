@@ -24,7 +24,7 @@ export default function ProductsPagination({
 
   const generatePageNumbers = () => {
     const pages = []
-    const siblingsCount = 1
+    const siblingsCount = 2
     const startPage = Math.max(2, currentPage - siblingsCount)
     const endPage = Math.min(lastPage - 1, currentPage + siblingsCount)
 
