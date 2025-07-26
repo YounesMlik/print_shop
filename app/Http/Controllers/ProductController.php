@@ -14,15 +14,12 @@ class ProductController extends Controller
         $tagIds = $request->input('tags', []);
 
         $products = Product::with('tags')
-            ->when(
-                !empty($tagIds),
-                fn($query) =>
-                $query->whereHas(
-                    'tags',
-                    fn($q) =>
-                    $q->whereIn('tags.id', $tagIds)
-                )
-            )
+            ->when(!empty($tagIds), function ($query) use ($tagIds) {
+                foreach ($tagIds as $tagId) {
+                    $query->whereHas('tags', fn($q) => $q->where('tags.id', $tagId));
+                }
+                return $query;
+            })
             ->get();
 
         return Inertia::render('Products/Index', [
@@ -33,6 +30,7 @@ class ProductController extends Controller
             ],
         ]);
     }
+
 
 
     public function show(Product $product)
