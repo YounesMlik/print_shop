@@ -4,16 +4,14 @@ import { ReactTags } from 'react-tag-autocomplete'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 
 export default function ProductsIndex({ products, availableTags, filters }) {
-  const [selected, setSelected] = useState(filters.tags || [])
-  const [suggestions, setSuggestions] = useState([])
+  const [selectedTags, setSelectedTags] = useState(filters.tags || [])
+  const [tagSuggestions, setTagSuggestions] = useState([])
 
   useEffect(() => {
-    setSuggestions(
+    setTagSuggestions(
       availableTags.map(tag => ({
         value: tag.id,
         label: tag.name,
@@ -21,25 +19,25 @@ export default function ProductsIndex({ products, availableTags, filters }) {
     )
   }, [availableTags])
 
-  const onAdd = useCallback(
+  const handleTagAdd = useCallback(
     (tag) => {
-      const updated = [...selected, tag]
-      setSelected(updated)
-      updateQuery(updated)
+      const updated = [...selectedTags, tag]
+      setSelectedTags(updated)
+      applyTagFilter(updated)
     },
-    [selected]
+    [selectedTags]
   )
 
-  const onDelete = useCallback(
+  const handleTagDelete = useCallback(
     (index) => {
-      const updated = selected.filter((_, i) => i !== index)
-      setSelected(updated)
-      updateQuery(updated)
+      const updated = selectedTags.filter((_, i) => i !== index)
+      setSelectedTags(updated)
+      applyTagFilter(updated)
     },
-    [selected]
+    [selectedTags]
   )
 
-  const updateQuery = (tags) => {
+  const applyTagFilter = (tags) => {
     const tagIds = tags.map(t => t.value)
     router.get(route('products.index'), { tags: tagIds }, {
       preserveState: true,
@@ -50,25 +48,27 @@ export default function ProductsIndex({ products, availableTags, filters }) {
   return (
     <>
       <Head title="Products" />
-      <div className="space-y-6">
+      <section className="space-y-6">
+        {/* Filter */}
         <div className="space-y-2">
-          <Label htmlFor="tags">Filter by tags</Label>
+          <Label htmlFor="product-tags">Filter by tags</Label>
           <ReactTags
-            id="tags"
+            id="product-tags"
             labelText="Filter by tags"
-            selected={selected}
-            suggestions={suggestions}
-            onAdd={onAdd}
-            onDelete={onDelete}
-            placeholderText="Select tags"
+            selected={selectedTags}
+            suggestions={tagSuggestions}
+            onAdd={handleTagAdd}
+            onDelete={handleTagDelete}
+            placeholderText="Add a tag"
             allowNew={false}
           />
         </div>
 
         <Separator />
 
+        {/* Product List */}
         {products.length === 0 ? (
-          <p>No products found.</p>
+          <p className="text-muted-foreground">No products found.</p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {products.map(product => (
@@ -83,7 +83,7 @@ export default function ProductsIndex({ products, availableTags, filters }) {
             ))}
           </div>
         )}
-      </div>
+      </section>
     </>
   )
 }
