@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import { Head, router } from '@inertiajs/inertia-react'
+import { Head, usePage } from '@inertiajs/inertia-react'
+import { Inertia } from '@inertiajs/inertia'
 import AsyncSelect from 'react-select/async'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -35,7 +36,7 @@ export default function ProductsIndex({ products, availableTags, filters }) {
     setSelectedTags(newValue || [])
     const tagIds = (newValue || []).map(tag => tag.value)
 
-    router.get(route('products.index'), { tags: tagIds }, {
+    Inertia.get(route('products.index'), { tags: tagIds }, {
       preserveState: true,
       preserveScroll: true,
     })
