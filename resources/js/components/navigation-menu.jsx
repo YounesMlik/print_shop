@@ -15,25 +15,21 @@ export function MainNav() {
             <NavigationMenuList>
 
                 <NavigationMenuItem>
-                    <NavigationMenuLink
-                        href="/"
-                        className={cn("font-medium px-4 py-2 hover:underline")}
-                    >
+                    <NavigationMenuLink href="/">
                         Home
                     </NavigationMenuLink>
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                    <NavigationMenuTrigger>Products</NavigationMenuTrigger>
-                    <NavigationMenuContent>
-                        <ul className="grid gap-3 p-4 w-48">
-                            <li>
-                                <NavigationMenuLink href="/products" className="hover:underline block px-2 py-1">
-                                    Products
-                                </NavigationMenuLink>
-                            </li>
-                        </ul>
-                    </NavigationMenuContent>
+                    <NavigationMenuLink href="/products">
+                        Products
+                    </NavigationMenuLink>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                    <NavigationMenuLink href="/order">
+                        Custom Order
+                    </NavigationMenuLink>
                 </NavigationMenuItem>
 
             </NavigationMenuList>
