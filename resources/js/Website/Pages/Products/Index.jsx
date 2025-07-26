@@ -1,47 +1,40 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { Head, router } from '@inertiajs/inertia-react'
-import { ReactTags } from 'react-tag-autocomplete'
+import AsyncSelect from 'react-select/async'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
-import { X } from 'lucide-react'
 
 export default function ProductsIndex({ products, availableTags, filters }) {
-  const [selectedTags, setSelectedTags] = useState(filters.tags || [])
-  const [tagSuggestions, setTagSuggestions] = useState([])
+  const [selectedTags, setSelectedTags] = useState(
+    (filters.tags || []).map(tag => ({
+      value: tag.id,
+      label: tag.name,
+    }))
+  )
 
-  useEffect(() => {
-    setTagSuggestions(
-      availableTags.map(tag => ({
-        value: tag.id,
-        label: tag.name,
-      }))
-    )
+  const tagOptions = useMemo(() => {
+    return availableTags.map(tag => ({
+      value: tag.id,
+      label: tag.name,
+    }))
   }, [availableTags])
 
-  const handleTagAdd = useCallback(
-    (tag) => {
-      const updated = [...selectedTags, tag]
-      setSelectedTags(updated)
-      applyTagFilter(updated)
-    },
-    [selectedTags]
-  )
+  const filterTags = (inputValue) =>
+    tagOptions.filter(tag =>
+      tag.label.toLowerCase().includes(inputValue.toLowerCase())
+    )
 
-  const handleTagDelete = useCallback(
-    (index) => {
-      const updated = selectedTags.filter((_, i) => i !== index)
-      setSelectedTags(updated)
-      applyTagFilter(updated)
-    },
-    [selectedTags]
-  )
+  const loadTagOptions = (inputValue) =>
+    new Promise(resolve => {
+      resolve(filterTags(inputValue))
+    })
 
-  const applyTagFilter = (tags) => {
-    const tagIds = tags.map(t => t.value)
+  const handleChange = (newValue) => {
+    setSelectedTags(newValue || [])
+    const tagIds = (newValue || []).map(tag => tag.value)
+
     router.get(route('products.index'), { tags: tagIds }, {
       preserveState: true,
       preserveScroll: true,
@@ -51,57 +44,62 @@ export default function ProductsIndex({ products, availableTags, filters }) {
   return (
     <>
       <Head title="Products" />
+
       <section className="space-y-6">
-        {/* Filter */}
+        {/* Filters */}
         <div className="space-y-2">
           <Label htmlFor="product-tags">Filter by tags</Label>
-          <ReactTags
-            id="product-tags"
-            labelText="Product tags"
-            selected={selectedTags}
-            suggestions={tagSuggestions}
-            onAdd={handleTagAdd}
-            onDelete={handleTagDelete}
-            allowNew={false}
-            placeholderText="Add a tag"
-            renderInput={({ classNames, inputWidth, ...props }) => (
-              <Input
-                {...props}
-                className="w-full"
-                style={{ width: inputWidth }}
-              />
-            )}
-            renderTag={({ tag, classNames, ...props }) => (
-              <div
-                {...props}
-                className="inline-flex items-center space-x-1 px-2 py-1 border rounded-md text-sm bg-muted text-muted-foreground"
-              >
-                <span>{tag.label}</span>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  type="button"
-                  className="h-4 w-4 p-0"
-                  aria-label={`Remove ${tag.label}`}
-                >
-                  <X className="h-3 w-3" />
-                </Button>
-              </div>
-            )}
-            renderListBox={({ children, classNames, ...props }) => (
-              <div
-                {...props}
-                className="mt-1 border border-muted rounded-md shadow-sm bg-background text-sm"
-              >
-                {children}
-              </div>
-            )}
+          <AsyncSelect
+            inputId="product-tags"
+            isMulti
+            defaultOptions={tagOptions}
+            cacheOptions
+            value={selectedTags}
+            loadOptions={loadTagOptions}
+            onChange={handleChange}
+            placeholder="Select tags..."
+            classNamePrefix="react-select"
+            styles={{
+              control: (base) => ({
+                ...base,
+                borderRadius: '0.375rem',
+                borderColor: '#e2e8f0',
+                padding: '2px',
+                boxShadow: 'none',
+              }),
+              multiValue: (base) => ({
+                ...base,
+                backgroundColor: '#f1f5f9',
+                borderRadius: '0.375rem',
+              }),
+              multiValueLabel: (base) => ({
+                ...base,
+                color: '#334155',
+              }),
+              multiValueRemove: (base) => ({
+                ...base,
+                color: '#334155',
+                ':hover': {
+                  backgroundColor: '#e2e8f0',
+                  color: '#1e293b',
+                },
+              }),
+              option: (base, state) => ({
+                ...base,
+                backgroundColor: state.isFocused ? '#e2e8f0' : 'white',
+                color: '#0f172a',
+              }),
+              menu: (base) => ({
+                ...base,
+                zIndex: 20,
+              }),
+            }}
           />
         </div>
 
         <Separator />
 
-        {/* Product List */}
+        {/* Product list */}
         {products.length === 0 ? (
           <p className="text-muted-foreground">No products found.</p>
         ) : (
