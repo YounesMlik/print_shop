@@ -5,6 +5,9 @@ import { ReactTags } from 'react-tag-autocomplete'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { X } from 'lucide-react'
 
 export default function ProductsIndex({ products, availableTags, filters }) {
   const [selectedTags, setSelectedTags] = useState(filters.tags || [])
@@ -54,13 +57,45 @@ export default function ProductsIndex({ products, availableTags, filters }) {
           <Label htmlFor="product-tags">Filter by tags</Label>
           <ReactTags
             id="product-tags"
-            labelText="Filter by tags"
+            labelText="Product tags"
             selected={selectedTags}
             suggestions={tagSuggestions}
             onAdd={handleTagAdd}
             onDelete={handleTagDelete}
-            placeholderText="Add a tag"
             allowNew={false}
+            placeholderText="Add a tag"
+            renderInput={({ classNames, inputWidth, ...props }) => (
+              <Input
+                {...props}
+                className="w-full"
+                style={{ width: inputWidth }}
+              />
+            )}
+            renderTag={({ tag, classNames, ...props }) => (
+              <div
+                {...props}
+                className="inline-flex items-center space-x-1 px-2 py-1 border rounded-md text-sm bg-muted text-muted-foreground"
+              >
+                <span>{tag.label}</span>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  type="button"
+                  className="h-4 w-4 p-0"
+                  aria-label={`Remove ${tag.label}`}
+                >
+                  <X className="h-3 w-3" />
+                </Button>
+              </div>
+            )}
+            renderListBox={({ children, classNames, ...props }) => (
+              <div
+                {...props}
+                className="mt-1 border border-muted rounded-md shadow-sm bg-background text-sm"
+              >
+                {children}
+              </div>
+            )}
           />
         </div>
 
