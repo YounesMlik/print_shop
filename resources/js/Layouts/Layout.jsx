@@ -6,7 +6,7 @@ export default function Layout({ children }) {
             <header className="border-b px-4 py-2">
                 <MainNav />
             </header>
-            <main className="container mx-auto px-4 py-6">
+            <main className="container mx-auto px-4 py-4">
                 {children}
             </main>
         </>
