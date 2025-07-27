@@ -9,14 +9,14 @@ const root = createRoot(el);
 
 root.render(
   <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-    <Layout>
-      <InertiaApp
-        initialPage={JSON.parse(el.dataset.page)}
-        resolveComponent={(name) => {
-          const pages = import.meta.glob('./Pages/*/*.jsx', { eager: true })
-          return pages[`./Pages/${name}.jsx`].default
-        }}
-      />
-    </Layout>
+    <InertiaApp
+      initialPage={JSON.parse(el.dataset.page)}
+      resolveComponent={(name) => {
+        const pages = import.meta.glob('./Pages/*/*.jsx', { eager: true });
+        const page = pages[`./Pages/${name}.jsx`];
+
+        return (props) => <Layout><page.default {...props} /></Layout>;
+      }}
+    />
   </ThemeProvider>
 )
