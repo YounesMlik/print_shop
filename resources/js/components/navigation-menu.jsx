@@ -7,11 +7,21 @@ import {
     NavigationMenuList,
     NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu"
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from '@/components/ui/accordion'
+import { NavigationMenuSub } from "@radix-ui/react-navigation-menu"
 import { cn } from "@/lib/utils"
+import { Link, usePage } from "@inertiajs/inertia-react"
 
 export function MainNav() {
+    const superCategories = usePage().props.navigation?.superCategories || []
+
     return (
-        <NavigationMenu>
+        <NavigationMenu delayDuration={0} className="z-10">
             <NavigationMenuList>
 
                 <NavigationMenuItem>
@@ -21,9 +31,40 @@ export function MainNav() {
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                    <NavigationMenuLink href="/products">
-                        Products
-                    </NavigationMenuLink>
+                    <NavigationMenuTrigger>
+                        <NavigationMenuLink href="/products">
+                            Products
+                        </NavigationMenuLink>
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent className="px-4 min-w-[300px] max-h-[400px] overflow-y-auto">
+                        <Accordion type="single" collapsible className="w-full">
+                            {superCategories.map((superCategory) => (
+                                <AccordionItem key={superCategory.id} value={`sc-${superCategory.id}`}>
+                                    <AccordionTrigger className="text-sm font-semibold text-muted-foreground">
+
+                                        <NavigationMenuLink asChild>
+                                            <Link href={route('products.index', { superCategory: superCategory.id, })} >
+                                                {superCategory.name}
+                                            </Link>
+                                        </NavigationMenuLink>
+                                    </AccordionTrigger>
+                                    <AccordionContent>
+                                        <ul className="space-y-1">
+                                            {superCategory.children.map((category) => (
+                                                <li key={category.id}>
+                                                    <NavigationMenuLink asChild>
+                                                        <Link href={route('products.index', { category: category.id })}>
+                                                            {category.name}
+                                                        </Link>
+                                                    </NavigationMenuLink>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </AccordionContent>
+                                </AccordionItem>
+                            ))}
+                        </Accordion>
+                    </NavigationMenuContent>
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
