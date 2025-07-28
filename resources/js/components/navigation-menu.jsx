@@ -32,8 +32,10 @@ export function MainNav() {
 
                 <NavigationMenuItem>
                     <NavigationMenuTrigger>
-                        <NavigationMenuLink href="/products">
+                        <NavigationMenuLink asChild>
+                            <Link href={route('products.index')}>
                                 Products
+                            </Link>
                         </NavigationMenuLink>
                     </NavigationMenuTrigger>
                     <NavigationMenuContent className="px-4 min-w-[300px] max-h-[400px] overflow-y-auto">
