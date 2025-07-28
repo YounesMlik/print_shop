@@ -70,7 +70,7 @@ export function MainNav() {
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                    <NavigationMenuLink href="/order">
+                    <NavigationMenuLink href="/custom_order">
                         Custom Order
                     </NavigationMenuLink>
                 </NavigationMenuItem>
