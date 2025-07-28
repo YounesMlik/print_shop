@@ -33,7 +33,7 @@ export function MainNav() {
                 <NavigationMenuItem>
                     <NavigationMenuTrigger>
                         <NavigationMenuLink href="/products">
-                            Products
+                                Products
                         </NavigationMenuLink>
                     </NavigationMenuTrigger>
                     <NavigationMenuContent className="px-4 min-w-[300px] max-h-[400px] overflow-y-auto">
@@ -43,7 +43,7 @@ export function MainNav() {
                                     <AccordionTrigger className="text-sm font-semibold text-muted-foreground">
 
                                         <NavigationMenuLink asChild>
-                                            <Link href={route('products.index', { superCategory: superCategory.id, })} >
+                                            <Link href={route('products.index', { super_category: superCategory.id, })} >
                                                 {superCategory.name}
                                             </Link>
                                         </NavigationMenuLink>
