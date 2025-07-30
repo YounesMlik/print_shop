@@ -1,22 +1,28 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { InertiaApp } from '@inertiajs/inertia-react';
+import { createInertiaApp } from '@inertiajs/react';
 import { ThemeProvider } from "@/components/theme-provider.tsx";
 import Layout from '@/Layouts/Layout';
 
-const el = document.getElementById('app');
-const root = createRoot(el);
+createInertiaApp({
+  resolve: name => {
+    const pages = import.meta.glob('./Pages/*/*.jsx', { eager: true });
+    const page = pages[`./Pages/${name}.jsx`];
 
-root.render(
-  <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-    <InertiaApp
-      initialPage={JSON.parse(el.dataset.page)}
-      resolveComponent={(name) => {
-        const pages = import.meta.glob('./Pages/*/*.jsx', { eager: true });
-        const page = pages[`./Pages/${name}.jsx`];
+    const PageComponent = page.default;
+    PageComponent.layout = (page) => <Layout>{page}</Layout>;
 
-        return (props) => <Layout><page.default {...props} /></Layout>;
-      }}
-    />
-  </ThemeProvider>
-)
+    return PageComponent;
+  },
+  setup({ el, App, props }) {
+    const root = createRoot(el);
+
+    root.render(
+      <React.StrictMode>
+        <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+          <App {...props} />
+        </ThemeProvider>
+      </React.StrictMode>
+    );
+  },
+});

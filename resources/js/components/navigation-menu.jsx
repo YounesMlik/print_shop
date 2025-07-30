@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/accordion'
 import { NavigationMenuSub } from "@radix-ui/react-navigation-menu"
 import { cn } from "@/lib/utils"
-import { Link, usePage } from "@inertiajs/inertia-react"
+import { Link, usePage } from "@inertiajs/react"
 
 export function MainNav() {
     const superCategories = usePage().props.navigation?.superCategories || []

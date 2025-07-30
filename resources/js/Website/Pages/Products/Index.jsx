@@ -1,6 +1,5 @@
 import React, { useMemo, useState } from 'react'
-import { Head } from '@inertiajs/inertia-react'
-import { Inertia } from '@inertiajs/inertia'
+import { Head, router } from '@inertiajs/react'
 import AsyncSelect from 'react-select/async'
 
 import ProductsPagination from './ProductsPagination'
@@ -35,7 +34,7 @@ export default function ProductsIndex({ products, availableTags, filters }) {
     setSelectedTags(tags)
     const tagIds = tags.map(tag => tag.value)
 
-    Inertia.get(route('products.index'), { tags: tagIds }, {
+    router.get(route('products.index'), { tags: tagIds }, {
       preserveState: true,
       preserveScroll: true,
     })
@@ -44,7 +43,7 @@ export default function ProductsIndex({ products, availableTags, filters }) {
   function handlePageChange(page) {
     const tagIds = selectedTags.map(t => t.value)
 
-    Inertia.get(route('products.index'), { page, tags: tagIds }, {
+    router.get(route('products.index'), { page, tags: tagIds }, {
       preserveState: true,
       preserveScroll: true,
     })
