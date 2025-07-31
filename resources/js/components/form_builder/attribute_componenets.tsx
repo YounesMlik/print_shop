@@ -1,4 +1,4 @@
-import { ZodError } from "zod";
+import z, { ZodError } from "zod";
 import { createAttributeComponent } from "@coltorapps/builder-react";
 import { labelAttribute } from "./attributes";
 import { Label } from "@/components/ui/label";
@@ -20,7 +20,7 @@ export const LabelAttribute = createAttributeComponent(
           required
         />
         {props.attribute.error instanceof ZodError
-          ? props.attribute.error.format()._errors[0]
+          ? z.treeifyError(props.attribute.error)[0]
           : null}
       </div>
     );
