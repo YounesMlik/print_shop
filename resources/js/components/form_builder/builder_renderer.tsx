@@ -1,6 +1,6 @@
 import { BuilderEntities, BuilderEntityAttributes, useBuilderStore } from "@coltorapps/builder-react";
-import { LabelAttribute } from "./attribute_componenets";
-import { TextFieldEntity } from "./entity_componenets";
+import entity_components from "./entity_componenets";
+import entity_attribute_components from "./entity_attribute_components";
 import { formBuilder } from "./builder";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -19,19 +19,6 @@ import { DndWrapper } from "@/components/dnd/dnd_wrapper";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 
-/*
-| We define a `TextFieldAttributes` component, 
-| which is responsible for rendering the attributes 
-| of a text field (currently, it only includes the
-| label attribute).
-*/
-function TextFieldAttributes() {
-    return (
-        <div className="grid gap-4">
-            <LabelAttribute />
-        </div>
-    );
-}
 
 export default function FormBuilderPage() {
     /*
@@ -88,7 +75,7 @@ export default function FormBuilderPage() {
       */}
             <BuilderEntities
                 builderStore={builderStore}
-                components={{ textField: TextFieldEntity }}
+                components={entity_components}
             >
                 {/*
         | We leverage the render prop of the `BuilderEntities` component
@@ -118,7 +105,7 @@ export default function FormBuilderPage() {
 
                                 <BuilderEntityAttributes
                                     builderStore={builderStore}
-                                    components={{ textField: TextFieldAttributes }}
+                                    components={entity_attribute_components}
                                     entityId={props.entity.id}
                                 />
 

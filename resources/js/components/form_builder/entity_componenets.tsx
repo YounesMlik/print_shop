@@ -23,3 +23,6 @@ export const TextFieldEntity = createEntityComponent(
     );
   },
 );
+
+const entity_components = { textField: TextFieldEntity };
+export default entity_components;
