@@ -15,7 +15,7 @@ import { DndWrapper } from "@/components/dnd/dnd_wrapper";
 */
 function TextFieldAttributes() {
     return (
-        <div>
+        <div className="grid gap-4">
             <LabelAttribute />
         </div>
     );
