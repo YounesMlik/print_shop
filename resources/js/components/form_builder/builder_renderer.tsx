@@ -4,6 +4,8 @@ import { TextFieldEntity } from "./entity_componenets";
 import { formBuilder } from "./builder";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { DndItem } from "@/components/dnd/dnd_item";
+import { DndWrapper } from "@/components/dnd/dnd_wrapper";
 
 /*
 | We define a `TextFieldAttributes` component, 
@@ -60,10 +62,12 @@ export default function FormBuilderPage() {
 
     async function submitFormSchema() {
         // We will cover server integration in the next section.
+        console.log(builderStore.getSchema());
+
     }
 
     return (
-        <div>
+        <DndWrapper builderStore={builderStore}>
             {/*
       | We use the `BuilderEntities` component to render the entities
       | tree of the schema of our builder store.
@@ -80,7 +84,7 @@ export default function FormBuilderPage() {
         | rendering.
         */}
                 {(props) => (
-                    <div>
+                    <DndItem id={props.entity.id}>
                         {/* This represents each rendered arbitrary entity. */}
                         {props.children}
                         {/*
@@ -107,7 +111,7 @@ export default function FormBuilderPage() {
                         >
                             Delete
                         </Button>
-                    </div>
+                    </DndItem>
                 )}
             </BuilderEntities>
             {/*
@@ -143,6 +147,6 @@ export default function FormBuilderPage() {
             <Button type="button" onClick={() => void submitFormSchema()}>
                 Save Form
             </Button>
-        </div>
+        </DndWrapper>
     );
 }
