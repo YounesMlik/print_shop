@@ -3,6 +3,7 @@ import { LabelAttribute } from "./attribute_componenets";
 import { TextFieldEntity } from "./entity_componenets";
 import { formBuilder } from "./builder";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 /*
 | We define a `TextFieldAttributes` component, 
@@ -86,26 +87,26 @@ export default function FormBuilderPage() {
             | A button that marks the arbitrary entity as active,
             | allowing the user to edit its attributes.
             */}
-                        <button
+                        <Button
                             type="button"
                             onClick={() => {
                                 setActiveEntityId(props.entity.id);
                             }}
                         >
                             Select
-                        </button>
+                        </Button>
                         {/*
             | A delete button is rendered next to each entity,
             | that removes the entity from the store's schema.
             */}
-                        <button
+                        <Button
                             type="button"
                             onClick={() => {
                                 builderStore.deleteEntity(props.entity.id);
                             }}
                         >
                             Delete
-                        </button>
+                        </Button>
                     </div>
                 )}
             </BuilderEntities>
@@ -113,7 +114,7 @@ export default function FormBuilderPage() {
       | A button that adds a new text field type entity
       | to the store's schema.
       */}
-            <button
+            <Button
                 type="button"
                 onClick={() =>
                     builderStore.addEntity({
@@ -123,7 +124,7 @@ export default function FormBuilderPage() {
                 }
             >
                 Add Text Field
-            </button>
+            </Button>
             {/*
       | We render the `BuilderEntityAttributes` component only when
       | an entity is active. We also provide the components
@@ -139,9 +140,9 @@ export default function FormBuilderPage() {
                 />
             ) : null}
             {/* We will cover server integration in the next section. */}
-            <button type="button" onClick={() => void submitFormSchema()}>
+            <Button type="button" onClick={() => void submitFormSchema()}>
                 Save Form
-            </button>
+            </Button>
         </div>
     );
 }

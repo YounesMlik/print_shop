@@ -1,6 +1,8 @@
 import { ZodError } from "zod";
 import { createAttributeComponent } from "@coltorapps/builder-react";
 import { labelAttribute } from "./attributes";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 
 export const LabelAttribute = createAttributeComponent(
   labelAttribute,
@@ -9,8 +11,8 @@ export const LabelAttribute = createAttributeComponent(
 
     return (
       <div>
-        <label htmlFor={id}>Field Label</label>
-        <input
+        <Label htmlFor={id}>Field Label</Label>
+        <Input
           id={id}
           name={id}
           value={props.attribute.value ?? ""}
