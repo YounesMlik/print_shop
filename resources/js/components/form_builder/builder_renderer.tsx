@@ -4,8 +4,20 @@ import { TextFieldEntity } from "./entity_componenets";
 import { formBuilder } from "./builder";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import {
+    Dialog,
+    DialogClose,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog";
 import { DndItem } from "@/components/dnd/dnd_item";
 import { DndWrapper } from "@/components/dnd/dnd_wrapper";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 
 /*
 | We define a `TextFieldAttributes` component, 
@@ -91,20 +103,38 @@ export default function FormBuilderPage() {
             | A button that marks the arbitrary entity as active,
             | allowing the user to edit its attributes.
             */}
-                        <Button
-                            type="button"
-                            onClick={() => {
-                                setActiveEntityId(props.entity.id);
-                            }}
-                        >
-                            Select
-                        </Button>
+                        <Dialog>
+                            <DialogTrigger asChild>
+                                <Button variant="outline">Edit</Button>
+                            </DialogTrigger>
+                            <DialogContent className="sm:max-w-[425px]">
+                                <DialogHeader>
+                                    <DialogTitle>Edit Entity</DialogTitle>
+                                    <DialogDescription>
+                                        Make changes to your profile here. Click save when you&apos;re
+                                        done.
+                                    </DialogDescription>
+                                </DialogHeader>
+
+                                <BuilderEntityAttributes
+                                    builderStore={builderStore}
+                                    components={{ textField: TextFieldAttributes }}
+                                    entityId={props.entity.id}
+                                />
+
+                                <DialogFooter>
+                                    <DialogClose asChild>
+                                        <Button>Close</Button>
+                                    </DialogClose>
+                                </DialogFooter>
+                            </DialogContent>
+                        </Dialog>
                         {/*
             | A delete button is rendered next to each entity,
             | that removes the entity from the store's schema.
             */}
                         <Button
-                            type="button"
+                            variant="outline"
                             onClick={() => {
                                 builderStore.deleteEntity(props.entity.id);
                             }}
@@ -129,20 +159,6 @@ export default function FormBuilderPage() {
             >
                 Add Text Field
             </Button>
-            {/*
-      | We render the `BuilderEntityAttributes` component only when
-      | an entity is active. We also provide the components
-      | that render attribute components for each defined
-      | entity type in the builder (currently, it's only the
-      | text field).
-      */}
-            {activeEntityId ? (
-                <BuilderEntityAttributes
-                    builderStore={builderStore}
-                    components={{ textField: TextFieldAttributes }}
-                    entityId={activeEntityId}
-                />
-            ) : null}
             {/* We will cover server integration in the next section. */}
             <Button type="button" onClick={() => {
                 setActiveEntityId(null);
