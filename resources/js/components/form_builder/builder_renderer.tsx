@@ -144,7 +144,10 @@ export default function FormBuilderPage() {
                 />
             ) : null}
             {/* We will cover server integration in the next section. */}
-            <Button type="button" onClick={() => void submitFormSchema()}>
+            <Button type="button" onClick={() => {
+                setActiveEntityId(null);
+                submitFormSchema();
+            }}>
                 Save Form
             </Button>
         </DndWrapper>
