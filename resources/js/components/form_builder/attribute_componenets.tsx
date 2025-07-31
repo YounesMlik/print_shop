@@ -10,7 +10,7 @@ export const LabelAttribute = createAttributeComponent(
     const id = `${props.entity.id}-${props.attribute.name}`;
 
     return (
-      <div>
+      <div className="grid gap-3">
         <Label htmlFor={id}>Field Label</Label>
         <Input
           id={id}
