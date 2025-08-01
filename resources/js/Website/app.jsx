@@ -10,7 +10,9 @@ createInertiaApp({
     const page = pages[`./Pages/${name}.jsx`];
 
     const PageComponent = page.default;
-    PageComponent.layout = (page) => <Layout>{page}</Layout>;
+    const PageLayout = page.Layout ?? Layout;
+
+    PageComponent.layout = (page) => <PageLayout>{page}</PageLayout>;
 
     return PageComponent;
   },
