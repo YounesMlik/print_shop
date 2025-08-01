@@ -1,6 +1,7 @@
 import React from 'react'
 import { Head } from '@inertiajs/react'
 import FormBuilderPage from '@/components/form_builder/builder_renderer'
+import AdminLayout from '@/Layouts/AdminLayout'
 
 export default function FormBuilder() {
 
@@ -11,3 +12,5 @@ export default function FormBuilder() {
     </>
   )
 }
+
+export const Layout = AdminLayout;
