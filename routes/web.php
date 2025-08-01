@@ -10,3 +10,7 @@ Route::resource('/products', ProductController::class)
 Route::get('/custom_order', function () {
     return Inertia::render('CustomOrder/Index', []);
 });
+
+Route::get('/form_builder', function () {
+    return Inertia::render('CustomOrder/Edit', []);
+});
