@@ -13,9 +13,11 @@ Route::get('/custom_order', function () {
 });
 
 Route::prefix('admin')
+    ->name('admin.')
     ->middleware([FilamentAuthenticate::class])
     ->group(function () {
-        Route::get('/form-builder', function () {
-            return Inertia::render('CustomOrder/Edit', []);
-        });
-    });
+        Route::name('form-builder')
+            ->get('/form-builder', function () {
+                return Inertia::render('CustomOrder/Edit', []);
+            });
+    });;
