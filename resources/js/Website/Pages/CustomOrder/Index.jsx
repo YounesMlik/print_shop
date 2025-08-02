@@ -8,7 +8,6 @@ export default function CustomOrderIndex() {
   return (
     <>
       <Head title="Custom Order" />
-      <FormBuilderPage />
       <FormInterpreter schema={usePage().props.schema} />
     </>
   )
