@@ -48,9 +48,13 @@ export default function FormBuilderPage() {
     });
 
     async function submitFormSchema() {
-        // We will cover server integration in the next section.
-        saveSchema(builderStore.getSchema());
+        const validationResult = await builderStore.validateSchema();
 
+        if (validationResult.success === true) {
+            saveSchema(validationResult.data);
+        } else {
+            alert("Error: " + validationResult.reason.code)
+        }
     }
 
     return (
