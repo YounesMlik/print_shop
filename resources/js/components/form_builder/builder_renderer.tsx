@@ -20,6 +20,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import axios from "axios";
 import { usePage } from "@inertiajs/react";
+import { Schema } from "@coltorapps/builder";
 
 
 export default function FormBuilderPage() {
@@ -30,7 +31,7 @@ export default function FormBuilderPage() {
     */
     const [activeEntityId, setActiveEntityId] = useState<string>();
 
-    function saveSchema(schema) {
+    function saveSchema(schema: Schema) {
         axios.post('/api/form-schema', { schema });
     }
     /*
