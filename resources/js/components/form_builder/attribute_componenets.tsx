@@ -27,9 +27,9 @@ export const LabelAttribute = createAttributeComponent(
         {errors.map((err, key) =>
           <p key={key} className="text-destructive text-sm">{err}</p>
         )}
-        {props.attribute.error instanceof ZodError
+        {/* {props.attribute.error instanceof ZodError
           ? z.treeifyError(props.attribute.error)[0]
-          : null}
+          : null} */}
       </div>
     );
   },
