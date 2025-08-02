@@ -18,6 +18,8 @@ import { DndItem } from "@/components/dnd/dnd_item";
 import { DndWrapper } from "@/components/dnd/dnd_wrapper";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import axios from "axios";
+import { usePage } from "@inertiajs/react";
 
 
 export default function FormBuilderPage() {
@@ -28,12 +30,18 @@ export default function FormBuilderPage() {
     */
     const [activeEntityId, setActiveEntityId] = useState<string>();
 
+    function saveSchema(schema) {
+        axios.post('/api/form-schema', { schema });
+    }
     /*
     | We utilize the `useBuilderStore` hook, which creates
     | a builder store for us. This store is responsible for 
     | building a schema based on a builder definition.
     */
     const builderStore = useBuilderStore(formBuilder, {
+        initialData: {
+            schema: usePage().props.schema as any
+        },
         events: {
             /*
             | We use the `onEntityAttributeUpdated` event callback
@@ -61,7 +69,7 @@ export default function FormBuilderPage() {
 
     async function submitFormSchema() {
         // We will cover server integration in the next section.
-        console.log(builderStore.getSchema());
+        saveSchema(builderStore.getSchema());
 
     }
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FormSchemaController;
 use App\Http\Controllers\ProductController;
 use Inertia\Inertia;
 use Filament\Http\Middleware\Authenticate as FilamentAuthenticate;
@@ -12,12 +13,10 @@ Route::get('/custom_order', function () {
     return Inertia::render('CustomOrder/Index', []);
 });
 
-Route::prefix('admin')
-    ->name('admin.')
-    ->middleware([FilamentAuthenticate::class])
+Route::middleware([FilamentAuthenticate::class])
     ->group(function () {
-        Route::name('form-builder')
-            ->get('/form-builder', function () {
-                return Inertia::render('CustomOrder/Edit', []);
-            });
-    });;
+
+        Route::name('admin.form-builder')
+            ->get('/admin/form-builder', [FormSchemaController::class, 'edit']);
+
+    });
