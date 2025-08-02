@@ -20,6 +20,7 @@ import axios from "axios";
 import { usePage } from "@inertiajs/react";
 import { Schema } from "@coltorapps/builder";
 import z from "zod";
+import { objectMap } from "@/components/helpers";
 
 
 export default function FormBuilderPage() {
@@ -160,8 +161,4 @@ export default function FormBuilderPage() {
 
 function saveSchema(schema: Schema) {
     axios.post('/api/form-schema', { schema });
-}
-
-function objectMap(object: object, fn: ([string, unknown]) => [string, unknown]) {
-    return Object.fromEntries(Object.entries(object).map(fn))
 }

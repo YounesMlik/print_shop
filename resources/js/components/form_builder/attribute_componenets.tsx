@@ -4,12 +4,13 @@ import { labelAttribute } from "./attributes";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
+import { tryCatchZod } from "@/components/helpers";
 
 export const LabelAttribute = createAttributeComponent(
   labelAttribute,
   (props) => {
     const id = `${props.entity.id}-${props.attribute.name}`;
-    const errors = tryCatch(() => labelAttribute.validate(props.attribute.value, {} as any));
+    const errors = tryCatchZod(() => labelAttribute.validate(props.attribute.value, {} as any));
     const isInvalid = errors.length > 0;
 
     return (
@@ -33,15 +34,3 @@ export const LabelAttribute = createAttributeComponent(
     );
   },
 );
-
-
-function tryCatch(fn: () => void) {
-  let errors = [];
-  try {
-    fn();
-  }
-  catch (err) {
-    errors = z.treeifyError(err).errors;
-  }
-  return errors;
-}
