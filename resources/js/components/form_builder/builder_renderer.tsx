@@ -32,11 +32,8 @@ export default function FormBuilderPage() {
             | to trigger an arbitrary attribute validation every time
             | its value is updated.
             */
-            onEntityAttributeUpdated(payload) {
-                void builderStore.validateEntityAttribute(
-                    payload.entity.id,
-                    payload.attributeName,
-                );
+            async onEntityAttributeUpdated(payload) {
+                setSchemaValidation(await builderStore.validateSchema());
             },
             /*
             | We use the `onEntityDeleted` event callback to unset the
@@ -46,6 +43,9 @@ export default function FormBuilderPage() {
             onEntityDeleted(payload) { },
         },
     });
+
+    const [schemaValidation, setSchemaValidation] = useState({ success: true, data: builderStore.getSchema() } as { success: boolean, data?: {}, reason?: {} });
+    console.log(schemaValidation);
 
     async function submitFormSchema() {
         const validationResult = await builderStore.validateSchema();
