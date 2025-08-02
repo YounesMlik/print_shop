@@ -23,8 +23,8 @@ export const LabelAttribute = createAttributeComponent(
           onChange={(e) => props.setValue(e.target.value)}
           required
         />
-        {errors.map((err) =>
-          <p className="text-destructive text-sm">{err}</p>
+        {errors.map((err, key) =>
+          <p key={key} className="text-destructive text-sm">{err}</p>
         )}
         {props.attribute.error instanceof ZodError
           ? z.treeifyError(props.attribute.error)[0]
