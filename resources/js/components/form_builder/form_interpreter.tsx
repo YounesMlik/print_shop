@@ -29,25 +29,18 @@ export function FormInterpreter({ schema }: { schema: FormBuilderSchema }) {
         },
     });
 
-    async function submitForm(e: React.FormEvent<HTMLFormElement>) {
+    async function submitForm() {
         // We will cover server integration in the next section.
         const schema_entries = Object.entries(schema.entities);
-        const form = e.currentTarget;
-        const submit_button = form.querySelector('button[type="submit"]') as HTMLElement;
-        const form_data = Object.fromEntries(new FormData(form, submit_button))
-        const data = schema_entries
-            .map(([id, value]) => [id, { ...value, value: form_data[id] }]);
+        const form_data = interpreterStore.getEntitiesValues()
+        const data = schema_entries.map(
+            ([id, value]) => [id, { ...value, value: form_data[id] }]
+        );
         console.log(data);
     }
 
     return (
-        <form
-            onSubmit={(e) => {
-                e.preventDefault();
-
-                void submitForm(e);
-            }}
-        >
+        <form>
             {/*
       | We use the `InterpreterEntities` component to render the entities tree
       | of the schema of our interpreter store. We pass the entity
@@ -58,7 +51,7 @@ export function FormInterpreter({ schema }: { schema: FormBuilderSchema }) {
                 interpreterStore={interpreterStore}
                 components={entity_components}
             />
-            <Button type="submit">Submit</Button>
+            <Button onClick={submitForm}>Submit</Button>
         </form>
     );
 }
