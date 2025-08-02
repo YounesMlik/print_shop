@@ -113,7 +113,7 @@ export default function FormBuilderPage() {
             | that removes the entity from the store's schema.
             */}
                         <Button
-                            variant="outline"
+                            variant="destructive"
                             onClick={() => {
                                 builderStore.deleteEntity(props.entity.id);
                             }}
