@@ -152,3 +152,7 @@ export default function FormBuilderPage() {
 function saveSchema(schema: Schema) {
     axios.post('/api/form-schema', { schema });
 }
+
+function objectMap(object: object, fn: ([string, unknown]) => [string, unknown]) {
+    return Object.fromEntries(Object.entries(object).map(fn))
+}
