@@ -55,7 +55,7 @@ export default function FormBuilderPage() {
             )]
         )
 
-    console.log(errors);
+    // console.log(errors);
 
     async function submitFormSchema() {
         const validationResult = await builderStore.validateSchema();
