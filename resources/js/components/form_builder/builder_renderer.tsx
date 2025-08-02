@@ -16,8 +16,6 @@ import {
 } from "@/components/ui/dialog";
 import { DndItem } from "@/components/dnd/dnd_item";
 import { DndWrapper } from "@/components/dnd/dnd_wrapper";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
 import axios from "axios";
 import { usePage } from "@inertiajs/react";
 import { Schema } from "@coltorapps/builder";
