@@ -4,7 +4,7 @@ import {
     useInterpreterStore,
 } from "@coltorapps/builder-react";
 
-import { TextFieldEntity } from "./entity_componenets";
+import entity_components from "./entity_componenets";
 import { formBuilder } from "./builder";
 import { Button } from "@/components/ui/button";
 
@@ -56,7 +56,7 @@ export function FormInterpreter({ schema }: { schema: FormBuilderSchema }) {
       */}
             <InterpreterEntities
                 interpreterStore={interpreterStore}
-                components={{ textField: TextFieldEntity }}
+                components={entity_components}
             />
             <Button type="submit">Submit</Button>
         </form>
