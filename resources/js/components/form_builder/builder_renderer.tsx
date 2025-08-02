@@ -19,6 +19,7 @@ import { DndWrapper } from "@/components/dnd/dnd_wrapper";
 import axios from "axios";
 import { usePage } from "@inertiajs/react";
 import { Schema } from "@coltorapps/builder";
+import z from "zod";
 
 
 export default function FormBuilderPage() {
@@ -44,8 +45,16 @@ export default function FormBuilderPage() {
         },
     });
 
-    const [schemaValidation, setSchemaValidation] = useState({ success: true, data: builderStore.getSchema() } as { success: boolean, data?: {}, reason?: {} });
-    console.log(schemaValidation);
+    const [schemaValidation, setSchemaValidation] = useState({ success: true, data: builderStore.getSchema() } as { success: boolean, data?: any, reason?: any });
+    const errors = schemaValidation.success ?
+        [] :
+        objectMap(schemaValidation.reason.payload.entitiesAttributesErrors,
+            ([id, data]) => [id, objectMap(data, (
+                [attribute_name, err]) => [attribute_name, z.treeifyError(err as any).errors]
+            )]
+        )
+
+    console.log(errors);
 
     async function submitFormSchema() {
         const validationResult = await builderStore.validateSchema();
