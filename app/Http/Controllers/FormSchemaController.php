@@ -9,6 +9,16 @@ use Inertia\Inertia;
 class FormSchemaController extends Controller
 {
     // Show the builder page with the existing schema
+    public function index()
+    {
+        $json = Storage::get('form_schema.json');
+        $schema = json_decode($json, true);
+
+        return Inertia::render('CustomOrder/Index', [
+            'schema' => $schema,
+        ]);
+    }
+
     public function edit()
     {
         $json = Storage::get('form_schema.json');
