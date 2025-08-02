@@ -22,21 +22,6 @@ import { Schema } from "@coltorapps/builder";
 
 
 export default function FormBuilderPage() {
-    /*
-    | We declare an `activeEntityId` state variable, 
-    | which holds an optional reference to the currently
-    | active entity ID.
-    */
-    const [activeEntityId, setActiveEntityId] = useState<string>();
-
-    function saveSchema(schema: Schema) {
-        axios.post('/api/form-schema', { schema });
-    }
-    /*
-    | We utilize the `useBuilderStore` hook, which creates
-    | a builder store for us. This store is responsible for 
-    | building a schema based on a builder definition.
-    */
     const builderStore = useBuilderStore(formBuilder, {
         initialData: {
             schema: usePage().props.schema as any
@@ -58,11 +43,7 @@ export default function FormBuilderPage() {
             | `activeEntityId` state variable when the currently active
             | entity is deleted.
             */
-            onEntityDeleted(payload) {
-                if (payload.entity.id === activeEntityId) {
-                    setActiveEntityId(null);
-                }
-            },
+            onEntityDeleted(payload) { },
         },
     });
 
@@ -155,11 +136,15 @@ export default function FormBuilderPage() {
             </Button>
             {/* We will cover server integration in the next section. */}
             <Button type="button" onClick={() => {
-                setActiveEntityId(null);
                 submitFormSchema();
             }}>
                 Save Form
             </Button>
         </DndWrapper>
     );
+}
+
+
+function saveSchema(schema: Schema) {
+    axios.post('/api/form-schema', { schema });
 }
