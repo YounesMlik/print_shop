@@ -151,7 +151,9 @@ export default function FormBuilderPage() {
             {/* We will cover server integration in the next section. */}
             <Button type="button" onClick={() => {
                 submitFormSchema();
-            }}>
+            }}
+                disabled={!schemaValidation.success}
+            >
                 Save Form
             </Button>
         </DndWrapper>
