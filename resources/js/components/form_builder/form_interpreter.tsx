@@ -40,7 +40,10 @@ export function FormInterpreter({ schema }: { schema: FormBuilderSchema }) {
     }
 
     return (
-        <div>
+        <form onSubmit={(e) => {
+            e.preventDefault();
+            submitForm();
+        }}>
             {/*
       | We use the `InterpreterEntities` component to render the entities tree
       | of the schema of our interpreter store. We pass the entity
@@ -51,7 +54,7 @@ export function FormInterpreter({ schema }: { schema: FormBuilderSchema }) {
                 interpreterStore={interpreterStore}
                 components={entity_components}
             />
-            <Button onClick={submitForm}>Submit</Button>
-        </div>
+            <Button type="submit">Submit</Button>
+        </form>
     );
 }
