@@ -13,10 +13,7 @@ export const optionsAttribute = createAttribute({
     validate(value) {
         return z
             .array(
-                z.object({
-                    label: z.string().min(1, "Label is required"),
-                    value: z.string().min(1, "Value is required"),
-                })
+                z.string().min(1, "Value is required"),
             )
             .min(1, "At least one option is required")
             .parse(value);
