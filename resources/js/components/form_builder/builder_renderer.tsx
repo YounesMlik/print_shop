@@ -58,70 +58,81 @@ export default function FormBuilderPage() {
     }
 
     return (
-        <DndWrapper builderStore={builderStore}>
-            <BuilderEntities
-                builderStore={builderStore}
-                components={entity_components}
-            >
-                {(props) => (
-                    <DndItem id={props.entity.id}>
-                        {props.children}
-                        <Dialog>
-                            <DialogTrigger asChild>
-                                <Button variant="outline">Edit</Button>
-                            </DialogTrigger>
-                            <DialogContent className="sm:max-w-[425px]">
-                                <DialogHeader>
-                                    <DialogTitle>Edit Entity</DialogTitle>
-                                    <DialogDescription>
-                                        Make changes to your profile here. Click save when you&apos;re
-                                        done.
-                                    </DialogDescription>
-                                </DialogHeader>
+        <div className="grid gap-2">
+            <div className="flex gap-2">
+                <Button
+                    type="button"
+                    onClick={() =>
+                        builderStore.addEntity({
+                            type: "textField",
+                            attributes: { label: "Text Field" },
+                        })
+                    }
+                >
+                    Add Text Field
+                </Button>
+            </div>
+            <DndWrapper builderStore={builderStore}>
+                <BuilderEntities
+                    builderStore={builderStore}
+                    components={entity_components}
+                >
+                    {(props) => (
+                        <DndItem id={props.entity.id}>
+                            <div className="grid gap-2 mb-2">
+                                {props.children}
+                                <div className="grid grid-flow-col gap-2">
+                                    <Dialog>
+                                        <DialogTrigger asChild>
+                                            <Button variant="outline">Edit</Button>
+                                        </DialogTrigger>
+                                        <DialogContent className="sm:max-w-[425px]">
+                                            <DialogHeader>
+                                                <DialogTitle>Edit Entity</DialogTitle>
+                                                <DialogDescription>
+                                                    Make changes to your profile here. Click save when you&apos;re
+                                                    done.
+                                                </DialogDescription>
+                                            </DialogHeader>
 
-                                <BuilderEntityAttributes
-                                    builderStore={builderStore}
-                                    components={entity_attribute_components}
-                                    entityId={props.entity.id}
-                                />
+                                            <BuilderEntityAttributes
+                                                builderStore={builderStore}
+                                                components={entity_attribute_components}
+                                                entityId={props.entity.id}
+                                            />
 
-                                <DialogFooter>
-                                    <DialogClose asChild>
-                                        <Button>Close</Button>
-                                    </DialogClose>
-                                </DialogFooter>
-                            </DialogContent>
-                        </Dialog>
-                        <Button
-                            variant="destructive"
-                            onClick={() => {
-                                builderStore.deleteEntity(props.entity.id);
-                            }}
-                        >
-                            Delete
-                        </Button>
-                    </DndItem>
-                )}
-            </BuilderEntities>
-            <Button
-                type="button"
-                onClick={() =>
-                    builderStore.addEntity({
-                        type: "textField",
-                        attributes: { label: "Text Field" },
-                    })
-                }
-            >
-                Add Text Field
-            </Button>
-            <Button type="button" onClick={() => {
-                submitFormSchema();
-            }}
-                disabled={!schemaValidation.success}
-            >
-                Save Form
-            </Button>
-        </DndWrapper>
+                                            <DialogFooter>
+                                                <DialogClose asChild>
+                                                    <Button>Close</Button>
+                                                </DialogClose>
+                                            </DialogFooter>
+                                        </DialogContent>
+                                    </Dialog>
+                                    <Button
+                                        variant="destructive"
+                                        onClick={() => {
+                                            builderStore.deleteEntity(props.entity.id);
+                                        }}
+                                    >
+                                        Delete
+                                    </Button>
+                                </div>
+                            </div>
+                        </DndItem>
+                    )}
+                </BuilderEntities>
+            </DndWrapper>
+
+            <div className="flex flex-row justify-end gap-2">
+                <Button type="button" onClick={() => {
+                    submitFormSchema();
+                }}
+                    disabled={!schemaValidation.success}
+                >
+                    Save Form
+                </Button>
+            </div>
+        </div>
     );
 }
 
