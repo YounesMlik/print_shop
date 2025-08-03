@@ -10,6 +10,11 @@ import {
 } from "@dnd-kit/sortable";
 
 import {
+  restrictToVerticalAxis,
+  restrictToWindowEdges,
+} from '@dnd-kit/modifiers';
+
+import {
     BuilderEntities,
     useBuilderStore,
     useBuilderStoreData,
@@ -56,7 +61,7 @@ export function DndWrapper({ children, builderStore }) {
     }
 
     return (
-        <DndContext id="dnd" sensors={[mouseSensor]} onDragEnd={handleDragEnd}>
+        <DndContext id="dnd" sensors={[mouseSensor]} onDragEnd={handleDragEnd}  modifiers={[restrictToVerticalAxis]}>
             <SortableContext
                 id="sortable"
                 items={Array.from(root)}
