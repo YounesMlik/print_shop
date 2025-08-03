@@ -78,47 +78,7 @@ export default function FormBuilderPage() {
                     components={entity_components}
                 >
                     {(props) => (
-                        <DndItem id={props.entity.id}>
-                            <div className="grid gap-2 mb-2">
-                                {props.children}
-                                <div className="grid grid-flow-col gap-2">
-                                    <Dialog>
-                                        <DialogTrigger asChild>
-                                            <Button variant="outline">Edit</Button>
-                                        </DialogTrigger>
-                                        <DialogContent className="sm:max-w-[425px]">
-                                            <DialogHeader>
-                                                <DialogTitle>Edit Entity</DialogTitle>
-                                                <DialogDescription>
-                                                    Make changes to your profile here. Click save when you&apos;re
-                                                    done.
-                                                </DialogDescription>
-                                            </DialogHeader>
-
-                                            <BuilderEntityAttributes
-                                                builderStore={builderStore}
-                                                components={entity_attribute_components}
-                                                entityId={props.entity.id}
-                                            />
-
-                                            <DialogFooter>
-                                                <DialogClose asChild>
-                                                    <Button>Close</Button>
-                                                </DialogClose>
-                                            </DialogFooter>
-                                        </DialogContent>
-                                    </Dialog>
-                                    <Button
-                                        variant="destructive"
-                                        onClick={() => {
-                                            builderStore.deleteEntity(props.entity.id);
-                                        }}
-                                    >
-                                        Delete
-                                    </Button>
-                                </div>
-                            </div>
-                        </DndItem>
+                        <FormBuilderItem {...props} />
                     )}
                 </BuilderEntities>
             </DndWrapper>
@@ -134,9 +94,57 @@ export default function FormBuilderPage() {
             </div>
         </div>
     );
+
+
+    function FormBuilderItem(props) {
+        return (
+            <DndItem id={props.entity.id}>
+                <div className="grid gap-2 mb-2">
+                    {props.children}
+                    <div className="grid grid-flow-col gap-2">
+                        <Dialog>
+                            <DialogTrigger asChild>
+                                <Button variant="outline">Edit</Button>
+                            </DialogTrigger>
+                            <DialogContent className="sm:max-w-[425px]">
+                                <DialogHeader>
+                                    <DialogTitle>Edit Entity</DialogTitle>
+                                    <DialogDescription>
+                                        Make changes to your profile here. Click save when you&apos;re
+                                        done.
+                                    </DialogDescription>
+                                </DialogHeader>
+
+                                <BuilderEntityAttributes
+                                    builderStore={builderStore}
+                                    components={entity_attribute_components}
+                                    entityId={props.entity.id}
+                                />
+
+                                <DialogFooter>
+                                    <DialogClose asChild>
+                                        <Button>Close</Button>
+                                    </DialogClose>
+                                </DialogFooter>
+                            </DialogContent>
+                        </Dialog>
+                        <Button
+                            variant="destructive"
+                            onClick={() => {
+                                builderStore.deleteEntity(props.entity.id);
+                            }}
+                        >
+                            Delete
+                        </Button>
+                    </div>
+                </div>
+            </DndItem>
+        )
+    }
 }
 
 
 function saveSchema(schema: Schema) {
     axios.post('/api/form-schema', { schema });
 }
+
