@@ -11,7 +11,7 @@ export const TextFieldEntity = createEntityComponent(
     const errors = tryCatchZod(() => textFieldEntity.validate(props.entity.value, {} as any));
     const isInvalid = errors.length > 0;
     return (
-      <div>
+      <div className="grid gap-2">
         <Label htmlFor={props.entity.id}>{props.entity.attributes.label}</Label>
         <Input
           id={props.entity.id}
