@@ -62,7 +62,9 @@ export function DndWrapper({ children, builderStore }) {
                 items={Array.from(root)}
                 strategy={verticalListSortingStrategy}
             >
-                {children}
+                <div className="grid gap-2">
+                    {children}
+                </div>
             </SortableContext>
         </DndContext>
     );
