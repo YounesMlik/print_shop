@@ -1,5 +1,6 @@
 import {
     DndContext,
+    DragOverlay,
     MouseSensor,
     useSensor,
     type DragEndEvent,
@@ -10,8 +11,8 @@ import {
 } from "@dnd-kit/sortable";
 
 import {
-  restrictToVerticalAxis,
-  restrictToWindowEdges,
+    restrictToParentElement,
+    restrictToVerticalAxis,
 } from '@dnd-kit/modifiers';
 
 import {
@@ -61,7 +62,7 @@ export function DndWrapper({ children, builderStore }) {
     }
 
     return (
-        <DndContext id="dnd" sensors={[mouseSensor]} onDragEnd={handleDragEnd}  modifiers={[restrictToVerticalAxis]}>
+        <DndContext id="dnd" sensors={[mouseSensor]} onDragEnd={handleDragEnd} modifiers={[restrictToVerticalAxis, restrictToParentElement]}>
             <SortableContext
                 id="sortable"
                 items={Array.from(root)}
