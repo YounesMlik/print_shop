@@ -29,19 +29,9 @@ export default function FormBuilderPage() {
             schema: usePage().props.schema as any
         },
         events: {
-            /*
-            | We use the `onEntityAttributeUpdated` event callback
-            | to trigger an arbitrary attribute validation every time
-            | its value is updated.
-            */
             async onEntityAttributeUpdated(payload) {
                 setSchemaValidation(await builderStore.validateSchema());
             },
-            /*
-            | We use the `onEntityDeleted` event callback to unset the
-            | `activeEntityId` state variable when the currently active
-            | entity is deleted.
-            */
             onEntityDeleted(payload) { },
         },
     });
@@ -69,29 +59,13 @@ export default function FormBuilderPage() {
 
     return (
         <DndWrapper builderStore={builderStore}>
-            {/*
-      | We use the `BuilderEntities` component to render the entities
-      | tree of the schema of our builder store.
-      | We pass the entity components for each defined entity type
-      | in our form builder (currently, it's only the text field).
-      */}
             <BuilderEntities
                 builderStore={builderStore}
                 components={entity_components}
             >
-                {/*
-        | We leverage the render prop of the `BuilderEntities` component
-        | to wrap each rendered arbitrary entity with additional
-        | rendering.
-        */}
                 {(props) => (
                     <DndItem id={props.entity.id}>
-                        {/* This represents each rendered arbitrary entity. */}
                         {props.children}
-                        {/*
-            | A button that marks the arbitrary entity as active,
-            | allowing the user to edit its attributes.
-            */}
                         <Dialog>
                             <DialogTrigger asChild>
                                 <Button variant="outline">Edit</Button>
@@ -118,10 +92,6 @@ export default function FormBuilderPage() {
                                 </DialogFooter>
                             </DialogContent>
                         </Dialog>
-                        {/*
-            | A delete button is rendered next to each entity,
-            | that removes the entity from the store's schema.
-            */}
                         <Button
                             variant="destructive"
                             onClick={() => {
@@ -133,10 +103,6 @@ export default function FormBuilderPage() {
                     </DndItem>
                 )}
             </BuilderEntities>
-            {/*
-      | A button that adds a new text field type entity
-      | to the store's schema.
-      */}
             <Button
                 type="button"
                 onClick={() =>
@@ -148,7 +114,6 @@ export default function FormBuilderPage() {
             >
                 Add Text Field
             </Button>
-            {/* We will cover server integration in the next section. */}
             <Button type="button" onClick={() => {
                 submitFormSchema();
             }}
