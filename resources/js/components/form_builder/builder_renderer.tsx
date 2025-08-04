@@ -167,7 +167,7 @@ export default function FormBuilderPage() {
 
                                 <DialogFooter>
                                     <DialogClose asChild>
-                                        <Button>Close</Button>
+                                        <Button disabled={item_errors.length > 0}>Close</Button>
                                     </DialogClose>
                                 </DialogFooter>
                             </DialogContent>
