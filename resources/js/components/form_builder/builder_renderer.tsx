@@ -59,19 +59,7 @@ export default function FormBuilderPage() {
 
     return (
         <div className="grid gap-2">
-            <div className="flex gap-2">
-                <Button
-                    type="button"
-                    onClick={() =>
-                        builderStore.addEntity({
-                            type: "textField",
-                            attributes: { label: "Text Field" },
-                        })
-                    }
-                >
-                    Add Text Field
-                </Button>
-            </div>
+            <AddEntityButtons />
             <DndWrapper builderStore={builderStore}>
                 <BuilderEntities
                     builderStore={builderStore}
@@ -91,6 +79,24 @@ export default function FormBuilderPage() {
             </div>
         </div>
     );
+
+    function AddEntityButtons() {
+        return (
+            <div className="flex gap-2">
+                <Button
+                    type="button"
+                    onClick={() =>
+                        builderStore.addEntity({
+                            type: "textField",
+                            attributes: { label: "Text Field" },
+                        })
+                    }
+                >
+                    Add Text Field
+                </Button>
+            </div>
+        )
+    }
 
     function getFormBuilderItem({ children, entity }) {
         return (
