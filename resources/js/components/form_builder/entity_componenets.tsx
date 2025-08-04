@@ -120,16 +120,13 @@ export const RadioFieldEntity = createEntityComponent(
           onValueChange={props.setValue}
         >
           {options.map((option, idx) => (
-            <div key={idx} className="flex items-center space-x-2">
+            <Label key={idx} className="flex items-center gap-2 cursor-pointer">
               <RadioGroupItem
                 value={option}
-                id={`${props.entity.id}-radio-${idx}`}
                 aria-invalid={isInvalid}
               />
-              <Label htmlFor={`${props.entity.id}-radio-${idx}`}>
-                {option}
-              </Label>
-            </div>
+              {option}
+            </Label>
           ))}
         </RadioGroup>
         {errors.map((err, key) =>
