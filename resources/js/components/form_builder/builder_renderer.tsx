@@ -59,19 +59,7 @@ export default function FormBuilderPage() {
 
     return (
         <div className="grid gap-2">
-            <div className="flex gap-2">
-                <Button
-                    type="button"
-                    onClick={() =>
-                        builderStore.addEntity({
-                            type: "textField",
-                            attributes: { label: "Text Field" },
-                        })
-                    }
-                >
-                    Add Text Field
-                </Button>
-            </div>
+            <AddEntityButtons />
             <DndWrapper builderStore={builderStore}>
                 <BuilderEntities
                     builderStore={builderStore}
@@ -92,7 +80,68 @@ export default function FormBuilderPage() {
         </div>
     );
 
+    function AddEntityButtons() {
+        return (
+            <div className="flex gap-2">
+                <Button
+                    type="button"
+                    onClick={() =>
+                        builderStore.addEntity({
+                            type: "textField",
+                            attributes: { label: "Text Field" },
+                        })
+                    }
+                >
+                    Add Text Field
+                </Button>
+                <Button
+                    type="button"
+                    onClick={() =>
+                        builderStore.addEntity({
+                            type: "selectField",
+                            attributes: {
+                                label: "Select Field",
+                                options: ["option"],
+                            },
+                        })
+                    }
+                >
+                    Add Select Field
+                </Button>
+                <Button
+                    type="button"
+                    onClick={() =>
+                        builderStore.addEntity({
+                            type: "checkboxesField",
+                            attributes: {
+                                label: "Checkboxes Field",
+                                options: ["option"],
+                            },
+                        })
+                    }
+                >
+                    Add Checkboxes Field
+                </Button>
+                <Button
+                    type="button"
+                    onClick={() =>
+                        builderStore.addEntity({
+                            type: "radioField",
+                            attributes: {
+                                label: "Radio Field",
+                                options: ["option"],
+                            },
+                        })
+                    }
+                >
+                    Add Radio Field
+                </Button>
+            </div>
+        )
+    }
+
     function getFormBuilderItem({ children, entity }) {
+        const item_errors = Object.entries(errors[entity.id] ?? {}) as [[string, []]];
         return (
             <DndItem id={entity.id} key={entity.id}>
                 <div className={"grid gap-2 mb-2"}>
@@ -106,8 +155,7 @@ export default function FormBuilderPage() {
                                 <DialogHeader>
                                     <DialogTitle>Edit Entity</DialogTitle>
                                     <DialogDescription>
-                                        Make changes to your profile here. Click save when you&apos;re
-                                        done.
+                                        Make changes to your fields here.
                                     </DialogDescription>
                                 </DialogHeader>
 
@@ -119,7 +167,7 @@ export default function FormBuilderPage() {
 
                                 <DialogFooter>
                                     <DialogClose asChild>
-                                        <Button>Close</Button>
+                                        <Button disabled={item_errors.length > 0}>Close</Button>
                                     </DialogClose>
                                 </DialogFooter>
                             </DialogContent>
@@ -133,6 +181,18 @@ export default function FormBuilderPage() {
                             Delete
                         </Button>
                     </div>
+                    {item_errors.length === 1 ?
+                        item_errors.map(([attribute, errors]) =>
+                            errors.map((err, key) =>
+                                <p key={key} className="text-destructive text-sm">{err}</p>
+                            )
+                        )
+                        : item_errors.map(([attribute, errors]) =>
+                            errors.map((err, key) =>
+                                <p key={key} className="text-destructive text-sm">{attribute}: {err}</p>
+                            )
+                        )
+                    }
                 </div>
             </DndItem>
         )
