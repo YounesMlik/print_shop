@@ -1,4 +1,3 @@
-import { z, ZodError } from "zod";
 import { createEntityComponent } from "@coltorapps/builder-react";
 import { textFieldEntity } from "./entities";
 import { Label } from "@/components/ui/label";
