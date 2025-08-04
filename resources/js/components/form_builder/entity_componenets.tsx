@@ -144,6 +144,6 @@ const entity_components = {
   textField: TextFieldEntity,
   selectField: SelectFieldEntity,
   checkboxesField: CheckboxesFieldEntity,
-  radioField: radioFieldEntity,
+  radioField: RadioFieldEntity,
 };
 export default entity_components;
