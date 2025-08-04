@@ -99,7 +99,10 @@ export default function FormBuilderPage() {
                     onClick={() =>
                         builderStore.addEntity({
                             type: "selectField",
-                            attributes: { label: "Select Field" },
+                            attributes: {
+                                label: "Select Field",
+                                options: ["option"],
+                            },
                         })
                     }
                 >
