@@ -1,9 +1,7 @@
-import z, { ZodError } from "zod";
 import { createAttributeComponent } from "@coltorapps/builder-react";
 import { labelAttribute } from "./attributes";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { useEffect, useState } from "react";
 import { tryCatchZod } from "@/components/helpers";
 
 export const LabelAttribute = createAttributeComponent(
