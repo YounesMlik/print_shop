@@ -141,6 +141,7 @@ export default function FormBuilderPage() {
     }
 
     function getFormBuilderItem({ children, entity }) {
+        const item_errors = Object.entries(errors[entity.id] ?? {}) as [[string, []]];
         return (
             <DndItem id={entity.id} key={entity.id}>
                 <div className={"grid gap-2 mb-2"}>
@@ -180,6 +181,18 @@ export default function FormBuilderPage() {
                             Delete
                         </Button>
                     </div>
+                    {item_errors.length === 1 ?
+                        item_errors.map(([attribute, errors]) =>
+                            errors.map((err, key) =>
+                                <p key={key} className="text-destructive text-sm">{err}</p>
+                            )
+                        )
+                        : item_errors.map(([attribute, errors]) =>
+                            errors.map((err, key) =>
+                                <p key={key} className="text-destructive text-sm">{attribute}: {err}</p>
+                            )
+                        )
+                    }
                 </div>
             </DndItem>
         )
