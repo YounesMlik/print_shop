@@ -123,8 +123,7 @@ export default function FormBuilderPage() {
                                 <DialogHeader>
                                     <DialogTitle>Edit Entity</DialogTitle>
                                     <DialogDescription>
-                                        Make changes to your profile here. Click save when you&apos;re
-                                        done.
+                                        Make changes to your fields here.
                                     </DialogDescription>
                                 </DialogHeader>
 
