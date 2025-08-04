@@ -1,9 +1,10 @@
 import { createEntityComponent } from "@coltorapps/builder-react";
-import { textFieldEntity, selectFieldEntity } from "./entities";
+import { textFieldEntity, selectFieldEntity, checkboxesFieldEntity } from "./entities";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { tryCatchZod } from "@/components/helpers";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export const TextFieldEntity = createEntityComponent(
   textFieldEntity,
@@ -64,9 +65,49 @@ export const SelectFieldEntity = createEntityComponent(
   },
 );
 
+export const CheckboxesFieldEntity = createEntityComponent(
+  checkboxesFieldEntity,
+  (props) => {
+    const errors = tryCatchZod(() => checkboxesFieldEntity.validate(props.entity.value, {} as any));
+    const isInvalid = errors.length > 0;
+    const options = props.entity.attributes.options ?? [];
+    const value = props.entity.value ?? [];
+
+    function onToggle(val) {
+      if (value.includes(val)) {
+        props.setValue(value.filter((v) => v !== val));
+      } else {
+        props.setValue([...value, val]);
+      }
+    }
+
+    return (
+      <div className="grid gap-2">
+        <Label>{props.entity.attributes.label}</Label>
+        <div className="flex flex-col gap-1">
+          {options.map((option, idx) => (
+            <label key={idx} className="flex items-center gap-2 cursor-pointer">
+              <Checkbox
+                checked={value.includes(option)}
+                onCheckedChange={() => onToggle(option)}
+                aria-invalid={isInvalid}
+              />
+              <span>{option}</span>
+            </label>
+          ))}
+        </div>
+        {errors.map((err, key) =>
+          <p key={key} className="text-destructive text-sm">{err}</p>
+        )}
+      </div>
+    );
+  }
+);
+
 
 const entity_components = {
   textField: TextFieldEntity,
   selectField: SelectFieldEntity,
+  checkboxesField: CheckboxesFieldEntity,
 };
 export default entity_components;
