@@ -122,6 +122,20 @@ export default function FormBuilderPage() {
                 >
                     Add Checkboxes Field
                 </Button>
+                <Button
+                    type="button"
+                    onClick={() =>
+                        builderStore.addEntity({
+                            type: "radioField",
+                            attributes: {
+                                label: "Radio Field",
+                                options: ["option"],
+                            },
+                        })
+                    }
+                >
+                    Add Radio Field
+                </Button>
             </div>
         )
     }
