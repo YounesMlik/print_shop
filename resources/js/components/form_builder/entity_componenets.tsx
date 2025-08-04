@@ -1,8 +1,9 @@
 import { createEntityComponent } from "@coltorapps/builder-react";
-import { textFieldEntity } from "./entities";
+import { textFieldEntity, selectFieldEntity } from "./entities";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { tryCatchZod } from "@/components/helpers";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export const TextFieldEntity = createEntityComponent(
   textFieldEntity,
@@ -27,5 +28,45 @@ export const TextFieldEntity = createEntityComponent(
   },
 );
 
-const entity_components = { textField: TextFieldEntity };
+export const SelectFieldEntity = createEntityComponent(
+  selectFieldEntity,
+  (props) => {
+    const errors = tryCatchZod(() => selectFieldEntity.validate(props.entity.value, {} as any));
+    const isInvalid = errors.length > 0;
+    const options = props.entity.attributes.options ?? [];
+
+    return (
+      <div className="grid gap-2">
+        <Label htmlFor={props.entity.id}>{props.entity.attributes.label}</Label>
+        <Select
+          value={props.entity.value ?? ""}
+          onValueChange={props.setValue}
+        >
+          <SelectTrigger
+            id={props.entity.id}
+            aria-invalid={isInvalid}
+          >
+            <SelectValue placeholder="Choose an option" />
+          </SelectTrigger>
+          <SelectContent>
+            {options.map((option, idx) => (
+              <SelectItem key={idx} value={option}>
+                {option}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        {errors.map((err, key) =>
+          <p key={key} className="text-destructive text-sm">{err}</p>
+        )}
+      </div>
+    );
+  },
+);
+
+
+const entity_components = {
+  textField: TextFieldEntity,
+  selectField: SelectFieldEntity,
+};
 export default entity_components;
