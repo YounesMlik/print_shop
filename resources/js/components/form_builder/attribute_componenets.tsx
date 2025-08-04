@@ -51,7 +51,7 @@ export const OptionsAttribute = createAttributeComponent(
       props.setValue(newOptions);
     };
 
-    const addOption = () => props.setValue([...value, ""]);
+    const addOption = () => props.setValue([...value, "option"]);
     const removeOption = (idx: number) =>
       props.setValue(value.filter((_, i) => i !== idx));
 
