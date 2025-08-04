@@ -23,9 +23,6 @@ export const TextFieldEntity = createEntityComponent(
         {errors.map((err, key) =>
           <p key={key} className="text-destructive text-sm">{err}</p>
         )}
-        {/* {props.entity.error instanceof ZodError
-          ? z.treeifyError(props.entity.error)[0]
-          : null} */}
       </div>
     );
   },
