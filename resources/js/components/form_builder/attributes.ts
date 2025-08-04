@@ -16,6 +16,7 @@ export const optionsAttribute = createAttribute({
                 z.string().min(1, "Value is required"),
             )
             .min(1, "At least one option is required")
+            .refine((value) => value.length === new Set(value).size, "Options must be unique")
             .parse(value);
     },
 });
