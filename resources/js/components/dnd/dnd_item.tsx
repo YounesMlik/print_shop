@@ -21,7 +21,7 @@ export function DndItem(props: { id: string; children: ReactNode }) {
     position: isDragging ? 'relative' as const : 'static' as const, // z-index only works on positioned elements
   };
 
-  const className = "border border-white/30 dark:border-white/10 backdrop-blur-lg rounded-2xl shadow-xl py-6 pl-6 bg-white/20 dark:bg-white/5" +
+  const className = "flex flex-row border border-white/30 dark:border-white/10 backdrop-blur-lg rounded-2xl shadow-xl bg-white/20 dark:bg-white/5" +
     (isDragging
       ? 'outline outline-2 outline-blue-400'
       : '');
@@ -32,14 +32,12 @@ export function DndItem(props: { id: string; children: ReactNode }) {
       style={style}
       aria-describedby="dnd"
     >
-      <div className="flex flex-row">
-        <div className="grow">
-          {props.children}
-        </div>
-        <button {...listeners} {...attributes}>
-          <GripVerticalIcon size={40} />
-        </button>
+      <div className="grow py-6 pl-6">
+        {props.children}
       </div>
+      <button {...listeners} {...attributes}>
+        <GripVerticalIcon size={40} />
+      </button>
     </div>
   );
 }
