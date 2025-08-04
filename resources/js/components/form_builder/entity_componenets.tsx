@@ -52,7 +52,7 @@ export const SelectFieldEntity = createEntityComponent(
           </SelectTrigger>
           <SelectContent>
             {options.map((option, idx) => (
-              <SelectItem key={idx} value={option}>
+              <SelectItem key={idx} value={option !== "" ? option : "empty"}>
                 {option}
               </SelectItem>
             ))}
