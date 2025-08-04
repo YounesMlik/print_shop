@@ -1,11 +1,38 @@
 import { z } from "zod";
 import { createEntity } from "@coltorapps/builder";
-import { labelAttribute } from "./attributes";
+import { labelAttribute, optionsAttribute } from "./attributes";
 
 export const textFieldEntity = createEntity({
     name: "textField",
     attributes: [labelAttribute],
     validate(value) {
+        return z.string().optional().parse(value);
+    },
+});
+
+export const selectFieldEntity = createEntity({
+    name: "selectField",
+    attributes: [labelAttribute, optionsAttribute],
+    validate(value) {
+        // Value should be one of the option values or empty (if not required)
+        return z.string().optional().parse(value);
+    },
+});
+
+export const checkboxesFieldEntity = createEntity({
+    name: "checkboxesField",
+    attributes: [labelAttribute, optionsAttribute],
+    validate(value) {
+        // Value should be an array of selected option values (or empty)
+        return z.array(z.string()).optional().parse(value);
+    },
+});
+
+export const radioFieldEntity = createEntity({
+    name: "radioField",
+    attributes: [labelAttribute, optionsAttribute],
+    validate(value) {
+        // Value should be one of the option values or empty
         return z.string().optional().parse(value);
     },
 });
