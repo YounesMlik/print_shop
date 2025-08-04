@@ -108,6 +108,20 @@ export default function FormBuilderPage() {
                 >
                     Add Select Field
                 </Button>
+                <Button
+                    type="button"
+                    onClick={() =>
+                        builderStore.addEntity({
+                            type: "checkboxesField",
+                            attributes: {
+                                label: "Checkboxes Field",
+                                options: ["option"],
+                            },
+                        })
+                    }
+                >
+                    Add Checkboxes Field
+                </Button>
             </div>
         )
     }
