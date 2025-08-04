@@ -1,10 +1,11 @@
 import { createEntityComponent } from "@coltorapps/builder-react";
-import { textFieldEntity, selectFieldEntity, checkboxesFieldEntity } from "./entities";
+import { textFieldEntity, selectFieldEntity, checkboxesFieldEntity, radioFieldEntity } from "./entities";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { tryCatchZod } from "@/components/helpers";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 export const TextFieldEntity = createEntityComponent(
   textFieldEntity,
@@ -104,10 +105,45 @@ export const CheckboxesFieldEntity = createEntityComponent(
   }
 );
 
+export const RadioFieldEntity = createEntityComponent(
+  radioFieldEntity,
+  (props) => {
+    const errors = tryCatchZod(() => radioFieldEntity.validate(props.entity.value, {} as any));
+    const isInvalid = errors.length > 0;
+    const options = props.entity.attributes.options ?? [];
+
+    return (
+      <div className="grid gap-2">
+        <Label>{props.entity.attributes.label}</Label>
+        <RadioGroup
+          value={props.entity.value ?? ""}
+          onValueChange={props.setValue}
+        >
+          {options.map((option, idx) => (
+            <div key={idx} className="flex items-center space-x-2">
+              <RadioGroupItem
+                value={option}
+                id={`${props.entity.id}-radio-${idx}`}
+                aria-invalid={isInvalid}
+              />
+              <Label htmlFor={`${props.entity.id}-radio-${idx}`}>
+                {option}
+              </Label>
+            </div>
+          ))}
+        </RadioGroup>
+        {errors.map((err, key) =>
+          <p key={key} className="text-destructive text-sm">{err}</p>
+        )}
+      </div>
+    );
+  }
+);
 
 const entity_components = {
   textField: TextFieldEntity,
   selectField: SelectFieldEntity,
   checkboxesField: CheckboxesFieldEntity,
+  radioField: radioFieldEntity,
 };
 export default entity_components;
