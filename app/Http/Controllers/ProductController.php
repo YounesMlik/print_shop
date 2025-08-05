@@ -17,7 +17,7 @@ class ProductController extends Controller
         $categoryId = $request->input('category');
         $superCategoryId = $request->input('super_category');
 
-        $products = Product::with('tags', 'category')
+        $products = Product::with('tags', 'category', 'images')
             ->when(!empty($tagIds), function ($query) use ($tagIds) {
                 foreach ($tagIds as $tagId) {
                     $query->whereHas('tags', fn($q) => $q->where('tags.id', $tagId));
