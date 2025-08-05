@@ -40,4 +40,13 @@ class Product extends Model implements HasMedia
             'media_id'
         );
     }
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('thumb')
+            ->width(150)
+            ->height(150)
+            ->sharpen(10)
+            ->nonQueued();
+    }
 }
