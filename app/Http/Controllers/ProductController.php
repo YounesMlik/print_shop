@@ -17,7 +17,7 @@ class ProductController extends Controller
         $categoryId = $request->input('category');
         $superCategoryId = $request->input('super_category');
 
-        $products = Product::with('tags', 'category', 'images')
+        $products = Product::with('tags', 'category')
             ->when(!empty($tagIds), function ($query) use ($tagIds) {
                 foreach ($tagIds as $tagId) {
                     $query->whereHas('tags', fn($q) => $q->where('tags.id', $tagId));
@@ -54,7 +54,7 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
-        $product->load('options.optionAttributes');
+        $product->load(['options.optionAttributes', 'media']);
 
         return Inertia::render('Products/Show', [
             'product' => $product,
