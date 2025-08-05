@@ -57,7 +57,13 @@ class ProductResource extends Resource
                 ->collection('images')
                 ->multiple()
                 ->reorderable()
-                ->required()
+                ->image()
+                // ->imagePreviewHeight('80') // (optional) set preview size
+                // ->panelAspectRatio('1:1')  // (optional) square preview
+                ->downloadable()
+                ->openable()
+                ->responsiveImages() // enables responsive thumbnails if configured
+                ->label('Product Images'),
         ]);
     }
 
