@@ -6,9 +6,11 @@ use App\Filament\Resources\ProductResource\Pages;
 use App\Filament\Resources\ProductResource\RelationManagers;
 use App\Models\Product;
 use Filament\Forms;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -49,6 +51,13 @@ class ProductResource extends Resource
                 ->preload()
                 ->disabled() // hasMany - display only, not editable in select
                 ->helperText('Options are managed elsewhere'),
+
+            // For images
+            SpatieMediaLibraryFileUpload::make('images')
+                ->collection('images')
+                ->multiple()
+                ->reorderable()
+                ->required()
         ]);
     }
 
@@ -65,6 +74,7 @@ class ProductResource extends Resource
                     ->badge()
                     ->separator(', ')
                     ->limit(3),
+                SpatieMediaLibraryImageColumn::make('images')->collection('images'),
             ])
             ->filters([
                 SelectFilter::make('category_id')
