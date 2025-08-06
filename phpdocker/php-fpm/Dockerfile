@@ -11,12 +11,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Install PHP extensions and Node.js 20
 RUN apt-get install -y --no-install-recommends \
     git \
-    php8.4-mysql \
     php8.4-pgsql \
     php8.4-intl \
     php8.4-gd \
-    php8.4-imagick \
     nodejs
+    # php8.4-mysql \
+    # php8.4-imagick \
 
 # Clean up to reduce image size
 RUN apt-get clean && rm -rf \
