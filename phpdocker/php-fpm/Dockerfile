@@ -14,6 +14,8 @@ RUN apt-get install -y --no-install-recommends \
     php8.4-mysql \
     php8.4-pgsql \
     php8.4-intl \
+    php8.4-gd \
+    php8.4-imagick \
     nodejs
 
 # Clean up to reduce image size
