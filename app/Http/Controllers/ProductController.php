@@ -31,7 +31,7 @@ class ProductController extends Controller
             $category_filtering_level = 0;
         }
 
-        $products = Product::with('tags', 'category', 'category.superCategory')
+        $products = Product::with('tags', 'category', 'category.superCategory', 'media', )
             ->when(!empty($tagIds), function ($query) use ($tagIds) {
                 foreach ($tagIds as $tagId) {
                     $query->whereHas('tags', fn($q) => $q->where('tags.id', $tagId));
