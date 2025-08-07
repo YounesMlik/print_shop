@@ -15,8 +15,9 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator
 } from "@/components/ui/breadcrumb";
+import { Button } from '@/components/ui/button'
 
-export default function ProductsIndex({ products_collection, availableTags, filters }) {
+export default function ProductsIndex({ products_collection, availableTags, filters, category_filtering_level }) {
   const [selectedTags, setSelectedTags] = useState(mapTagsToSelectFormat(filters.tags))
 
   const tagOptions = useMemo(() => mapTagsToSelectFormat(availableTags), [availableTags])
@@ -78,21 +79,34 @@ export default function ProductsIndex({ products_collection, availableTags, filt
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href={route('products.index')} >
+              {category_filtering_level === 0 ?
+                <BreadcrumbPage>
                   Products
-                </Link>
-              </BreadcrumbLink>
+                </BreadcrumbPage>
+                :
+                <BreadcrumbLink asChild>
+                  <Link href={route('products.index')} >
+                    Products
+                  </Link>
+                </BreadcrumbLink>
+              }
             </BreadcrumbItem>
             {filters.super_category === null ? "" :
               <>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
-                  <BreadcrumbLink asChild>
-                    <Link href={route('products.index', { super_category: filters.super_category.id, })} >
+                  {category_filtering_level === 1 ?
+                    <BreadcrumbPage>
                       {filters.super_category.name}
-                    </Link>
-                  </BreadcrumbLink>
+                    </BreadcrumbPage>
+                    :
+                    <BreadcrumbLink asChild>
+                      <Link href={route('products.index', { super_category: filters.super_category.id, })} >
+                        {filters.super_category.name}
+                      </Link>
+                    </BreadcrumbLink>
+                  }
+
                 </BreadcrumbItem>
               </>
             }
@@ -100,21 +114,21 @@ export default function ProductsIndex({ products_collection, availableTags, filt
               <>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
-                  <BreadcrumbLink asChild>
-                    <Link href={route('products.index', { category: filters.category.id, })} >
+                  {category_filtering_level === 2 ?
+                    <BreadcrumbPage>
                       {filters.category.name}
-                    </Link>
-                  </BreadcrumbLink>
+                    </BreadcrumbPage>
+                    :
+                    <BreadcrumbLink asChild>
+                      <Link href={route('products.index', { category: filters.category.id, })} >
+                        {filters.category.name}
+                      </Link>
+                    </BreadcrumbLink>
+                  }
+
                 </BreadcrumbItem>
               </>
             }
-            {/* <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href={route('products.index', { category: product.category.id, })} >
-                  {product.category.name}
-                </Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem> */}
           </BreadcrumbList>
         </Breadcrumb>
 
@@ -208,7 +222,11 @@ function ProductList({ products }) {
       {products.map(product => (
         <Card key={product.id}>
           <CardHeader>
-            <CardTitle>{product.name}</CardTitle>
+            <CardTitle>
+              <Link href={route('products.show', product.id)} >
+                {product.name}
+              </Link>
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <p>{product.description}</p>
