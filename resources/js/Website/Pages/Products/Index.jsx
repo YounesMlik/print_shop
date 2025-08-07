@@ -23,10 +23,6 @@ export default function ProductsIndex({ products_collection, availableTags, filt
 
   const tagOptions = useMemo(() => mapTagsToSelectFormat(availableTags), [availableTags])
 
-  const products = products_collection.data
-  // console.log(filters);
-
-
   function mapTagsToSelectFormat(tags = []) {
     return tags.map(tag => ({
       value: tag.id,
@@ -70,6 +66,8 @@ export default function ProductsIndex({ products_collection, availableTags, filt
     next_page_url,
     data: productData = products,
   } = products_collection.meta
+
+  const products = products_collection.data
 
   return (
     <>
