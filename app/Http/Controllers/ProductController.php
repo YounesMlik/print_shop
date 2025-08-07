@@ -44,6 +44,8 @@ class ProductController extends Controller
             'products_collection' => $products->toResourceCollection(),
             'availableTags' => Tag::select('id', 'name')->get(),
             'filters' => [
+                'category' => Category::find($categoryId),
+                'super_category' => SuperCategory::find($superCategoryId),
                 'tags' => Tag::whereIn('id', $tagIds)->get(['id as value', 'name as label']),
             ],
         ]);
