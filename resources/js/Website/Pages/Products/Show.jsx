@@ -16,6 +16,14 @@ import {
     BreadcrumbPage,
     BreadcrumbSeparator
 } from "@/components/ui/breadcrumb";
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
+} from "@/components/ui/carousel"
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 export default function ProductShow({ product_resource }) {
     const product = product_resource.data;
@@ -81,6 +89,21 @@ export default function ProductShow({ product_resource }) {
             </Breadcrumb>
 
             <h1 className="text-2xl font-bold mb-4">{product.name}</h1>
+
+            <Carousel>
+                <CarouselContent>
+                    {product.images.map(image => (
+                        <CarouselItem>
+                            <AspectRatio ratio={16 / 9}>
+                                <img src={image.url} alt="product image" className="rounded-md w-full h-full object-contain" />
+                            </AspectRatio>
+                        </CarouselItem>
+                    ))}
+                </CarouselContent>
+                <CarouselPrevious />
+                <CarouselNext />
+            </Carousel>
+
             {product.description && (
                 <p className="mb-6 text-gray-600">{product.description}</p>
             )}
