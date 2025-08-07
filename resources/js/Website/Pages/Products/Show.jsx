@@ -9,8 +9,9 @@ import {
     SelectItem,
 } from "@/components/ui/select";
 
-export default function ProductShow() {
-    const { product } = usePage().props;
+export default function ProductShow({ product_resource }) {
+    const product = product_resource.data;
+
 
     // Debug: make sure product structure is correct
     if (!product || !product.options) {

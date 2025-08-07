@@ -57,7 +57,7 @@ class ProductController extends Controller
         $product->load(['options.optionAttributes', 'media']);
 
         return Inertia::render('Products/Show', [
-            'product' => $product,
+            'product_resource' => $product->toResource(),
         ]);
     }
 }
