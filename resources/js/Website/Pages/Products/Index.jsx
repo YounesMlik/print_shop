@@ -64,7 +64,6 @@ export default function ProductsIndex({ products_collection, availableTags, filt
     last_page,
     prev_page_url,
     next_page_url,
-    data: productData = products,
   } = products_collection.meta
 
   const products = products_collection.data
@@ -140,7 +139,7 @@ export default function ProductsIndex({ products_collection, availableTags, filt
 
         <Separator />
 
-        <ProductList products={productData} />
+        <ProductList products={products} />
 
         {last_page > 1 && (
           <ProductsPagination
