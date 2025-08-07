@@ -65,7 +65,7 @@ export default function ProductsIndex({ products_collection, availableTags, filt
     <>
       <Head title="Products" />
 
-      <section className="space-y-6">
+      <section className="grid gap-6">
         <FilterSection
           selectedTags={selectedTags}
           tagOptions={tagOptions}
