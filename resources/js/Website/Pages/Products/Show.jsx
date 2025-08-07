@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { usePage } from "@inertiajs/react";
+import { Link } from "@inertiajs/react";
 import { Button } from "@/components/ui/button";
 import {
     Select,
@@ -8,9 +8,18 @@ import {
     SelectContent,
     SelectItem,
 } from "@/components/ui/select";
+import {
+    Breadcrumb,
+    BreadcrumbItem,
+    BreadcrumbLink,
+    BreadcrumbList,
+    BreadcrumbPage,
+    BreadcrumbSeparator
+} from "@/components/ui/breadcrumb";
 
 export default function ProductShow({ product_resource }) {
     const product = product_resource.data;
+    console.log(product);
 
 
     // Debug: make sure product structure is correct
@@ -47,6 +56,30 @@ export default function ProductShow({ product_resource }) {
 
     return (
         <div className="container mx-auto p-4 max-w-xl">
+            <Breadcrumb>
+                <BreadcrumbList>
+                    <BreadcrumbItem>
+                        <BreadcrumbLink asChild>
+                            <Link href={route('products.index', { super_category: product.category.super_category.id, })} >
+                                {product.category.super_category.name}
+                            </Link>
+                        </BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator />
+                    <BreadcrumbItem>
+                        <BreadcrumbLink asChild>
+                            <Link href={route('products.index', { category: product.category.id, })} >
+                                {product.category.name}
+                            </Link>
+                        </BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator />
+                    <BreadcrumbItem>
+                        <BreadcrumbPage>{product.name}</BreadcrumbPage>
+                    </BreadcrumbItem>
+                </BreadcrumbList>
+            </Breadcrumb>
+
             <h1 className="text-2xl font-bold mb-4">{product.name}</h1>
             {product.description && (
                 <p className="mb-6 text-gray-600">{product.description}</p>
