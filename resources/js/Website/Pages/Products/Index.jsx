@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react'
-import { Head, router } from '@inertiajs/react'
+import { Head, Link, router } from '@inertiajs/react'
 import AsyncSelect from 'react-select/async'
 
 import ProductsPagination from './ProductsPagination'
@@ -7,6 +7,14 @@ import ProductsPagination from './ProductsPagination'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator
+} from "@/components/ui/breadcrumb";
 
 export default function ProductsIndex({ products_collection, availableTags, filters }) {
   const [selectedTags, setSelectedTags] = useState(mapTagsToSelectFormat(filters.tags))
@@ -14,7 +22,7 @@ export default function ProductsIndex({ products_collection, availableTags, filt
   const tagOptions = useMemo(() => mapTagsToSelectFormat(availableTags), [availableTags])
 
   const products = products_collection.data
-  console.log(products_collection);
+  // console.log(filters);
 
 
   function mapTagsToSelectFormat(tags = []) {
@@ -66,6 +74,50 @@ export default function ProductsIndex({ products_collection, availableTags, filt
       <Head title="Products" />
 
       <section className="grid gap-6">
+
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link href={route('products.index')} >
+                  Products
+                </Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            {filters.super_category === null ? "" :
+              <>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link href={route('products.index', { super_category: filters.super_category.id, })} >
+                      {filters.super_category.name}
+                    </Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+              </>
+            }
+            {filters.category === null ? "" :
+              <>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link href={route('products.index', { category: filters.category.id, })} >
+                      {filters.category.name}
+                    </Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+              </>
+            }
+            {/* <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link href={route('products.index', { category: product.category.id, })} >
+                  {product.category.name}
+                </Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem> */}
+          </BreadcrumbList>
+        </Breadcrumb>
+
         <FilterSection
           selectedTags={selectedTags}
           tagOptions={tagOptions}
