@@ -27,7 +27,7 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 export default function ProductShow({ product_resource }) {
     const product = product_resource.data;
-    console.log(product);
+    // console.log(product);
 
 
     // Debug: make sure product structure is correct
