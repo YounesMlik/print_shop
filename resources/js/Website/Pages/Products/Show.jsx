@@ -68,6 +68,14 @@ export default function ProductShow({ product_resource }) {
                 <BreadcrumbList>
                     <BreadcrumbItem>
                         <BreadcrumbLink asChild>
+                            <Link href={route('products.index')} >
+                                Products
+                            </Link>
+                        </BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator />
+                    <BreadcrumbItem>
+                        <BreadcrumbLink asChild>
                             <Link href={route('products.index', { super_category: product.category.super_category.id, })} >
                                 {product.category.super_category.name}
                             </Link>
