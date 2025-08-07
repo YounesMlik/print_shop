@@ -17,6 +17,17 @@ class ProductController extends Controller
         $categoryId = $request->input('category');
         $superCategoryId = $request->input('super_category');
 
+        if ($categoryId) {
+            $category = Category::with('superCategory')->find($categoryId);
+            $superCategory = $category->superCategory;
+        } elseif ($superCategoryId) {
+            $category = null;
+            $superCategory = SuperCategory::find($superCategoryId);
+        } else {
+            $category = null;
+            $superCategory = null;
+        }
+
         $products = Product::with('tags', 'category', 'category.superCategory')
             ->when(!empty($tagIds), function ($query) use ($tagIds) {
                 foreach ($tagIds as $tagId) {
@@ -44,8 +55,8 @@ class ProductController extends Controller
             'products_collection' => $products->toResourceCollection(),
             'availableTags' => Tag::select('id', 'name')->get(),
             'filters' => [
-                'category' => Category::find($categoryId),
-                'super_category' => SuperCategory::find($superCategoryId),
+                'category' => $category,
+                'super_category' => $superCategory,
                 'tags' => Tag::whereIn('id', $tagIds)->get(['id as value', 'name as label']),
             ],
         ]);
