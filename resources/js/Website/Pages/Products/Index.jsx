@@ -8,10 +8,14 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
 
-export default function ProductsIndex({ products, availableTags, filters }) {
+export default function ProductsIndex({ products_collection, availableTags, filters }) {
   const [selectedTags, setSelectedTags] = useState(mapTagsToSelectFormat(filters.tags))
 
   const tagOptions = useMemo(() => mapTagsToSelectFormat(availableTags), [availableTags])
+
+  const products = products_collection.data
+  console.log(products_collection);
+
 
   function mapTagsToSelectFormat(tags = []) {
     return tags.map(tag => ({
@@ -55,7 +59,7 @@ export default function ProductsIndex({ products, availableTags, filters }) {
     prev_page_url,
     next_page_url,
     data: productData = products,
-  } = products
+  } = products_collection.meta
 
   return (
     <>

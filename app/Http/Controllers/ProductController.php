@@ -41,7 +41,7 @@ class ProductController extends Controller
             ->withQueryString(); // Keeps the query parameters (e.g., tags) in the pagination links
 
         return Inertia::render('Products/Index', [
-            'products' => $products,
+            'products_collection' => $products->toResourceCollection(),
             'availableTags' => Tag::select('id', 'name')->get(),
             'filters' => [
                 'tags' => Tag::whereIn('id', $tagIds)->get(['id as value', 'name as label']),
