@@ -20,12 +20,15 @@ class ProductController extends Controller
         if ($categoryId) {
             $category = Category::with('superCategory')->find($categoryId);
             $superCategory = $category->superCategory;
+            $category_filtering_level = 2;
         } elseif ($superCategoryId) {
             $category = null;
             $superCategory = SuperCategory::find($superCategoryId);
+            $category_filtering_level = 1;
         } else {
             $category = null;
             $superCategory = null;
+            $category_filtering_level = 0;
         }
 
         $products = Product::with('tags', 'category', 'category.superCategory')
@@ -59,6 +62,7 @@ class ProductController extends Controller
                 'super_category' => $superCategory,
                 'tags' => Tag::whereIn('id', $tagIds)->get(['id as value', 'name as label']),
             ],
+            'category_filtering_level' => $category_filtering_level,
         ]);
     }
 
