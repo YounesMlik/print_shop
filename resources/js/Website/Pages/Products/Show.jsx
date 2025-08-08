@@ -24,6 +24,7 @@ import {
     CarouselPrevious,
 } from "@/components/ui/carousel"
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { sendWhatsappMessage } from "@/components/helpers";
 
 export default function ProductShow({ product_resource }) {
     const product = product_resource.data;
@@ -56,10 +57,7 @@ export default function ProductShow({ product_resource }) {
             const selectedValue = selectedOptions[option.id] || "Not selected";
             message += `${option.name}: ${selectedValue}\n`;
         });
-
-        const encoded = encodeURIComponent(message);
-        const phone = "212600000000"; // Update this with your business number
-        return `https://wa.me/${phone}?text=${encoded}`;
+        sendWhatsappMessage(message);
     };
 
     return (
@@ -161,7 +159,7 @@ export default function ProductShow({ product_resource }) {
 
             <Button
                 className="mt-6 w-full"
-                onClick={() => window.open(buildWhatsAppLink(), "_blank")}
+                onClick={() => buildWhatsAppLink()}
             >
                 Order via WhatsApp
             </Button>
