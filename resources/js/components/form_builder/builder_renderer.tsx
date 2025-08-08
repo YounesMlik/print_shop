@@ -51,7 +51,13 @@ export default function FormBuilderPage() {
         const validationResult = await builderStore.validateSchema();
 
         if (validationResult.success === true) {
-            saveSchema(validationResult.data);
+            saveSchema(validationResult.data).then((v) => {
+                if (v.success) {
+                    alert("Form schema saved successfully")
+                } else {
+                    alert("Error: request denied by the server")
+                }
+            });
         } else {
             alert("Error: " + validationResult.reason.code)
         }
@@ -200,6 +206,6 @@ export default function FormBuilderPage() {
 }
 
 
-function saveSchema(schema: Schema) {
-    axios.post('/api/form-schema', { schema });
+async function saveSchema(schema: Schema) {
+    return (await axios.post('/api/form-schema', { schema })).data;
 }
