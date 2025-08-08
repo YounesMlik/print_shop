@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react'
 import { Head, Link, router } from '@inertiajs/react'
 import AsyncSelect from 'react-select/async'
 
-import ProductsPagination from './ProductsPagination'
+import LaravelPagination from '../../../components/laravel-pagination'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
@@ -19,6 +19,9 @@ import { Button } from '@/components/ui/button'
 import { AspectRatio } from '@/components/ui/aspect-ratio'
 
 export default function ProductsIndex({ products_collection, availableTags, filters, category_filtering_level }) {
+  const nav_data = products_collection.meta
+  const products = products_collection.data
+
   const [selectedTags, setSelectedTags] = useState(mapTagsToSelectFormat(filters.tags))
 
   const tagOptions = useMemo(() => mapTagsToSelectFormat(availableTags), [availableTags])
@@ -53,20 +56,13 @@ export default function ProductsIndex({ products_collection, availableTags, filt
   function handlePageChange(page) {
     const tagIds = selectedTags.map(t => t.value)
 
-    router.get(route('products.index'), { page, tags: tagIds }, {
-      preserveState: true,
-      preserveScroll: true,
-    })
+    if (page != nav_data.current_page) {
+      router.get(route('products.index'), { page, tags: tagIds }, {
+        preserveState: true,
+        preserveScroll: true,
+      })
+    }
   }
-
-  const {
-    current_page,
-    last_page,
-    prev_page_url,
-    next_page_url,
-  } = products_collection.meta
-
-  const products = products_collection.data
 
   return (
     <>
@@ -141,13 +137,9 @@ export default function ProductsIndex({ products_collection, availableTags, filt
 
         <ProductList products={products} />
 
-        {last_page > 1 && (
-          <ProductsPagination
-            currentPage={current_page}
-            lastPage={last_page}
-            prevPageUrl={prev_page_url}
-            nextPageUrl={next_page_url}
-            selectedTags={selectedTags}
+        {nav_data.last_page > 1 && (
+          <LaravelPagination
+            nav_data={nav_data}
             onPageChange={handlePageChange}
           />
         )}
