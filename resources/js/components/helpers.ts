@@ -1,4 +1,4 @@
-import z, { boolean } from "zod";
+import z from "zod";
 
 export function objectMap(object: object, fn: ([string, unknown]) => [string, unknown]) {
     return Object.fromEntries(Object.entries(object).map(fn))
