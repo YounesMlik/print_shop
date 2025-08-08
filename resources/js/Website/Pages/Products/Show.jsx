@@ -98,7 +98,7 @@ export default function ProductShow({ product_resource }) {
 
             <h1 className="text-2xl font-bold mb-4">{product.name}</h1>
 
-            <Carousel>
+            {product.images.length === 0 ? "" : <Carousel>
                 <CarouselContent>
                     {product.images.map(image => (
                         <CarouselItem>
@@ -110,7 +110,7 @@ export default function ProductShow({ product_resource }) {
                 </CarouselContent>
                 <CarouselPrevious />
                 <CarouselNext />
-            </Carousel>
+            </Carousel>}
 
             {product.description && (
                 <p className="mb-6 text-gray-600">{product.description}</p>
