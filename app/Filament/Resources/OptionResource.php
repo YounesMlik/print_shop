@@ -36,6 +36,13 @@ class OptionResource extends Resource
             TextInput::make('name')->required(),
             Textarea::make('description')->rows(3),
 
+            TextInput::make('price')
+                ->label('Price')
+                ->numeric()
+                ->step('0.01')
+                ->required()
+                ->default(0),
+
             Repeater::make('optionAttributeLinks')
                 ->relationship()
                 ->schema([
@@ -56,7 +63,6 @@ class OptionResource extends Resource
                 ->defaultItems(0)
                 ->columns(1)
                 ->label("Attributes"),
-
         ]);
     }
 
@@ -68,6 +74,7 @@ class OptionResource extends Resource
             ->columns([
                 TextColumn::make('name')->searchable()->sortable(),
                 TextColumn::make('product.name')->label('Product')->sortable(),
+                TextColumn::make('price')->label('Price')->money('mad')->sortable(),
                 TextColumn::make('description')->limit(50)->wrap(),
                 TextColumn::make('optionAttributes.name')
                     ->label('Attributes')
