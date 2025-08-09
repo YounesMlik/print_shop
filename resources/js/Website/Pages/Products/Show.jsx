@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/carousel"
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { sendWhatsappMessage } from "@/components/helpers";
+import { Badge } from "@/components/ui/badge";
 
 export default function ProductShow({ product_resource }) {
     const product = product_resource.data;
@@ -111,6 +112,12 @@ export default function ProductShow({ product_resource }) {
                     <CarouselNext />
                 </Carousel>
             }
+
+            <div className="flex flex-wrap gap-1">
+                {product.tags.map(tag =>
+                    <Badge>{tag.name}</Badge>
+                )}
+            </div>
 
             {product.description && (
                 <p className="mb-6 text-gray-600">{product.description}</p>
