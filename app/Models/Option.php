@@ -21,6 +21,7 @@ class Option extends Model
         return $this->belongsToMany(OptionAttribute::class)
             ->using(OptionOptionAttribute::class)
             ->withPivot('description')
+            ->withPivot('value')
             ->withTimestamps();
     }
 
