@@ -33,20 +33,14 @@ export default function ProductShow({ product_resource }) {
     const product = product_resource.data;
 
     const [selectedOption, setSelectedOption] = React.useState(null);
+    const [message, setMessage] = React.useState("");
 
-    // console.log(product);
+    // console.log(message);
 
-    const buildWhatsAppLink = () => {
-        let message = `Product name: ${product.name}\n`;
-        console.log(selectedOption);
-
-        message += `Option name: ${selectedOption.name}\n`;
-        message += `Option Attributes:\n`;
-        selectedOption.option_attributes.forEach((attribute) => {
-            message += `    ${attribute.name}: ${attribute.value}\n`;
-        });
-        sendWhatsappMessage(message);
-    };
+    function optionSelectedHandler(option) {
+        setSelectedOption(option);
+        setMessage(buildWhatsAppMessage(product, option))
+    }
 
     return (
         <div className="container mx-auto p-4 max-w-xl grid gap-4">
@@ -115,15 +109,26 @@ export default function ProductShow({ product_resource }) {
                 <p className="mb-6 text-gray-600">{product.description}</p>
             )}
 
-            <VariantPicker options={product.options} onChange={setSelectedOption} />
+            <VariantPicker options={product.options} onChange={optionSelectedHandler} />
 
             <Button
                 className="mt-6 w-full"
                 disabled={selectedOption === null}
-                onClick={() => buildWhatsAppLink()}
+                onClick={() => sendWhatsappMessage(message)}
             >
                 Order via WhatsApp
             </Button>
         </div>
     );
 }
+
+
+function buildWhatsAppMessage(product, option) {
+    let message = `Product name: ${product.name}\n`;
+    message += `Option name: ${option.name}\n`;
+    message += `Option Attributes:\n`;
+    option.option_attributes.forEach((attribute) => {
+        message += `    ${attribute.name}: ${attribute.value}\n`;
+    });
+    return message;
+};
