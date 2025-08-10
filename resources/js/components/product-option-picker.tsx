@@ -84,56 +84,63 @@ export default function VariantPicker({
 
   return (
     <Card className={["p-3", className].filter(Boolean).join(" ")}>
-      <CardHeader className="p-0 pb-2">
-        <div className="text-sm text-muted-foreground">{label}</div>
-      </CardHeader>
+      {options.length === 0 ?
+        <p className="text-sm text-muted-foreground">No options available</p>
+        :
+        <>
 
-      <CardContent className="p-0">
-        <RadioGroup
-          value={selectedId?.toString() ?? ""}
-          onValueChange={handleChange}
-          className="grid gap-2"
-        >
-          {options.map((o) => {
-            const selected = o.id === selectedId;
-            return (
-              <label
-                key={o.id}
-                htmlFor={`opt-${o.id}`}
-                className={[
-                  "flex items-center justify-between rounded-2xl border p-3 cursor-pointer transition",
-                  selected
-                    ? "border-primary ring-2 ring-primary/20"
-                    : "hover:bg-muted/40",
-                ].join(" ")}
-              >
-                <div className="flex items-center gap-3">
-                  <RadioGroupItem id={`opt-${o.id}`} value={o.id.toString()} />
-                  <div>
-                    <div className="font-medium">{displayName(o)}</div>
+          <CardHeader className="p-0 pb-2">
+            <div className="text-sm text-muted-foreground">{label}</div>
+          </CardHeader>
 
-                    {o.option_attributes?.length ? (
-                      <div className="mt-1 flex flex-wrap gap-1">
-                        {o.option_attributes.map((a) => (
-                          <Badge variant="secondary" key={a.id}>
-                            {a.name}: {a.value}
-                          </Badge>
-                        ))}
+          <CardContent className="p-0">
+            <RadioGroup
+              value={selectedId?.toString() ?? ""}
+              onValueChange={handleChange}
+              className="grid gap-2"
+            >
+              {options.map((o) => {
+                const selected = o.id === selectedId;
+                return (
+                  <label
+                    key={o.id}
+                    htmlFor={`opt-${o.id}`}
+                    className={[
+                      "flex items-center justify-between rounded-2xl border p-3 cursor-pointer transition",
+                      selected
+                        ? "border-primary ring-2 ring-primary/20"
+                        : "hover:bg-muted/40",
+                    ].join(" ")}
+                  >
+                    <div className="flex items-center gap-3">
+                      <RadioGroupItem id={`opt-${o.id}`} value={o.id.toString()} />
+                      <div>
+                        <div className="font-medium">{displayName(o)}</div>
+
+                        {o.option_attributes?.length ? (
+                          <div className="mt-1 flex flex-wrap gap-1">
+                            {o.option_attributes.map((a) => (
+                              <Badge variant="secondary" key={a.id}>
+                                {a.name}: {a.value}
+                              </Badge>
+                            ))}
+                          </div>
+                        ) : null}
                       </div>
-                    ) : null}
-                  </div>
-                </div>
+                    </div>
 
-                {o.price != null
-                  // && String(o.price) !== "0.00"
-                  ? (
-                    <div className="text-sm">{asCurrency(o.price)}</div>
-                  ) : null}
-              </label>
-            );
-          })}
-        </RadioGroup>
-      </CardContent>
+                    {o.price != null
+                      // && String(o.price) !== "0.00"
+                      ? (
+                        <div className="text-sm">{asCurrency(o.price)}</div>
+                      ) : null}
+                  </label>
+                );
+              })}
+            </RadioGroup>
+          </CardContent>
+        </>
+      }
     </Card>
   );
 }
