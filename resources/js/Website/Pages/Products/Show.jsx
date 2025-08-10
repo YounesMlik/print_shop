@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 import { Button } from "@/components/ui/button";
 import {
     Select,
@@ -27,36 +27,23 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { sendWhatsappMessage } from "@/components/helpers";
 import { Badge } from "@/components/ui/badge";
 
+import VariantPicker from "@/components/product-option-picker";
+
 export default function ProductShow({ product_resource }) {
     const product = product_resource.data;
+
+    const [selectedOption, setSelectedOption] = React.useState(null);
+
     // console.log(product);
 
-
-    // Debug: make sure product structure is correct
-    if (!product || !product.options) {
-        return (
-            <div className="p-4 text-red-600">
-                Product data is missing or incomplete.
-            </div>
-        );
-    }
-
-    const [selectedOptions, setSelectedOptions] = useState(
-        Object.fromEntries(product.options.map((option) => [option.id, ""]))
-    );
-
-    const handleOptionChange = (optionId, value) => {
-        setSelectedOptions((prev) => ({
-            ...prev,
-            [optionId]: value,
-        }));
-    };
-
     const buildWhatsAppLink = () => {
-        let message = `Order for: ${product.name}\n`;
-        product.options.forEach((option) => {
-            const selectedValue = selectedOptions[option.id] || "Not selected";
-            message += `${option.name}: ${selectedValue}\n`;
+        let message = `Product name: ${product.name}\n`;
+        console.log(selectedOption);
+
+        message += `Option name: ${selectedOption.name}\n`;
+        message += `Option Attributes:\n`;
+        selectedOption.option_attributes.forEach((attribute) => {
+            message += `    ${attribute.name}: ${attribute.value}\n`;
         });
         sendWhatsappMessage(message);
     };
@@ -128,46 +115,7 @@ export default function ProductShow({ product_resource }) {
                 <p className="mb-6 text-gray-600">{product.description}</p>
             )}
 
-            {product.options.length > 0 ? (
-                product.options.map((option) => (
-                    <div key={option.id} className="mb-4">
-                        <label className="block mb-1 font-medium">
-                            {option.name}
-                        </label>
-
-                        {option.optionAttributes?.length ? (
-                            <Select
-                                value={selectedOptions[option.id]}
-                                onValueChange={(val) =>
-                                    handleOptionChange(option.id, val)
-                                }
-                            >
-                                <SelectTrigger className="w-full">
-                                    <SelectValue
-                                        placeholder={`Select ${option.name}`}
-                                    />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    {option.optionAttributes.map((attr) => (
-                                        <SelectItem
-                                            key={attr.id}
-                                            value={attr.name}
-                                        >
-                                            {attr.name}
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
-                        ) : (
-                            <div className="text-sm text-gray-500 italic">
-                                No options available
-                            </div>
-                        )}
-                    </div>
-                ))
-            ) : (
-                <p className="text-gray-500">No configurable options.</p>
-            )}
+            <VariantPicker options={product.options} value={selectedOption?.id} onChange={setSelectedOption} />
 
             <Button
                 className="mt-6 w-full"
