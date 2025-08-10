@@ -115,10 +115,11 @@ export default function ProductShow({ product_resource }) {
                 <p className="mb-6 text-gray-600">{product.description}</p>
             )}
 
-            <VariantPicker options={product.options} value={selectedOption?.id} onChange={setSelectedOption} />
+            <VariantPicker options={product.options} onChange={setSelectedOption} />
 
             <Button
                 className="mt-6 w-full"
+                disabled={selectedOption === null}
                 onClick={() => buildWhatsAppLink()}
             >
                 Order via WhatsApp
