@@ -115,7 +115,11 @@ export default function ProductShow({ product_resource }) {
 
             <div className="flex flex-wrap gap-1">
                 {product.tags.map(tag =>
-                    <Badge>{tag.name}</Badge>
+                    <Badge asChild>
+                        <Link href={route('products.index')} data={{ tags: [tag.id] }}>
+                            {tag.name}
+                        </Link>
+                    </Badge>
                 )}
             </div>
 
