@@ -10,7 +10,7 @@ class OptionAttribute extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'description'];
-    protected $appends = ['effective_description'];
+    protected $appends = ['effective_description', 'value'];
 
     public function options()
     {
@@ -24,6 +24,11 @@ class OptionAttribute extends Model
     {
         // If it's loaded via an Option (many-to-many), use pivot description if set
         return $this->pivot->description ?? $this->description;
+    }
+
+    public function getValueAttribute()
+    {
+        return $this->pivot?->value;
     }
 
 }
