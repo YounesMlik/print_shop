@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,15 +21,19 @@ class OptionAttribute extends Model
             ->withTimestamps();
     }
 
-    public function getEffectiveDescriptionAttribute(): ?string
+    public function effectiveDescription(): Attribute
     {
         // If it's loaded via an Option (many-to-many), use pivot description if set
-        return $this->pivot->description ?? $this->description;
+        return Attribute::make(
+            get: fn($v) => $this->pivot->description ?? $this->description
+        );
     }
 
-    public function getValueAttribute()
+    protected function value(): Attribute
     {
-        return $this->pivot?->value;
+        return Attribute::make(
+            get: fn($v) => $this->pivot?->value
+        );
     }
 
 }
