@@ -121,7 +121,8 @@ export default function VariantPicker({
                           <div className="mt-1 flex flex-wrap gap-1">
                             {o.option_attributes.map((a) => (
                               <Badge variant="secondary" key={a.id}>
-                                {a.name}: {a.value}
+                                <span className="text-muted-foreground">{a.name}:</span>
+                                {a.value}
                               </Badge>
                             ))}
                           </div>
