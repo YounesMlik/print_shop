@@ -100,8 +100,8 @@ export default function ProductShow({ product_resource }) {
             {product.images.length === 0 ? "" :
                 <Carousel>
                     <CarouselContent>
-                        {product.images.map(image => (
-                            <CarouselItem>
+                        {product.images.map((image, key) => (
+                            <CarouselItem key={key}>
                                 <AspectRatio ratio={16 / 9}>
                                     <img src={image.url} alt="product image" className="rounded-md w-full h-full object-contain" />
                                 </AspectRatio>
@@ -115,7 +115,7 @@ export default function ProductShow({ product_resource }) {
 
             <div className="flex flex-wrap gap-1">
                 {product.tags.map(tag =>
-                    <Badge asChild>
+                    <Badge asChild key={tag.id}>
                         <Link href={route('products.index')} data={{ tags: [tag.id] }}>
                             {tag.name}
                         </Link>
