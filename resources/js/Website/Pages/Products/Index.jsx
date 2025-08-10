@@ -66,7 +66,9 @@ export default function ProductsIndex({ products_collection, availableTags, filt
 
   return (
     <>
-      <Head title="Products" />
+      {category_filtering_level !== 0 ? "" : <Head title="Products" />}
+      {category_filtering_level !== 1 ? "" : <Head title={filters.super_category.name} />}
+      {category_filtering_level !== 2 ? "" : <Head title={filters.category.name} />}
 
       <section className="grid gap-6">
 
