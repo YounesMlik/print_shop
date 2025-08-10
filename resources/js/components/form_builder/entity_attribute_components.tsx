@@ -12,6 +12,14 @@ export function TextFieldAttributes() {
     );
 }
 
+export function TextAreaFieldAttributes() {
+    return (
+        <div className="grid gap-4">
+            <LabelAttribute />
+        </div>
+    );
+}
+
 export function SelectFieldAttributes() {
     return (
         <div className="grid gap-4">
@@ -41,6 +49,7 @@ export function RadioFieldAttributes() {
 
 const entity_attribute_components = {
     textField: TextFieldAttributes,
+    textAreaField: TextAreaFieldAttributes,
     selectField: SelectFieldAttributes,
     checkboxesField: CheckboxesFieldAttributes,
     radioField: RadioFieldAttributes,

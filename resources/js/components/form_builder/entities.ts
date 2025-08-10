@@ -10,6 +10,14 @@ export const textFieldEntity = createEntity({
     },
 });
 
+export const textAreaFieldEntity = createEntity({
+    name: "textAreaField",
+    attributes: [labelAttribute],
+    validate(value) {
+        return z.string().optional().parse(value);
+    },
+});
+
 export const selectFieldEntity = createEntity({
     name: "selectField",
     attributes: [labelAttribute, optionsAttribute],
@@ -36,3 +44,14 @@ export const radioFieldEntity = createEntity({
         return z.string().optional().parse(value);
     },
 });
+
+
+
+const entities = [
+    textFieldEntity,
+    textAreaFieldEntity,
+    selectFieldEntity,
+    checkboxesFieldEntity,
+    radioFieldEntity,
+];
+export default entities;

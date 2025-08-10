@@ -104,6 +104,17 @@ export default function FormBuilderPage() {
                     type="button"
                     onClick={() =>
                         builderStore.addEntity({
+                            type: "textAreaField",
+                            attributes: { label: "Text Area Field" },
+                        })
+                    }
+                >
+                    Add Text Area Field
+                </Button>
+                <Button
+                    type="button"
+                    onClick={() =>
+                        builderStore.addEntity({
                             type: "selectField",
                             attributes: {
                                 label: "Select Field",
