@@ -8,7 +8,7 @@ export default function CustomOrderIndex() {
   return (
     <>
       <Head title="Custom Order" />
-      <p className='text-2xl font-extrabold pb-2'>Custom Order</p>
+      <p className='text-5xl font-extrabold pb-6'>Custom Order</p>
       <FormInterpreter schema={usePage().props.schema} />
     </>
   )
