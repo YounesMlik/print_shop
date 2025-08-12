@@ -11,7 +11,8 @@ Route::redirect('/', '/products');
 Route::resource('/products', ProductController::class)
     ->only(["index", "show"]);
 
-Route::get('/custom_order', [FormSchemaController::class, 'index']);
+Route::get('/custom_order', [FormSchemaController::class, 'index'])
+    ->name('custom_order.index');
 
 Route::middleware([FilamentAuthenticate::class])
     ->group(function () {

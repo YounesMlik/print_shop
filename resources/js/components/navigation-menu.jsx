@@ -70,9 +70,9 @@ export function MainNav() {
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                    <NavigationMenuLink href="/custom_order">
+                    <Link href={route('custom_order.index')}>
                         Custom Order
-                    </NavigationMenuLink>
+                    </Link>
                 </NavigationMenuItem>
 
             </NavigationMenuList>
