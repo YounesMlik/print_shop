@@ -26,7 +26,9 @@ export function MainNav() {
 
                 <NavigationMenuItem>
                     <NavigationMenuLink href="/">
-                        Home
+                        <Link href={route('home.index')}>
+                            Home
+                        </Link>
                     </NavigationMenuLink>
                 </NavigationMenuItem>
 
