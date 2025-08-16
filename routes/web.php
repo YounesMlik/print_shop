@@ -6,7 +6,9 @@ use Inertia\Inertia;
 use Filament\Http\Middleware\Authenticate as FilamentAuthenticate;
 
 
-Route::redirect('/', '/products');
+Route::get("/", function () {
+    return Inertia::render("Home/Index");
+})->name('home.index');
 
 Route::resource('/products', ProductController::class)
     ->only(["index", "show"]);
