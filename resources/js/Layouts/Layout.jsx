@@ -24,14 +24,14 @@ export default function Layout({ children }) {
                                 <div className="grid h-8 w-8 place-content-center rounded-xl bg-primary/10">
                                     <Sparkles className="h-4 w-4 text-primary" />
                                 </div>
-                                <span className="font-semibold tracking-tight">Print Shop</span>
+                                <span className="font-semibold tracking-tight">{import.meta.env.VITE_APP_NAME}</span>
                             </a>
                             <nav className="flex items-center gap-4">
                                 <a href="#" className="hover:text-foreground">About</a>
                                 <a href="#" className="hover:text-foreground">Contact</a>
                                 <a href="#" className="hover:text-foreground">Privacy</a>
                             </nav>
-                            {/* <p className="text-xs">© {new Date().getFullYear()} Print Shop</p> */}
+                            {/* <p className="text-xs">© {new Date().getFullYear()} {import.meta.env.VITE_APP_NAME}</p> */}
                         </div>
                     </div>
                 </footer>

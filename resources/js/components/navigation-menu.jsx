@@ -28,7 +28,7 @@ export function MainNav() {
                     <div className="grid place-content-center h-9 w-9 rounded-2xl bg-primary/10">
                         <Sparkles className="h-5 w-5 text-primary" />
                     </div>
-                    <span className="font-semibold tracking-tight">Print Shop</span>
+                    <span className="font-semibold tracking-tight">{import.meta.env.VITE_APP_NAME}</span>
                 </Link>
 
                 <NavigationMenu delayDuration={0}>
