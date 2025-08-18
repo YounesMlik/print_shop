@@ -1,6 +1,4 @@
-import React from 'react'
 import { Head, usePage } from '@inertiajs/react'
-import FormBuilderPage from '@/components/form_builder/builder_renderer'
 import { FormInterpreter } from '@/components/form_builder/form_interpreter'
 
 export default function CustomOrderIndex() {

@@ -1,23 +1,8 @@
-import React from "react";
 import { Head, Link } from "@inertiajs/react";
 import {
   Button,
 } from "@/components/ui/button";
 import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import {
-  Sparkles,
-  LayoutGrid,
-  ShieldCheck,
-  Bolt,
-  Paintbrush,
-  Settings,
-  Leaf,
   ArrowRight,
 } from "lucide-react";
 

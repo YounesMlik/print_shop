@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Head, Link, router } from '@inertiajs/react'
 import AsyncSelect from 'react-select/async'
 

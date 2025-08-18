@@ -1,4 +1,3 @@
-import * as React from "react"
 import {
     NavigationMenu,
     NavigationMenuContent,
@@ -13,8 +12,6 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from '@/components/ui/accordion'
-import { NavigationMenuSub } from "@radix-ui/react-navigation-menu"
-import { cn } from "@/lib/utils"
 import { Link, usePage } from "@inertiajs/react"
 import { Sparkles } from "lucide-react"
 
