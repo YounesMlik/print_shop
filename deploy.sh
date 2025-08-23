@@ -31,6 +31,8 @@ if [ "$APP_ENV" = "local" ]; then
     wait_for_service webserver
     wait_for_postgres
     wait_for_service php-fpm
+    php_fpm php artisan migrate --seed
+    php_fpm php artisan db:seed LocalSeeder
     php_fpm php artisan queue:work &
     php_fpm npm run dev &
     wait
@@ -43,6 +45,7 @@ elif [ "$APP_ENV" = "production" ]; then
     wait_for_service webserver
     wait_for_postgres
     wait_for_service php-fpm
+    php_fpm php artisan migrate --seed
     php_fpm php artisan queue:work &
     php_fpm npm run build &
     wait
