@@ -28,9 +28,9 @@ if [ "$APP_ENV" = "local" ]; then
     echo "deploying local"
     docker compose up -d
     wait_for_service postgres
-    wait_for_service php-fpm
     wait_for_service webserver
     wait_for_postgres
+    wait_for_service php-fpm
     php_fpm php artisan queue:work &
     php_fpm npm run dev &
     wait
@@ -40,9 +40,9 @@ elif [ "$APP_ENV" = "production" ]; then
     echo "deploying production"
     docker compose up -d
     wait_for_service postgres
-    wait_for_service php-fpm
     wait_for_service webserver
     wait_for_postgres
+    wait_for_service php-fpm
     php_fpm php artisan queue:work &
     php_fpm npm run build &
     wait
