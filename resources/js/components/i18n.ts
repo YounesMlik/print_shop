@@ -1,41 +1,45 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import ICU from "i18next-icu";
-import LanguageDetector from "i18next-browser-languagedetector";
 import HttpBackend from "i18next-http-backend";
 
-// Optional: polyfills first if you installed them
-// import "intl-pluralrules";
-// import "@formatjs/intl-relativetimeformat/polyfill";
+type I18nProps = {
+    i18n: {
+        locale: string;
+        isRtl: boolean;
+        available: string[];
+        fallback: string;
+        assetsBase: string;
+        assetsVersion?: string | null;
+        defaultNS: string;
+        namespaces: string[];
+    };
+};
 
-export function setupI18n(initialLng: string) {
+export function setupI18n(i18nProps: I18nProps['i18n']) {
+    const { locale, available, fallback, assetsBase, assetsVersion, defaultNS, namespaces } = i18nProps;
+
     if (i18n.isInitialized) {
-        if (initialLng && i18n.language !== initialLng) i18n.changeLanguage(initialLng);
+        if (locale && i18n.language !== locale) i18n.changeLanguage(locale);
         return i18n;
     }
 
+    const v = assetsVersion ? `?v=${assetsVersion}` : "";
+
     i18n
         .use(HttpBackend)
-        .use(LanguageDetector)
-        .use(ICU)                 // enables ICU syntax if you want it
+        .use(ICU)
         .use(initReactI18next)
         .init({
-            lng: initialLng,        // from server to avoid a flash
-            fallbackLng: "en",
-            supportedLngs: ["en", "ar"],
-            ns: ["common"],
-            defaultNS: "common",
+            lng: locale,
+            fallbackLng: fallback,
+            supportedLngs: available,
+            ns: namespaces,
+            defaultNS,
             load: "languageOnly",
             interpolation: { escapeValue: false },
-            backend: {
-                loadPath: "/locales/{{lng}}/{{ns}}.json"
-            },
-            detection: {
-                // we still prefer the server-provided initialLng
-                order: ["htmlTag", "cookie", "localStorage", "navigator"],
-                caches: ["cookie", "localStorage"]
-            },
-            react: { useSuspense: true }
+            backend: { loadPath: `${assetsBase}/{{lng}}/{{ns}}.json${v}` },
+            react: { useSuspense: true },
         });
 
     return i18n;

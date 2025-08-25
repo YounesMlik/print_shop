@@ -27,15 +27,11 @@ createInertiaApp({
 
 
 function Root({ App, props }: any) {
-  const { locale, rtl } = props.initialPage.props as { locale: string; rtl: boolean };
+  const { i18n } = props.initialPage.props;
+  setupI18n(i18n);
 
-  // initialize i18next once with server locale
-  setupI18n(locale);
-
-  useEffect(() => {
-    document.documentElement.lang = locale;
-    document.documentElement.dir = rtl ? "rtl" : "ltr";
-  }, [locale, rtl]);
+  document.documentElement.lang = i18n.locale;
+  document.documentElement.dir = i18n.isRtl ? "rtl" : "ltr";
 
   return (
     <StrictMode>

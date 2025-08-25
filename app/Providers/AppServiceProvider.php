@@ -25,13 +25,24 @@ class AppServiceProvider extends ServiceProvider
         Inertia::share('navigation.superCategories', function () {
             return SuperCategory::with('children:id,name,super_category_id')->get(['id', 'name']);
         });
-        Inertia::share(
-            'locale',
-            fn() => app()->getLocale()
-        );
-        Inertia::share(
-            'rtl',
-            fn() => in_array(app()->getLocale(), config('locales.rtl'), true)
-        );
+
+        Inertia::share('i18n', function () {
+            $cfg = config('locales');
+            $locale = app()->getLocale();
+
+            return [
+                'locale' => $locale,
+                'isRtl' => in_array($locale, $cfg['rtl'], true),
+                'available' => $cfg['available'],
+                'fallback' => $cfg['fallback'],
+                'rtlLocales' => $cfg['rtl'],
+
+                // client fetch config (optional but handy)
+                'assetsBase' => asset('locales'),
+                'assetsVersion' => config('app.asset_version') ?? null, // or filemtime on a version file
+                'defaultNS' => 'common',
+                'namespaces' => ['common'],
+            ];
+        });
     }
 }
