@@ -1,3 +1,4 @@
+import { LanguageSwitcher } from '@/components/language-switcher'
 import { MainNav } from '@/components/navigation-menu'
 import { Sparkles } from 'lucide-react'
 
@@ -21,14 +22,12 @@ export default function Layout({ children }) {
                     <div className="container mx-auto px-4">
                         <div className="flex flex-col items-center justify-between gap-4 text-sm text-muted-foreground md:flex-row">
                             <a href="#" className="inline-flex items-center gap-2 text-foreground">
-                                
-                    <img src="/img/under_print_icon.svg" className="h-8 w-8 rounded-2xl bg-primary/10" />
+
+                                <img src="/img/under_print_icon.svg" className="h-8 w-8 rounded-2xl bg-primary/10" />
                                 <span className="font-semibold tracking-tight">{import.meta.env.VITE_APP_NAME}</span>
                             </a>
                             <nav className="flex items-center gap-4">
-                                <a href="#" className="hover:text-foreground">About</a>
-                                <a href="#" className="hover:text-foreground">Contact</a>
-                                <a href="#" className="hover:text-foreground">Privacy</a>
+                                <LanguageSwitcher />
                             </nav>
                             {/* <p className="text-xs">© {new Date().getFullYear()} {import.meta.env.VITE_APP_NAME}</p> */}
                         </div>
