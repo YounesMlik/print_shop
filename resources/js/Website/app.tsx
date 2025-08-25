@@ -1,11 +1,12 @@
-import React from 'react';
+import * as React from 'react';
 import { createRoot } from 'react-dom/client';
 import { createInertiaApp } from '@inertiajs/react';
-import { ThemeProvider } from "@/components/theme-provider.tsx";
+import { ThemeProvider } from "@/components/theme-provider";
 import Layout from '@/Layouts/Layout';
 
 createInertiaApp({
   resolve: name => {
+    // @ts-ignore
     const pages = import.meta.glob('./Pages/*/*.jsx', { eager: true });
     const page = pages[`./Pages/${name}.jsx`];
 
