@@ -23,7 +23,7 @@ export function setupI18n(initialLng: string) {
             lng: initialLng,        // from server to avoid a flash
             fallbackLng: "en",
             supportedLngs: ["en", "ar"],
-            ns: ["common", "nav"],
+            ns: ["common"],
             defaultNS: "common",
             load: "languageOnly",
             interpolation: { escapeValue: false },
