@@ -6,6 +6,11 @@ use Inertia\Inertia;
 use Filament\Http\Middleware\Authenticate as FilamentAuthenticate;
 
 
+Route::get('/locale/{locale}', function (string $locale) {
+    session(['locale' => $locale]);
+    return back();
+})->name('locale.switch');
+
 Route::get("/", function () {
     return Inertia::render("Home/Index");
 })->name('home.index');
