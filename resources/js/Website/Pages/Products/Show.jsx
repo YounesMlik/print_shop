@@ -21,8 +21,10 @@ import { sendWhatsappMessage } from "@/components/helpers";
 import { Badge } from "@/components/ui/badge";
 
 import VariantPicker from "@/components/product-option-picker";
+import { useTranslation } from "react-i18next";
 
 export default function ProductShow({ product_resource }) {
+    const { t } = useTranslation();
     const product = product_resource.data;
 
     const [selectedOption, setSelectedOption] = React.useState(null);
@@ -43,7 +45,7 @@ export default function ProductShow({ product_resource }) {
                     <BreadcrumbItem>
                         <BreadcrumbLink asChild>
                             <Link href={route('products.index')} >
-                                Products
+                                {t("products")}
                             </Link>
                         </BreadcrumbLink>
                     </BreadcrumbItem>
@@ -109,7 +111,7 @@ export default function ProductShow({ product_resource }) {
                 disabled={selectedOption === null}
                 onClick={() => sendWhatsappMessage(message)}
             >
-                Order via WhatsApp
+                {t("order_via_whatsapp")}
             </Button>
         </div>
     );

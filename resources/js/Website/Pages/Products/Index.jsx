@@ -17,8 +17,10 @@ import {
 } from "@/components/ui/breadcrumb";
 import { Button } from '@/components/ui/button'
 import { AspectRatio } from '@/components/ui/aspect-ratio'
+import { useTranslation } from 'react-i18next'
 
 export default function ProductsIndex({ products_collection, availableTags, filters, category_filtering_level }) {
+  const { t } = useTranslation();
   const nav_data = products_collection.meta
   const products = products_collection.data
 
@@ -66,7 +68,7 @@ export default function ProductsIndex({ products_collection, availableTags, filt
 
   return (
     <>
-      {category_filtering_level !== 0 ? "" : <Head title="Products" />}
+      {category_filtering_level !== 0 ? "" : <Head title={t("products")} />}
       {category_filtering_level !== 1 ? "" : <Head title={filters.super_category.name} />}
       {category_filtering_level !== 2 ? "" : <Head title={filters.category.name} />}
 
@@ -77,12 +79,12 @@ export default function ProductsIndex({ products_collection, availableTags, filt
             <BreadcrumbItem>
               {category_filtering_level === 0 ?
                 <BreadcrumbPage>
-                  Products
+                  {t("products")}
                 </BreadcrumbPage>
                 :
                 <BreadcrumbLink asChild>
                   <Link href={route('products.index')} >
-                    Products
+                    {t("products")}
                   </Link>
                 </BreadcrumbLink>
               }

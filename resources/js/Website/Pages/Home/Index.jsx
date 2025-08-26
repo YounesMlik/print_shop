@@ -1,4 +1,5 @@
-import { Head, Link } from "@inertiajs/react";
+import { useTranslation } from "react-i18next";
+import { Head, Link, usePage } from "@inertiajs/react";
 import {
   Button,
 } from "@/components/ui/button";
@@ -18,9 +19,10 @@ import {
 
 
 export default function HomePage() {
+  const { t } = useTranslation();
   return (
     <>
-      <Head title="Welcome" />
+      <Head title="Under Print" />
 
       {/* Hero */}
       <section className="relative">
@@ -28,23 +30,23 @@ export default function HomePage() {
           <div className="mx-auto max-w-4xl py-20 text-center md:py-28">
 
             <h1 className="mt-6 text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl">
-              Printing Shop
+              Under Print
             </h1>
 
             <p className="mt-5 text-lg text-muted-foreground sm:text-xl">
-              Buy a product or custom order
+              {t("hero.headline")}
             </p>
 
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row" >
               <Button size="lg" className="h-11 px-6" asChild>
                 <Link href={route('products.index')}>
-                  Products
+                  {t("products")}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
               <Button size="lg" variant="outline" className="h-11 px-6" asChild>
                 <Link href={route('custom_order.index')}>
-                  Custom Order
+                  {t("custom_order")}
                 </Link>
               </Button>
             </div>

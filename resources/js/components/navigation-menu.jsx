@@ -14,8 +14,10 @@ import {
 } from '@/components/ui/accordion'
 import { Link, usePage } from "@inertiajs/react"
 import { Sparkles } from "lucide-react"
+import { useTranslation } from "react-i18next";
 
 export function MainNav() {
+    const { t } = useTranslation();
     const superCategories = usePage().props.navigation?.superCategories || []
 
     return (
@@ -32,7 +34,7 @@ export function MainNav() {
                             <NavigationMenuTrigger className="bg-transparent">
                                 <NavigationMenuLink asChild>
                                     <Link href={route('products.index')}>
-                                        Products
+                                        {t("products")}
                                     </Link>
                                 </NavigationMenuLink>
                             </NavigationMenuTrigger>
@@ -70,7 +72,7 @@ export function MainNav() {
                         <NavigationMenuItem>
                             <NavigationMenuLink asChild>
                                 <Link href={route('custom_order.index')} className="text-sm">
-                                    Custom Order
+                                    {t("custom_order")}
                                 </Link>
                             </NavigationMenuLink>
                         </NavigationMenuItem>
