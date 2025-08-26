@@ -5,56 +5,84 @@ import { Input } from "@/components/ui/input";
 import { tryCatchZod, useLocalAttribute } from "@/components/helpers";
 import { Button } from "@/components/ui/button";
 import * as React from "react";
+import i18next from "i18next";
 
 export const LabelAttribute = createAttributeComponent(
   labelAttribute,
   (props) => {
-    const id = `${props.entity.id}-${props.attribute.name}`;
+    const baseId = `${props.entity.id}-${props.attribute.name}`;
+    
+    // Support legacy string by wrapping into { [activeLocale]: value }
+    const toRecord = (v: unknown): Record<string, string> => {
+      if (typeof v === "string") return { [i18next.language || "en"]: v };
+      return (v as Record<string, string>) ?? {};
+    };
 
-    // adapter to your existing zod-based validator
+    const initialRecord = React.useMemo(
+      () => toRecord(props.attribute.value),
+      [props.attribute.value]
+    );
+
+    // Locales = union(i18next.languages, existing keys)
+    const locales = React.useMemo(() => {
+      const fromI18n = Array.isArray(i18next.languages) ? i18next.languages : [];
+      const fromValue = Object.keys(initialRecord);
+      const uniq = Array.from(new Set([...fromI18n, ...fromValue])).filter(Boolean);
+      return uniq.length ? uniq : ["en"];
+    }, [initialRecord]);
+
     const validate = React.useCallback(
-      (val: string) => tryCatchZod(() => labelAttribute.validate(val, {} as any)),
+      (val: Record<string, string>) =>
+        tryCatchZod(() => labelAttribute.validate(val as any, {} as any)),
       []
     );
 
-    const {
-      local,
-      setLocal,
-      errors,
-      valid,
-      dirty,
-      saving,
-      save,
-      reset,
-    } = useLocalAttribute<string>({
-      value: props.attribute.value ?? "",
-      validate,
-      onCommit: props.setValue,
-    });
+    const { local, setLocal, errors, valid, dirty, saving, save, reset } =
+      useLocalAttribute<Record<string, string>>({
+        value: locales.reduce<Record<string, string>>((acc, l) => {
+          acc[l] = initialRecord[l] ?? "";
+          return acc;
+        }, {}),
+        validate,
+        onCommit: props.setValue,
+      });
 
-    const onSubmit = React.useCallback(async (e: React.FormEvent) => {
-      e.preventDefault();
-      await save();
-    }, [save]);
+    const onSubmit = React.useCallback(
+      async (e: React.FormEvent) => {
+        e.preventDefault();
+        await save();
+      },
+      [save]
+    );
 
     return (
       <form className="grid gap-3" onSubmit={onSubmit}>
-        <Label htmlFor={id} className={!valid ? "text-destructive" : ""}>
-          Field Label
-        </Label>
+        <Label className={!valid ? "text-destructive" : ""}>Field Label</Label>
 
-        <Input
-          id={id}
-          name={id}
-          aria-invalid={!valid}
-          aria-describedby={!valid ? `${id}-errors` : undefined}
-          value={local}
-          onChange={(e) => setLocal(e.target.value)}
-          required
-        />
+        <div className="grid gap-2">
+          {locales.map((lng) => {
+            const inputId = `${baseId}-${lng}`;
+            return (
+              <div key={lng} className="grid gap-1">
+                <Label htmlFor={inputId} className="text-xs font-medium opacity-80">
+                  {lng.toUpperCase()}
+                </Label>
+                <Input
+                  id={inputId}
+                  name={inputId}
+                  value={local[lng] ?? ""}
+                  aria-invalid={!valid}
+                  onChange={(e) =>
+                    setLocal((prev) => ({ ...prev, [lng]: e.target.value }))
+                  }
+                />
+              </div>
+            );
+          })}
+        </div>
 
         {!valid && (
-          <div id={`${id}-errors`} className="space-y-1">
+          <div className="space-y-1">
             {errors.map((err, i) => (
               <p key={i} className="text-destructive text-sm">
                 {err}
@@ -73,8 +101,9 @@ export const LabelAttribute = createAttributeComponent(
         </div>
       </form>
     );
-  },
+  }
 );
+
 
 export const OptionsAttribute = createAttributeComponent(
   optionsAttribute,
