@@ -16,7 +16,6 @@ type I18nProps = {
 
 export function setupI18n(i18nProps: I18nProps) {
     const { locale, available, fallback, assetsBase, assetsVersion, defaultNS, namespaces } = i18nProps;
-    console.log(i18nProps);
 
     if (i18n.isInitialized) {
         if (locale && i18n.language !== locale) i18n.changeLanguage(locale);
