@@ -3,6 +3,7 @@ import * as React from "react";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Badge } from "@/components/ui/badge";
+import { useTranslation } from "react-i18next";
 
 type OptionAttribute = {
   id: number;
@@ -36,6 +37,8 @@ type VariantPickerProps = {
   className?: string;
   /** Optional label above the list */
   label?: string;
+  /** Optional label when no options are available */
+  no_options_available_label?: string;
 };
 
 export default function VariantPicker({
@@ -45,6 +48,7 @@ export default function VariantPicker({
   currency = "MAD",
   className,
   label = "Choose an option",
+  no_options_available_label = "No options available",
 }: VariantPickerProps) {
   const [selectedId, setSelectedId] = React.useState<number | null>(
     value ?? null
@@ -85,7 +89,7 @@ export default function VariantPicker({
   return (
     <Card className={["p-3", className].filter(Boolean).join(" ")}>
       {options.length === 0 ?
-        <p className="text-sm text-muted-foreground">No options available</p>
+        <p className="text-sm text-muted-foreground">{no_options_available_label}</p>
         :
         <>
 
