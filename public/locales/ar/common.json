@@ -1,3 +1,6 @@
 {
-    "hero.headline": "شراء منتج أو طلب مخصص"
+    "hero.headline": "شراء منتج أو طلب مخصص",
+    "products": "منتجات",
+    "custom_order": "طلب مخصص",
+    "order_via_whatsapp":"اطلب عبر الواتساب"
 }
