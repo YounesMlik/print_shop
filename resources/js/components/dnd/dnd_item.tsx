@@ -32,7 +32,7 @@ export function DndItem(props: { id: string; children: ReactNode }) {
       style={style}
       aria-describedby="dnd"
     >
-      <div className="grow py-6 pl-6">
+      <div className="grow py-6 px-6">
         {props.children}
       </div>
       <button {...listeners} {...attributes}>
