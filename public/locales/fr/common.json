@@ -4,5 +4,7 @@
     "custom_order": "Commande Personnalisée",
     "order_via_whatsapp":"Commande via WhatsApp",
     "option_picker.choose_an_option":"Choisissez une option",
-    "option_picker.no_options_available":"Aucune option disponible"
+    "option_picker.no_options_available":"Aucune option disponible",
+    "pagination.previous":"précédent",
+    "pagination.next":"suivante"
 }
