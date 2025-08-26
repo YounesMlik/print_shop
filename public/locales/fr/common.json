@@ -2,5 +2,7 @@
     "hero.headline": "Acheter un produit ou une commande personnalisée",
     "products": "Produits",
     "custom_order": "Commande Personnalisée",
-    "order_via_whatsapp":"Commande via WhatsApp"
+    "order_via_whatsapp":"Commande via WhatsApp",
+    "option_picker.choose_an_option":"Choisissez une option",
+    "option_picker.no_options_available":"Aucune option disponible"
 }

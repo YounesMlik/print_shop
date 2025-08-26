@@ -2,5 +2,7 @@
     "hero.headline": "شراء منتج أو طلب مخصص",
     "products": "منتجات",
     "custom_order": "طلب مخصص",
-    "order_via_whatsapp":"اطلب عبر الواتساب"
+    "order_via_whatsapp":"اطلب عبر الواتساب",
+    "option_picker.choose_an_option":"اختر خيارًا",
+    "option_picker.no_options_available":"لا توجد خيارات متاحة"
 }

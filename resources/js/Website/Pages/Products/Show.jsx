@@ -104,7 +104,12 @@ export default function ProductShow({ product_resource }) {
                 <p className="mb-6 text-gray-600">{product.description}</p>
             )}
 
-            <VariantPicker options={product.options} onChange={optionSelectedHandler} />
+            <VariantPicker
+                options={product.options}
+                onChange={optionSelectedHandler}
+                label={t("option_picker.choose_an_option")}
+                no_options_available_label={t("option_picker.no_options_available")}
+            />
 
             <Button
                 className="mt-6 w-full"
