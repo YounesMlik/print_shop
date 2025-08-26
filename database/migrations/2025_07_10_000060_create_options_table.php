@@ -9,8 +9,8 @@ return new class extends Migration {
         Schema::create('options', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_id')->constrained();
-            $table->string('name');
-            $table->text('description')->nullable();
+            $table->jsonb('name');
+            $table->jsonb('description')->nullable();
             $table->decimal('price', 10, 2)->default(0);
             $table->timestamps();
         });
