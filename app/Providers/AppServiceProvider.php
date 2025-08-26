@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use File;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use Inertia\Inertia;
@@ -30,6 +31,9 @@ class AppServiceProvider extends ServiceProvider
             $cfg = config('locales');
             $locale = app()->getLocale();
 
+            $vFile = storage_path('app/i18n_version');
+            $version = File::exists($vFile) ? trim(File::get($vFile)) : (string) now()->timestamp;
+
             return [
                 'locale' => $locale,
                 'isRtl' => in_array($locale, $cfg['rtl'], true),
@@ -39,7 +43,7 @@ class AppServiceProvider extends ServiceProvider
 
                 // client fetch config (optional but handy)
                 'assetsBase' => asset('locales'),
-                'assetsVersion' => config('app.asset_version') ?? null, // or filemtime on a version file
+                'assetsVersion' => $version, // or filemtime on a version file
                 'defaultNS' => 'common',
                 'namespaces' => ['common'],
             ];
