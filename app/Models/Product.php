@@ -7,13 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\Translatable\HasTranslations;
 
 class Product extends Model implements HasMedia
 {
     use HasFactory;
+    use HasTranslations;
     use InteractsWithMedia;
 
     protected $fillable = ['name', 'description', 'category_id'];
+    public array $translatable = ['name', 'description'];
 
     public function category()
     {
