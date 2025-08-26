@@ -16,6 +16,7 @@ type I18nProps = {
 
 export function setupI18n(i18nProps: I18nProps) {
     const { locale, available, fallback, assetsBase, assetsVersion, defaultNS, namespaces } = i18nProps;
+    console.log(i18nProps);
 
     if (i18n.isInitialized) {
         if (locale && i18n.language !== locale) i18n.changeLanguage(locale);
@@ -38,6 +39,7 @@ export function setupI18n(i18nProps: I18nProps) {
             interpolation: { escapeValue: false },
             backend: { loadPath: `${assetsBase}/{{lng}}/{{ns}}.json${v}` },
             react: { useSuspense: true },
+            parseMissingKeyHandler: (key) => `[MISSING:${key}]`,
         });
 
     return i18n;
