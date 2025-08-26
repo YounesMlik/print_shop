@@ -6,5 +6,8 @@
     "option_picker.choose_an_option": "اختر خيارًا",
     "option_picker.no_options_available": "لا توجد خيارات متاحة",
     "pagination.previous": "الصفحة السابقة",
-    "pagination.next": "الصفحة التالية"
+    "pagination.next": "الصفحة التالية",
+    "no_products_found": "لم يتم العثور على أي منتجات.",
+    "tags_search.label": "تصفية حسب العلامات",
+    "tags_search.placeholder": "اختر العلامات..."
 }

@@ -2,9 +2,12 @@
     "hero.headline": "Acheter un produit ou une commande personnalisée",
     "products": "Produits",
     "custom_order": "Commande Personnalisée",
-    "order_via_whatsapp":"Commande via WhatsApp",
-    "option_picker.choose_an_option":"Choisissez une option",
-    "option_picker.no_options_available":"Aucune option disponible",
-    "pagination.previous":"précédent",
-    "pagination.next":"suivante"
+    "order_via_whatsapp": "Commande via WhatsApp",
+    "option_picker.choose_an_option": "Choisissez une option",
+    "option_picker.no_options_available": "Aucune option disponible",
+    "pagination.previous": "précédent",
+    "pagination.next": "suivante",
+    "no_products_found": "Aucun produit trouvé.",
+    "tags_search.label": "Filtrer par tags",
+    "tags_search.placeholder": "Sélectionnez les balises..."
 }

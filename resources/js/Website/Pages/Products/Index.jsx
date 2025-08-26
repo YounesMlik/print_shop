@@ -153,9 +153,10 @@ export default function ProductsIndex({ products_collection, availableTags, filt
 }
 
 function FilterSection({ selectedTags, tagOptions, loadTagOptions, onChange }) {
+  const { t } = useTranslation();
   return (
     <div className="space-y-2">
-      <Label htmlFor="product-tags">Filter by tags</Label>
+      <Label htmlFor="product-tags">{t("tags_search.label")}</Label>
       <AsyncSelect
         inputId="product-tags"
         isMulti
@@ -164,7 +165,7 @@ function FilterSection({ selectedTags, tagOptions, loadTagOptions, onChange }) {
         value={selectedTags}
         loadOptions={loadTagOptions}
         onChange={onChange}
-        placeholder="Select tags..."
+        placeholder={t("tags_search.placeholder")}
         classNamePrefix="react-select"
         styles={{
           control: (base) => ({
@@ -208,7 +209,7 @@ function FilterSection({ selectedTags, tagOptions, loadTagOptions, onChange }) {
 
 function ProductList({ products }) {
   if (products.length === 0) {
-    return <p className="text-muted-foreground">No products found.</p>
+    return <p className="text-muted-foreground">{t("no_products_found")}</p>
   }
 
   return (
