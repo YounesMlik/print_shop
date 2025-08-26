@@ -14,7 +14,7 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator
-} from "@/components/ui/breadcrumb";
+} from "@/components/ui/_breadcrumb";
 import { Button } from '@/components/ui/button'
 import { AspectRatio } from '@/components/ui/aspect-ratio'
 import { useTranslation } from 'react-i18next'
