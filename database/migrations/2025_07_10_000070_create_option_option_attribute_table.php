@@ -11,7 +11,7 @@ return new class extends Migration {
             $table->foreignId('option_id')->constrained()->onDelete('cascade');
             $table->foreignId('option_attribute_id')->constrained()->onDelete('cascade');
             $table->jsonb('description')->nullable();
-            $table->text("value");
+            $table->jsonb("value");
             $table->timestamps();
         });
     }
