@@ -24,13 +24,18 @@ wait_for_postgres() {
     echo "Postgres is ready."
 }
 
-if [ "$APP_ENV" = "local" ]; then
-    echo "deploying local"
+shared_init() {
     docker compose up -d
     wait_for_service postgres
     wait_for_service webserver
     wait_for_postgres
     wait_for_service php-fpm
+    php_fpm php artisan i18n:bump
+}
+
+if [ "$APP_ENV" = "local" ]; then
+    echo "deploying local"
+    shared_init
     php_fpm php artisan migrate --seed
     php_fpm php artisan db:seed LocalSeeder
     php_fpm php artisan queue:work &
@@ -40,11 +45,7 @@ if [ "$APP_ENV" = "local" ]; then
 
 elif [ "$APP_ENV" = "production" ]; then
     echo "deploying production"
-    docker compose up -d
-    wait_for_service postgres
-    wait_for_service webserver
-    wait_for_postgres
-    wait_for_service php-fpm
+    shared_init
     php_fpm php artisan migrate --seed
     php_fpm php artisan queue:work &
     php_fpm npm run build &
