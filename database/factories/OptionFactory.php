@@ -26,13 +26,10 @@ final class OptionFactory extends Factory
     */
     public function definition(): array
     {
-        $name = fake()->unique()->words(2, true);
-        $desc = fake()->optional()->sentence();
-
         return [
             'product_id' => \App\Models\Product::factory(),
-            'name'        => ['fr' => $name, 'ar' => $name],
-            'description' => $desc ? ['fr' => $desc, 'ar' => $desc] : null,
+            'name'        => fakeLocalize(fake()->unique()->words(2, true)),
+            'description' => fakeLocalize(fake()->optional()->sentence()),
             'price'       => fake()->randomFloat(2, 10, 100),
         ];
     }

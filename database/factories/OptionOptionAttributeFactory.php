@@ -26,7 +26,6 @@ final class OptionOptionAttributeFactory extends Factory
      */
     public function definition(): array
     {
-        $desc = fake()->optional()->sentence();
         $generators = [
             fn() => fake()->word(),
             fn() => (string) fake()->numberBetween(1, 200),
@@ -39,8 +38,8 @@ final class OptionOptionAttributeFactory extends Factory
             'id' => fake()->randomNumber(),
             'option_id' => \App\Models\Option::factory(),
             'option_attribute_id' => \App\Models\OptionAttribute::factory(),
-            'description' => $desc ? ['fr' => $desc, 'ar' => $desc] : null,
-            'value' => ['fr' => $value, 'ar' => $value],
+            'description' => fakeLocalize(fake()->optional()->sentence()),
+            'value' => fakeLocalize($value),
         ];
     }
 }

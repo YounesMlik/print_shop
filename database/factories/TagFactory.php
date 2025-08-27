@@ -26,12 +26,9 @@ final class TagFactory extends Factory
     */
     public function definition(): array
     {
-        $name = fake()->unique()->words(2, true);
-        $desc = fake()->optional()->sentence();
-
         return [
-            'name'        => ['fr' => $name, 'ar' => $name],
-            'description' => $desc ? ['fr' => $desc, 'ar' => $desc] : null,
+            'name'        => fakeLocalize(fake()->unique()->words(2, true)),
+            'description' => fakeLocalize(fake()->optional()->sentence()),
         ];
     }
 }
