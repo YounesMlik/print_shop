@@ -33,6 +33,7 @@ final class OptionFactory extends Factory
             'product_id' => \App\Models\Product::factory(),
             'name'        => ['fr' => $name, 'ar' => $name],
             'description' => $desc ? ['fr' => $desc, 'ar' => $desc] : null,
+            'price'       => fake()->randomFloat(2, 10, 100),
         ];
     }
 }
