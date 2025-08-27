@@ -26,10 +26,13 @@ final class ProductFactory extends Factory
     */
     public function definition(): array
     {
+        $name = fake()->unique()->words(2, true);
+        $desc = fake()->optional()->sentence();
+
         return [
             'category_id' => \App\Models\Category::factory(),
-            'name' => fake()->name,
-            'description' => fake()->optional()->text,
+            'name'        => ['fr' => $name, 'ar' => $name],
+            'description' => $desc ? ['fr' => $desc, 'ar' => $desc] : null,
         ];
     }
 }

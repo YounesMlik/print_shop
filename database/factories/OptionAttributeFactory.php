@@ -26,9 +26,12 @@ final class OptionAttributeFactory extends Factory
     */
     public function definition(): array
     {
+        $name = fake()->unique()->words(2, true);
+        $desc = fake()->optional()->sentence();
+
         return [
-            'name' => fake()->name,
-            'description' => fake()->optional()->text,
+            'name'        => ['fr' => $name, 'ar' => $name],
+            'description' => $desc ? ['fr' => $desc, 'ar' => $desc] : null,
         ];
     }
 }
