@@ -28,3 +28,8 @@ Route::middleware([FilamentAuthenticate::class])
             ->get('/admin/form-builder', [FormSchemaController::class, 'edit']);
 
     });
+
+
+// Route::get('/test', function () {
+//     return 1;
+// });
