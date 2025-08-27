@@ -36,7 +36,7 @@ final class TranslatableFields
                         [$type, $name, $opts] = $def + [null, null, []];
 
                         $full = ltrim($prefix . $name, '.') . ".{$locale}";
-                        $label = Str::title(str_replace('_', ' ', $name));
+                        $label = $opts['label'] ?? Str::title(str_replace('_', ' ', $name));
                         $isRequired = ($locale === $fallback);
 
                         return match ($type) {
