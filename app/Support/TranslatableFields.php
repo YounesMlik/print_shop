@@ -30,8 +30,9 @@ final class TranslatableFields
                 return Tabs\Tab::make(strtoupper($locale))->schema(
                     array_map(function (array|string $def) use ($locale, $fallback, $prefix) {
                         // normalize definition
-                        if (is_string($def))
+                        if (is_string($def)) {
                             $def = ['text', $def];
+                        }
                         [$type, $name, $opts] = $def + [null, null, []];
 
                         $full = ltrim($prefix . $name, '.') . ".{$locale}";
