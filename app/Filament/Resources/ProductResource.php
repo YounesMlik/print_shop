@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ProductResource\Pages;
 use App\Filament\Resources\ProductResource\RelationManagers;
 use App\Models\Product;
+use App\Support\TranslatableFields;
 use Filament\Forms;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Form;
@@ -29,8 +30,10 @@ class ProductResource extends Resource
     public static function form(Form $form): Form
     {
         return $form->schema([
-            TextInput::make('name')->required(),
-            Textarea::make('description')->rows(3),
+            TranslatableFields::tabs([
+                ['text', 'name'],
+                ['textarea', 'description', ['rows' => 3]],
+            ]),
 
             Select::make('category_id')
                 ->relationship('category', 'name')

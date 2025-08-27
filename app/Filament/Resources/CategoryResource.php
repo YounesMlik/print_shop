@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\CategoryResource\Pages;
 use App\Filament\Resources\CategoryResource\RelationManagers;
 use App\Models\Category;
+use App\Support\TranslatableFields;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -32,8 +33,10 @@ class CategoryResource extends Resource
                 ->required()
                 ->preload(),
 
-            TextInput::make('name')->required(),
-            Textarea::make('description')->rows(3),
+            TranslatableFields::tabs([
+                ['text', 'name'],
+                ['textarea', 'description', ['rows' => 3]],
+            ]),
 
             // Showing related OptionAttributes (hasMany)
             Select::make('products')

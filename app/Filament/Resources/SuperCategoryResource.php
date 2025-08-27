@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\SuperCategoryResource\Pages;
 use App\Filament\Resources\SuperCategoryResource\RelationManagers;
 use App\Models\SuperCategory;
+use App\Support\TranslatableFields;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -26,8 +27,10 @@ class SuperCategoryResource extends Resource
     public static function form(Form $form): Form
     {
         return $form->schema([
-            TextInput::make('name')->required(),
-            Textarea::make('description')->rows(3),
+            TranslatableFields::tabs([
+                ['text', 'name'],
+                ['textarea', 'description', ['rows' => 3]],
+            ]),
 
             Select::make('children')
                 ->relationship('children', 'name')
