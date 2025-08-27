@@ -54,14 +54,10 @@ class OptionResource extends Resource
                         ->options(\App\Models\OptionAttribute::pluck('name', 'id'))
                         ->required(),
 
-                    TextInput::make('value')
-                        ->label('Value')
-                        ->required(),
-
-                    Textarea::make('description')
-                        ->label('Override Description')
-                        ->rows(2)
-                        ->nullable(),
+                    TranslatableFields::tabs([
+                        ['text', 'value'],
+                        ['textarea', 'description', ['label' => 'Override Description', 'rows' => 2]],
+                    ]),
                 ])
                 ->defaultItems(0)
                 ->columns(1)
