@@ -208,6 +208,7 @@ function FilterSection({ selectedTags, tagOptions, loadTagOptions, onChange }) {
 }
 
 function ProductList({ products }) {
+  const { t } = useTranslation();
   if (products.length === 0) {
     return <p className="text-muted-foreground">{t("no_products_found")}</p>
   }
