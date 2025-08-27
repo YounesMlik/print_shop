@@ -41,19 +41,22 @@ class LocalSeeder extends Seeder
                             ->limit(rand(1, 3))
                             ->get()
                             ->each(function (OptionAttribute $attribute) use ($option) {
-                                $value = ([
-                                    fn() => fake()->word(),
-                                    fn() => (string) fake()->numberBetween(1, 200),
-                                    fn() => fake()->randomElement(['S', 'M', 'L', 'XL']),
-                                    fn() => fake()->safeColorName(),
-                                ])[array_rand([0, 1, 2, 3])]();
+                                $value = fakeLocalize(
+                                    ([
+                                        fn() => fake()->word(),
+                                        fn() => (string) fake()->numberBetween(1, 200),
+                                        fn() => fake()->randomElement(['S', 'M', 'L', 'XL']),
+                                        fn() => fake()->safeColorName(),
+                                    ])[array_rand([0, 1, 2, 3])]()
+                                );
 
-                                $desc = fake()->optional()->sentence();
-                                $pivotDescription = $desc ? ['fr' => $desc, 'ar' => $desc] : null;
-                                $pivotValue = $value ? ['fr' => $value, 'ar' => $value] : null;
+                                $desc = fakeLocalize(
+                                    fake()->optional()->sentence()
+                                );
+
                                 $option->optionAttributes()->attach($attribute->id, [
-                                    'description' => $pivotDescription, // jsonb
-                                    'value' => $pivotValue,            // jsonb
+                                    'description' => $desc, // jsonb
+                                    'value' => $value,      // jsonb
                                 ]);
                             });
                     });
