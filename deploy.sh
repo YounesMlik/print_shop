@@ -36,7 +36,8 @@ shared_init() {
 if [ "$APP_ENV" = "local" ]; then
     echo "deploying local"
     shared_init
-    php_fpm php artisan migrate --seed
+    php_fpm php artisan migrate
+    php_fpm php artisan db:seed
     php_fpm php artisan db:seed LocalSeeder
     php_fpm php artisan queue:work &
     php_fpm php artisan schedule:work &
@@ -47,10 +48,11 @@ if [ "$APP_ENV" = "local" ]; then
 elif [ "$APP_ENV" = "production" ]; then
     echo "deploying production"
     shared_init
-    php_fpm php artisan migrate --seed
+    php_fpm php artisan migrate
+    php_fpm php artisan db:seed
+    php_fpm npm run build
     php_fpm php artisan queue:work &
     php_fpm php artisan schedule:work &
-    php_fpm npm run build &
     wait
     echo "deployment successful"
 
