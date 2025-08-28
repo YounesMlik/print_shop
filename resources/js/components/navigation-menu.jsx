@@ -15,7 +15,6 @@ import {
 import { Link, usePage } from "@inertiajs/react"
 import { Sparkles } from "lucide-react"
 import { useTranslation } from "react-i18next";
-import { useLocalized } from "./helpers";
 
 export function MainNav() {
     const { t } = useTranslation();
@@ -47,7 +46,7 @@ export function MainNav() {
 
                                                 <NavigationMenuLink asChild>
                                                     <Link href={route('products.index', { super_category: superCategory.id, })} >
-                                                        {useLocalized(superCategory.name)}
+                                                        {superCategory.name}
                                                     </Link>
                                                 </NavigationMenuLink>
                                             </AccordionTrigger>
@@ -57,7 +56,7 @@ export function MainNav() {
                                                         <li key={category.id}>
                                                             <NavigationMenuLink asChild>
                                                                 <Link href={route('products.index', { category: category.id })}>
-                                                                    {useLocalized(category.name)}
+                                                                    {category.name}
                                                                 </Link>
                                                             </NavigationMenuLink>
                                                         </li>
