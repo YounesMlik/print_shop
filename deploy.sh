@@ -39,6 +39,7 @@ if [ "$APP_ENV" = "local" ]; then
     php_fpm php artisan migrate --seed
     php_fpm php artisan db:seed LocalSeeder
     php_fpm php artisan queue:work &
+    php_fpm php artisan schedule:work &
     php_fpm npm run dev &
     wait
     echo "deployment successful"
@@ -48,6 +49,7 @@ elif [ "$APP_ENV" = "production" ]; then
     shared_init
     php_fpm php artisan migrate --seed
     php_fpm php artisan queue:work &
+    php_fpm php artisan schedule:work &
     php_fpm npm run build &
     wait
     echo "deployment successful"
