@@ -18,6 +18,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { AspectRatio } from '@/components/ui/aspect-ratio'
 import { useTranslation } from 'react-i18next'
+import { useLocalized } from '@/components/helpers'
 
 export default function ProductsIndex({ products_collection, availableTags, filters, category_filtering_level }) {
   const { t } = useTranslation();
@@ -26,12 +27,12 @@ export default function ProductsIndex({ products_collection, availableTags, filt
 
   const [selectedTags, setSelectedTags] = useState(mapTagsToSelectFormat(filters.tags))
 
-  const tagOptions = useMemo(() => mapTagsToSelectFormat(availableTags), [availableTags])
+  const tagOptions = mapTagsToSelectFormat(availableTags)
 
   function mapTagsToSelectFormat(tags = []) {
     return tags.map(tag => ({
       value: tag.id,
-      label: tag.name,
+      label: useLocalized(tag.name),
     }))
   }
 
@@ -69,8 +70,8 @@ export default function ProductsIndex({ products_collection, availableTags, filt
   return (
     <>
       {category_filtering_level !== 0 ? "" : <Head title={t("products")} />}
-      {category_filtering_level !== 1 ? "" : <Head title={filters.super_category.name} />}
-      {category_filtering_level !== 2 ? "" : <Head title={filters.category.name} />}
+      {category_filtering_level !== 1 ? "" : <Head title={useLocalized(filters.super_category.name)} />}
+      {category_filtering_level !== 2 ? "" : <Head title={useLocalized(filters.category.name)} />}
 
       <section className="grid gap-6">
 
@@ -95,12 +96,12 @@ export default function ProductsIndex({ products_collection, availableTags, filt
                 <BreadcrumbItem>
                   {category_filtering_level === 1 ?
                     <BreadcrumbPage>
-                      {filters.super_category.name}
+                      {useLocalized(filters.super_category.name)}
                     </BreadcrumbPage>
                     :
                     <BreadcrumbLink asChild>
                       <Link href={route('products.index', { super_category: filters.super_category.id, })} >
-                        {filters.super_category.name}
+                        {useLocalized(filters.super_category.name)}
                       </Link>
                     </BreadcrumbLink>
                   }
@@ -114,12 +115,12 @@ export default function ProductsIndex({ products_collection, availableTags, filt
                 <BreadcrumbItem>
                   {category_filtering_level === 2 ?
                     <BreadcrumbPage>
-                      {filters.category.name}
+                      {useLocalized(filters.category.name)}
                     </BreadcrumbPage>
                     :
                     <BreadcrumbLink asChild>
                       <Link href={route('products.index', { category: filters.category.id, })} >
-                        {filters.category.name}
+                        {useLocalized(filters.category.name)}
                       </Link>
                     </BreadcrumbLink>
                   }
@@ -221,7 +222,7 @@ function ProductList({ products }) {
           <Card className='w-full h-full hover:outline-gray-500/50 hover:outline-2'>
             <CardHeader>
               <CardTitle>
-                {product.name}
+                {useLocalized(product.name)}
               </CardTitle>
               {product.images.length === 0 ? "" :
                 <AspectRatio ratio={1}>
@@ -231,7 +232,7 @@ function ProductList({ products }) {
 
             </CardHeader>
             <CardContent>
-              <p>{product.description}</p>
+              <p>{useLocalized(product.description)}</p>
             </CardContent>
           </Card>
         </Link>
