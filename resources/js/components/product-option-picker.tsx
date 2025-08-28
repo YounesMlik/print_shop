@@ -74,11 +74,16 @@ export default function VariantPicker({
     }
   };
 
-  const displayName = (o: Option) =>
-    (o.name && o.name.trim()) ||
-    (o.option_attributes?.length
-      ? o.option_attributes.map((a) => a.name).join(" / ")
-      : `Option #${o.id}`);
+  const displayName = (o: Option): string => {
+    const name = o.name?.trim();
+    if (name) {
+      return name;
+    } else if (o.option_attributes?.length) {
+      return o.option_attributes.map(a => a.name).join(" / ");
+    } else {
+      return `Option #${o.id}`;
+    }
+  };
 
   const handleChange = (idStr: string) => {
     const id = Number(idStr);
