@@ -7,6 +7,8 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
 
-Schedule::command('backup:run --only-db')->hourly();
-Schedule::command('backup:clean')->dailyAt('02:30');
-Schedule::command('backup:monitor')->dailyAt('03:00');
+if (app()->isProduction()) {
+    Schedule::command('backup:run --only-db')->hourly();
+    Schedule::command('backup:clean')->dailyAt('02:30');
+    Schedule::command('backup:monitor')->dailyAt('03:00');
+}
