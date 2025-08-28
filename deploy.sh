@@ -38,6 +38,7 @@ if [ "$APP_ENV" = "local" ]; then
     shared_init
     php_fpm php artisan backup:restore --backup=latest --connection=pgsql --reset --no-interaction
     php_fpm php artisan migrate
+    php_fpm php artisan db:seed LocalSeeder
     php_fpm php artisan queue:work &
     php_fpm php artisan schedule:work &
     php_fpm npm run dev &
