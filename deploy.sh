@@ -36,7 +36,7 @@ shared_init() {
 if [ "$APP_ENV" = "local" ]; then
     echo "deploying local"
     shared_init
-    php artisan backup:restore --backup=latest --connection=pgsql --reset --no-interaction
+    php_fpm php artisan backup:restore --backup=latest --connection=pgsql --reset --no-interaction
     php_fpm php artisan migrate
     php_fpm php artisan queue:work &
     php_fpm php artisan schedule:work &
@@ -47,7 +47,7 @@ if [ "$APP_ENV" = "local" ]; then
 elif [ "$APP_ENV" = "production" ]; then
     echo "deploying production"
     shared_init
-    php artisan backup:restore --backup=latest --connection=pgsql --reset --no-interaction
+    php_fpm php artisan backup:restore --backup=latest --connection=pgsql --reset --no-interaction
     php_fpm php artisan migrate
     php_fpm npm run build
     php_fpm php artisan queue:work &
