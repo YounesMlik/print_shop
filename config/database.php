@@ -96,7 +96,7 @@ return [
             'search_path' => 'public',
             'sslmode' => 'prefer',
             'dump' => [
-                'add_extra_option' => '--format=c --no-owner --no-privileges',
+                'add_extra_option' => '--no-owner --no-privileges',
             ],
         ],
 
