@@ -23,8 +23,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Inertia::share('navigation.superCategories', function () {
-            return SuperCategory::with('children:id,name,super_category_id')->get(['id', 'name']);
+        Inertia::share('navigation.super_categories', function () {
+            return SuperCategory::with('children:id,name,super_category_id')
+                ->get(['id', 'name'])
+                ->toResourceCollection();
         });
 
         Inertia::share('i18n', function () {

@@ -18,7 +18,7 @@ import { useTranslation } from "react-i18next";
 
 export function MainNav() {
     const { t } = useTranslation();
-    const superCategories = usePage().props.navigation?.superCategories || []
+    const super_categories = usePage().props.navigation?.super_categories.data || []
 
     return (
         <header className="sticky top-0 z-20 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border/50">
@@ -40,19 +40,19 @@ export function MainNav() {
                             </NavigationMenuTrigger>
                             <NavigationMenuContent className="px-4 min-w-[300px] max-h-[400px] overflow-y-auto">
                                 <Accordion type="single" collapsible className="w-full">
-                                    {superCategories.map((superCategory) => (
-                                        <AccordionItem key={superCategory.id} value={`sc-${superCategory.id}`}>
+                                    {super_categories.map((super_category) => (
+                                        <AccordionItem key={super_category.id} value={`sc-${super_category.id}`}>
                                             <AccordionTrigger className="text-sm font-semibold text-muted-foreground">
 
                                                 <NavigationMenuLink asChild>
-                                                    <Link href={route('products.index', { super_category: superCategory.id, })} >
-                                                        {superCategory.name}
+                                                    <Link href={route('products.index', { super_category: super_category.id, })} >
+                                                        {super_category.name}
                                                     </Link>
                                                 </NavigationMenuLink>
                                             </AccordionTrigger>
                                             <AccordionContent>
                                                 <ul className="space-y-1">
-                                                    {superCategory.children.map((category) => (
+                                                    {super_category.categories.map((category) => (
                                                         <li key={category.id}>
                                                             <NavigationMenuLink asChild>
                                                                 <Link href={route('products.index', { category: category.id })}>
