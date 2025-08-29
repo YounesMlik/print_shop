@@ -14,6 +14,16 @@ class OptionAttributeResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'description' => $this->description,
+            'effective_description' => $this->effectiveDescription,
+            'value' => $this->value,
+            'super_category' => SuperCategoryResource::make($this->whenLoaded('superCategory')),
+            'options' => OptionResource::collection($this->whenLoaded('options')),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
     }
 }
