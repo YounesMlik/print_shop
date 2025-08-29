@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Tag;
 use App\Models\Category;
 use App\Models\SuperCategory;
+use CyrildeWit\EloquentViewable\Support\Period;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -13,6 +14,9 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
+        $sort = $request->string('sort', 'popular');
+        $dir = $request->string('dir', 'desc');
+
         $tagIds = $request->input('tags', []);
         $categoryId = $request->input('category');
         $superCategoryId = $request->input('super_category');
@@ -31,7 +35,7 @@ class ProductController extends Controller
             $category_filtering_level = 0;
         }
 
-        $products = Product::with('tags', 'category', 'category.superCategory', 'media', )
+        $query = Product::with('tags', 'category', 'category.superCategory', 'media', )
             ->when(!empty($tagIds), function ($query) use ($tagIds) {
                 foreach ($tagIds as $tagId) {
                     $query->whereHas('tags', fn($q) => $q->where('tags.id', $tagId));
@@ -50,8 +54,30 @@ class ProductController extends Controller
                     fn($q) =>
                     $q->where('super_category_id', $superCategoryId)
                 )
-            )
-            ->paginate(12) // You can change 12 to whatever per-page size you prefer
+            );
+
+
+        // Apply sort
+        switch ($sort) {
+            case 'alpha':
+                // If name is translatable JSON, swap this for a JSON_EXTRACT orderByRaw on the current locale.
+                $query->orderBy('name', $dir);
+                break;
+
+            case 'date':
+                $query->orderBy('created_at', $dir); // newest first
+                break;
+
+            case 'popular':
+            default:
+                // All-time if $days <= 0, else last X days
+                // Scope provided by eloquent-viewable
+                $query->orderByViews($dir, Period::pastDays(7));
+                break;
+        }
+
+        $products = $query
+            ->paginate(12)
             ->withQueryString(); // Keeps the query parameters (e.g., tags) in the pagination links
 
         return Inertia::render('Products/Index', [
