@@ -1,6 +1,7 @@
 import { LanguageSwitcher } from '@/components/language-switcher'
 import { MainNav } from '@/components/navigation-menu'
-import { Sparkles } from 'lucide-react'
+import { ScrollToTop } from '@/components/ui/_scroll-to-top'
+import { ChevronUp } from 'lucide-react'
 
 export default function Layout({ children }) {
     return (
@@ -33,6 +34,11 @@ export default function Layout({ children }) {
                         </div>
                     </div>
                 </footer>
+
+
+                <ScrollToTop minHeight={20} className="fixed right-4 bottom-4">
+                    <ChevronUp />
+                </ScrollToTop>
             </div>
         </>
     )
