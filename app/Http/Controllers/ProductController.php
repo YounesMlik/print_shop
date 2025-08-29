@@ -72,6 +72,7 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         $product->load(['options.optionAttributes', 'media', 'category', 'category.superCategory', 'tags']);
+        views($product)->record();
 
         return Inertia::render('Products/Show', [
             'product_resource' => $product->toResource(),
