@@ -53,6 +53,7 @@ function Carousel({
     {
       ...opts,
       axis: orientation === "horizontal" ? "x" : "y",
+      direction: document.documentElement.getAttribute("dir").toLowerCase() === "ltr" ? "ltr" : "rtl",
     },
     plugins
   )
@@ -177,6 +178,9 @@ function CarouselPrevious({
 }: React.ComponentProps<typeof Button>) {
   const { orientation, scrollPrev, canScrollPrev } = useCarousel()
 
+  const isRTL =
+    document.documentElement.getAttribute("dir").toLowerCase() === "rtl";
+
   return (
     <Button
       data-slot="carousel-previous"
@@ -184,16 +188,23 @@ function CarouselPrevious({
       size={size}
       className={cn(
         "absolute size-8 rounded-full",
-        orientation === "horizontal"
-          ? "top-1/2 -left-12 -translate-y-1/2"
-          : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
+        isRTL
+          ? (orientation === "horizontal"
+            ? "top-1/2 -right-12 -translate-y-1/2"
+            : "-top-12 right-1/2 -translate-x-1/2 rotate-90")
+          : (orientation === "horizontal"
+            ? "top-1/2 -left-12 -translate-y-1/2"
+            : "-top-12 left-1/2 -translate-x-1/2 rotate-90"),
         className
       )}
       disabled={!canScrollPrev}
       onClick={scrollPrev}
       {...props}
     >
-      <ArrowLeft />
+      {isRTL
+        ? <ArrowRight />
+        : <ArrowLeft />
+      }
       <span className="sr-only">Previous slide</span>
     </Button>
   )
@@ -207,6 +218,9 @@ function CarouselNext({
 }: React.ComponentProps<typeof Button>) {
   const { orientation, scrollNext, canScrollNext } = useCarousel()
 
+  const isRTL =
+    document.documentElement.getAttribute("dir").toLowerCase() === "rtl";
+
   return (
     <Button
       data-slot="carousel-next"
@@ -214,16 +228,23 @@ function CarouselNext({
       size={size}
       className={cn(
         "absolute size-8 rounded-full",
-        orientation === "horizontal"
-          ? "top-1/2 -right-12 -translate-y-1/2"
-          : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
+        isRTL
+          ? (orientation === "horizontal"
+            ? "top-1/2 -left-12 -translate-y-1/2"
+            : "-bottom-12 right-1/2 -translate-x-1/2 rotate-90")
+          : (orientation === "horizontal"
+            ? "top-1/2 -right-12 -translate-y-1/2"
+            : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90"),
         className
       )}
       disabled={!canScrollNext}
       onClick={scrollNext}
       {...props}
     >
-      <ArrowRight />
+      {isRTL
+        ? <ArrowLeft />
+        : <ArrowRight />
+      }
       <span className="sr-only">Next slide</span>
     </Button>
   )
