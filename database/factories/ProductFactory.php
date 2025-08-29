@@ -28,8 +28,8 @@ final class ProductFactory extends Factory
     {
         return [
             'category_id' => \App\Models\Category::factory(),
-            'name' => fake()->name,
-            'description' => fake()->optional()->text,
+            'name'        => fakeLocalize(fake()->unique()->words(2, true)),
+            'description' => fakeLocalize(fake()->optional()->sentence()),
         ];
     }
 }

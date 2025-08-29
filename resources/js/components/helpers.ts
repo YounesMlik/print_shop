@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import z from "zod";
 
 export function objectMap(object: object, fn: ([string, unknown]) => [string, unknown]) {
@@ -101,4 +102,11 @@ export function sendWhatsappMessage(message: string) {
     const phone = import.meta.env.VITE_WHATSAPP_PHONE_NUMBER; // Update this with your business number
     const url = `https://wa.me/${phone}?text=${encoded}`
     window.open(url, "_blank")
+}
+
+export function useLocalized(
+    translations: { [key: string]: string }
+): string {
+    const { i18n } = useTranslation();
+    return i18n.languages.map(lang => translations[lang]).find(value => value);
 }

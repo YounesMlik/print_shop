@@ -1,10 +1,13 @@
 import { z } from "zod";
 import { createAttribute } from "@coltorapps/builder";
+import i18next from "i18next";
 
 export const labelAttribute = createAttribute({
     name: "label",
     validate(value) {
-        return z.string().min(1, "Label is required").parse(value);
+        return z
+            .record(z.string().min(2), z.string().min(1, "Label is required"))
+            .parse(value);
     },
 });
 

@@ -10,8 +10,8 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('option_id')->constrained()->onDelete('cascade');
             $table->foreignId('option_attribute_id')->constrained()->onDelete('cascade');
-            $table->text('description')->nullable();
-            $table->text("value");
+            $table->jsonb('description')->nullable();
+            $table->jsonb("value");
             $table->timestamps();
         });
     }

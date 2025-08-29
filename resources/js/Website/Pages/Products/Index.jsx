@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Head, Link, router } from '@inertiajs/react'
 import AsyncSelect from 'react-select/async'
 
@@ -14,13 +14,18 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator
-} from "@/components/ui/breadcrumb";
+} from "@/components/ui/_breadcrumb";
 import { Button } from '@/components/ui/button'
 import { AspectRatio } from '@/components/ui/aspect-ratio'
+import { useTranslation } from 'react-i18next'
+import mapValues from 'lodash/mapValues'
 
 export default function ProductsIndex({ products_collection, availableTags, filters, category_filtering_level }) {
+  const { t } = useTranslation();
   const nav_data = products_collection.meta
   const products = products_collection.data
+  availableTags = availableTags.data
+  filters = mapValues(filters, item => item?.data)
 
   const [selectedTags, setSelectedTags] = useState(mapTagsToSelectFormat(filters.tags))
 
@@ -66,7 +71,7 @@ export default function ProductsIndex({ products_collection, availableTags, filt
 
   return (
     <>
-      {category_filtering_level !== 0 ? "" : <Head title="Products" />}
+      {category_filtering_level !== 0 ? "" : <Head title={t("products")} />}
       {category_filtering_level !== 1 ? "" : <Head title={filters.super_category.name} />}
       {category_filtering_level !== 2 ? "" : <Head title={filters.category.name} />}
 
@@ -77,17 +82,17 @@ export default function ProductsIndex({ products_collection, availableTags, filt
             <BreadcrumbItem>
               {category_filtering_level === 0 ?
                 <BreadcrumbPage>
-                  Products
+                  {t("products")}
                 </BreadcrumbPage>
                 :
                 <BreadcrumbLink asChild>
                   <Link href={route('products.index')} >
-                    Products
+                    {t("products")}
                   </Link>
                 </BreadcrumbLink>
               }
             </BreadcrumbItem>
-            {filters.super_category === null ? "" :
+            {!filters.super_category ? "" :
               <>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
@@ -106,7 +111,7 @@ export default function ProductsIndex({ products_collection, availableTags, filt
                 </BreadcrumbItem>
               </>
             }
-            {filters.category === null ? "" :
+            {!filters.category ? "" :
               <>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
@@ -151,9 +156,10 @@ export default function ProductsIndex({ products_collection, availableTags, filt
 }
 
 function FilterSection({ selectedTags, tagOptions, loadTagOptions, onChange }) {
+  const { t } = useTranslation();
   return (
     <div className="space-y-2">
-      <Label htmlFor="product-tags">Filter by tags</Label>
+      <Label htmlFor="product-tags">{t("tags_search.label")}</Label>
       <AsyncSelect
         inputId="product-tags"
         isMulti
@@ -162,7 +168,7 @@ function FilterSection({ selectedTags, tagOptions, loadTagOptions, onChange }) {
         value={selectedTags}
         loadOptions={loadTagOptions}
         onChange={onChange}
-        placeholder="Select tags..."
+        placeholder={t("tags_search.placeholder")}
         classNamePrefix="react-select"
         styles={{
           control: (base) => ({
@@ -205,8 +211,9 @@ function FilterSection({ selectedTags, tagOptions, loadTagOptions, onChange }) {
 }
 
 function ProductList({ products }) {
+  const { t } = useTranslation();
   if (products.length === 0) {
-    return <p className="text-muted-foreground">No products found.</p>
+    return <p className="text-muted-foreground">{t("no_products_found")}</p>
   }
 
   return (

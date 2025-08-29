@@ -5,6 +5,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title inertia>{{ config('app.name', 'Laravel') }}</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('img/under_print_icon.svg') }}" />
+
     @routes()
 
     @viteReactRefresh

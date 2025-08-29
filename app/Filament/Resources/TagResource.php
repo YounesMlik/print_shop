@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\TagResource\Pages;
 use App\Filament\Resources\TagResource\RelationManagers;
 use App\Models\Tag;
+use App\Support\TranslatableFields;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -27,8 +28,10 @@ class TagResource extends Resource
     public static function form(Form $form): Form
     {
         return $form->schema([
-            TextInput::make('name')->required(),
-            Textarea::make('description')->rows(3),
+            TranslatableFields::tabs([
+                ['text', 'name'],
+                ['textarea', 'description', ['rows' => 3]],
+            ]),
 
             Select::make('products')
                 ->relationship('products', 'name')

@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\Pivot;
+use Spatie\Translatable\HasTranslations;
 
 class OptionOptionAttribute extends Pivot
 {
     use HasFactory;
+    use HasTranslations;
 
     protected $table = 'option_option_attribute';
 
@@ -17,6 +19,7 @@ class OptionOptionAttribute extends Pivot
         'value',
         'description',
     ];
+    public array $translatable = ['description', 'value'];
 
     public function option()
     {

@@ -8,8 +8,8 @@ return new class extends Migration {
     public function up(): void {
         Schema::create('super_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('description')->nullable();
+            $table->jsonb('name');
+            $table->jsonb('description')->nullable();
             $table->timestamps();
         });
     }

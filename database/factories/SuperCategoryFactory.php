@@ -27,8 +27,8 @@ final class SuperCategoryFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name,
-            'description' => fake()->optional()->text,
+            'name'        => fakeLocalize(fake()->unique()->words(2, true)),
+            'description' => fakeLocalize(fake()->optional()->sentence()),
         ];
     }
 }

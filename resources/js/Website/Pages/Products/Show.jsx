@@ -2,20 +2,13 @@ import React, { useState } from "react";
 import { Head, Link } from "@inertiajs/react";
 import { Button } from "@/components/ui/button";
 import {
-    Select,
-    SelectTrigger,
-    SelectValue,
-    SelectContent,
-    SelectItem,
-} from "@/components/ui/select";
-import {
     Breadcrumb,
     BreadcrumbItem,
     BreadcrumbLink,
     BreadcrumbList,
     BreadcrumbPage,
     BreadcrumbSeparator
-} from "@/components/ui/breadcrumb";
+} from "@/components/ui/_breadcrumb";
 import {
     Carousel,
     CarouselContent,
@@ -28,8 +21,10 @@ import { sendWhatsappMessage } from "@/components/helpers";
 import { Badge } from "@/components/ui/badge";
 
 import VariantPicker from "@/components/product-option-picker";
+import { useTranslation } from "react-i18next";
 
 export default function ProductShow({ product_resource }) {
+    const { t } = useTranslation();
     const product = product_resource.data;
 
     const [selectedOption, setSelectedOption] = React.useState(null);
@@ -50,7 +45,7 @@ export default function ProductShow({ product_resource }) {
                     <BreadcrumbItem>
                         <BreadcrumbLink asChild>
                             <Link href={route('products.index')} >
-                                Products
+                                {t("products")}
                             </Link>
                         </BreadcrumbLink>
                     </BreadcrumbItem>
@@ -109,14 +104,19 @@ export default function ProductShow({ product_resource }) {
                 <p className="mb-6 text-gray-600">{product.description}</p>
             )}
 
-            <VariantPicker options={product.options} onChange={optionSelectedHandler} />
+            <VariantPicker
+                options={product.options}
+                onChange={optionSelectedHandler}
+                label={t("option_picker.choose_an_option")}
+                no_options_available_label={t("option_picker.no_options_available")}
+            />
 
             <Button
                 className="mt-6 w-full"
                 disabled={selectedOption === null}
                 onClick={() => sendWhatsappMessage(message)}
             >
-                Order via WhatsApp
+                {t("order_via_whatsapp")}
             </Button>
         </div>
     );

@@ -1,14 +1,14 @@
-import React from 'react'
 import { Head, usePage } from '@inertiajs/react'
-import FormBuilderPage from '@/components/form_builder/builder_renderer'
 import { FormInterpreter } from '@/components/form_builder/form_interpreter'
+import { useTranslation } from 'react-i18next';
 
 export default function CustomOrderIndex() {
+  const { t } = useTranslation();
 
   return (
     <>
-      <Head title="Custom Order" />
-      <p className='text-5xl font-extrabold pb-6'>Custom Order</p>
+      <Head title={t("custom_order")} />
+      <p className='text-5xl font-extrabold pb-6'>{t("custom_order")}</p>
       <FormInterpreter schema={usePage().props.schema} />
     </>
   )

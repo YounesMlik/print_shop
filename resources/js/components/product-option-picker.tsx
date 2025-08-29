@@ -3,40 +3,7 @@ import * as React from "react";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Badge } from "@/components/ui/badge";
-
-type OptionAttribute = {
-  id: number;
-  name: string;
-  value: string;
-  description?: string | null;
-  effective_description?: string | null;
-  pivot?: { description?: string | null };
-  // allow extra fields without breaking
-  [k: string]: any;
-};
-
-type Option = {
-  id: number;
-  name?: string | null;
-  price?: string | number | null;
-  option_attributes: OptionAttribute[];
-  [k: string]: any;
-};
-
-type VariantPickerProps = {
-  /** Your options array, as provided */
-  options: Option[];
-  /** Controlled selected option id (optional) */
-  value?: number | null;
-  /** Called with the full selected option object (or null) */
-  onChange?: (option: Option | null) => void;
-  /** Currency code for price formatting (defaults to MAD) */
-  currency?: string;
-  /** Extra className for the outer Card */
-  className?: string;
-  /** Optional label above the list */
-  label?: string;
-};
+import { useTranslation } from "react-i18next";
 
 export default function VariantPicker({
   options,
@@ -45,6 +12,7 @@ export default function VariantPicker({
   currency = "MAD",
   className,
   label = "Choose an option",
+  no_options_available_label = "No options available",
 }: VariantPickerProps) {
   const [selectedId, setSelectedId] = React.useState<number | null>(
     value ?? null
@@ -70,11 +38,16 @@ export default function VariantPicker({
     }
   };
 
-  const displayName = (o: Option) =>
-    (o.name && o.name.trim()) ||
-    (o.option_attributes?.length
-      ? o.option_attributes.map((a) => a.name).join(" / ")
-      : `Option #${o.id}`);
+  const displayName = (o: Option): string => {
+    const name = o.name?.trim();
+    if (name) {
+      return name;
+    } else if (o.option_attributes?.length) {
+      return o.option_attributes.map(a => a.name).join(" / ");
+    } else {
+      return `Option #${o.id}`;
+    }
+  };
 
   const handleChange = (idStr: string) => {
     const id = Number(idStr);
@@ -85,7 +58,7 @@ export default function VariantPicker({
   return (
     <Card className={["p-3", className].filter(Boolean).join(" ")}>
       {options.length === 0 ?
-        <p className="text-sm text-muted-foreground">No options available</p>
+        <p className="text-sm text-muted-foreground">{no_options_available_label}</p>
         :
         <>
 

@@ -6,12 +6,20 @@ use Inertia\Inertia;
 use Filament\Http\Middleware\Authenticate as FilamentAuthenticate;
 
 
-Route::redirect('/', '/products');
+Route::get('/locale/{locale}', function (string $locale) {
+    session(['locale' => $locale]);
+    return back();
+})->name('locale.switch');
+
+Route::get("/", function () {
+    return Inertia::render("Home/Index");
+})->name('home.index');
 
 Route::resource('/products', ProductController::class)
     ->only(["index", "show"]);
 
-Route::get('/custom_order', [FormSchemaController::class, 'index']);
+Route::get('/custom_order', [FormSchemaController::class, 'index'])
+    ->name('custom_order.index');
 
 Route::middleware([FilamentAuthenticate::class])
     ->group(function () {
@@ -20,3 +28,9 @@ Route::middleware([FilamentAuthenticate::class])
             ->get('/admin/form-builder', [FormSchemaController::class, 'edit']);
 
     });
+
+
+// Route::get('/test', function () {
+//     dd(1);
+//     return 1;
+// });

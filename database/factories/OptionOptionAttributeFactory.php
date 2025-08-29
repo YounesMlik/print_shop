@@ -13,25 +13,33 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 final class OptionOptionAttributeFactory extends Factory
 {
     /**
-    * The name of the factory's corresponding model.
-    *
-    * @var string
-    */
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
     protected $model = OptionOptionAttribute::class;
 
     /**
-    * Define the model's default state.
-    *
-    * @return array
-    */
+     * Define the model's default state.
+     *
+     * @return array
+     */
     public function definition(): array
     {
+        $generators = [
+            fn() => fake()->word(),
+            fn() => (string) fake()->numberBetween(1, 200),
+            fn() => fake()->randomElement(['S', 'M', 'L', 'XL']),
+            fn() => fake()->safeColorName(),
+        ];
+        $value = $generators[array_rand($generators)]();
+
         return [
             'id' => fake()->randomNumber(),
             'option_id' => \App\Models\Option::factory(),
             'option_attribute_id' => \App\Models\OptionAttribute::factory(),
-            'description' => fake()->optional()->text,
-            'value' => fake()->text,
+            'description' => fakeLocalize(fake()->optional()->sentence()),
+            'value' => fakeLocalize($value),
         ];
     }
 }

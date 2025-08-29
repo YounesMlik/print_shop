@@ -4,12 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 class Option extends Model
 {
     use HasFactory;
+    use HasTranslations;
 
-    protected $fillable = ['name', 'description', 'product_id'];
+    protected $fillable = ['name', 'description', 'product_id', 'price'];
+    public array $translatable = ['name', 'description'];
 
     public function product()
     {

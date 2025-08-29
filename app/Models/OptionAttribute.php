@@ -5,13 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 class OptionAttribute extends Model
 {
     use HasFactory;
+    use HasTranslations;
 
     protected $fillable = ['name', 'description'];
     protected $appends = ['effective_description', 'value'];
+    public array $translatable = ['name', 'description'];
 
     public function options()
     {

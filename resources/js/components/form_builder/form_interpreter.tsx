@@ -8,10 +8,12 @@ import entity_components from "./entity_componenets";
 import { formBuilder } from "./builder";
 import { Button } from "@/components/ui/button";
 import { sendWhatsappMessage } from "@/components/helpers";
+import { useTranslation } from "react-i18next";
 
 type FormBuilderSchema = Schema<typeof formBuilder>;
 
 export function FormInterpreter({ schema }: { schema: FormBuilderSchema }) {
+    const { t } = useTranslation();
     const interpreterStore = useInterpreterStore(formBuilder, schema, {
         events: {
             onEntityValueUpdated(payload) {
@@ -27,7 +29,7 @@ export function FormInterpreter({ schema }: { schema: FormBuilderSchema }) {
         const data = schema_entries.map(
             ([id, value]) => [id, { ...value, value: form_data[id] }]
         );
-        sendWhatsappMessage("Custom Order:\n\n"+generateReadableOrder(data, { includeEmpty: true }));
+        sendWhatsappMessage("Custom Order:\n\n" + generateReadableOrder(data, { includeEmpty: true }));
     }
 
     return (
@@ -46,7 +48,7 @@ export function FormInterpreter({ schema }: { schema: FormBuilderSchema }) {
                     </div>
                 )}
             </InterpreterEntities>
-            <Button type="submit">Order via Whatsapp</Button>
+            <Button type="submit">{t("order_via_whatsapp")}</Button>
         </form>
     );
 }

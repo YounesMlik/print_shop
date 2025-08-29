@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\OptionResource\Pages;
 use App\Filament\Resources\OptionResource\RelationManagers;
 use App\Models\Option;
+use App\Support\TranslatableFields;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -33,8 +34,10 @@ class OptionResource extends Resource
                 ->required()
                 ->preload(),
 
-            TextInput::make('name')->required(),
-            Textarea::make('description')->rows(3),
+            TranslatableFields::tabs([
+                ['text', 'name'],
+                ['textarea', 'description', ['rows' => 3]],
+            ]),
 
             TextInput::make('price')
                 ->label('Price')
@@ -51,14 +54,10 @@ class OptionResource extends Resource
                         ->options(\App\Models\OptionAttribute::pluck('name', 'id'))
                         ->required(),
 
-                    TextInput::make('value')
-                        ->label('Value')
-                        ->required(),
-
-                    Textarea::make('description')
-                        ->label('Override Description')
-                        ->rows(2)
-                        ->nullable(),
+                    TranslatableFields::tabs([
+                        ['text', 'value'],
+                        ['textarea', 'description', ['label' => 'Override Description', 'rows' => 2]],
+                    ]),
                 ])
                 ->defaultItems(0)
                 ->columns(1)

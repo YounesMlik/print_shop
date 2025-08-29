@@ -28,8 +28,9 @@ final class OptionFactory extends Factory
     {
         return [
             'product_id' => \App\Models\Product::factory(),
-            'name' => fake()->name,
-            'description' => fake()->optional()->text,
+            'name'        => fakeLocalize(fake()->unique()->words(2, true)),
+            'description' => fakeLocalize(fake()->optional()->sentence()),
+            'price'       => fake()->randomFloat(2, 10, 100),
         ];
     }
 }
