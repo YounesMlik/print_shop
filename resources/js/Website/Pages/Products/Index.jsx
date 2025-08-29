@@ -18,11 +18,14 @@ import {
 import { Button } from '@/components/ui/button'
 import { AspectRatio } from '@/components/ui/aspect-ratio'
 import { useTranslation } from 'react-i18next'
+import mapValues from 'lodash/mapValues'
 
 export default function ProductsIndex({ products_collection, availableTags, filters, category_filtering_level }) {
   const { t } = useTranslation();
   const nav_data = products_collection.meta
   const products = products_collection.data
+  availableTags = availableTags.data
+  filters = mapValues(filters, item => item?.data)
 
   const [selectedTags, setSelectedTags] = useState(mapTagsToSelectFormat(filters.tags))
 
@@ -89,7 +92,7 @@ export default function ProductsIndex({ products_collection, availableTags, filt
                 </BreadcrumbLink>
               }
             </BreadcrumbItem>
-            {filters.super_category === null ? "" :
+            {!filters.super_category ? "" :
               <>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
@@ -108,7 +111,7 @@ export default function ProductsIndex({ products_collection, availableTags, filt
                 </BreadcrumbItem>
               </>
             }
-            {filters.category === null ? "" :
+            {!filters.category ? "" :
               <>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>

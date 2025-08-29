@@ -31,7 +31,7 @@ class ProductController extends Controller
             $category_filtering_level = 0;
         }
 
-        $products = Product::with('tags', 'category', 'category.superCategory', 'media',)
+        $products = Product::with('tags', 'category', 'category.superCategory', 'media', )
             ->when(!empty($tagIds), function ($query) use ($tagIds) {
                 foreach ($tagIds as $tagId) {
                     $query->whereHas('tags', fn($q) => $q->where('tags.id', $tagId));
@@ -56,11 +56,11 @@ class ProductController extends Controller
 
         return Inertia::render('Products/Index', [
             'products_collection' => $products->toResourceCollection(),
-            'availableTags' => Tag::select('id', 'name')->get(),
+            'availableTags' => Tag::select('id', 'name')->get()->toResourceCollection(),
             'filters' => [
-                'category' => $category,
-                'super_category' => $superCategory,
-                'tags' => Tag::whereIn('id', $tagIds)->get(['id as value', 'name as label']),
+                'category' => $category?->toResource(),
+                'super_category' => $superCategory?->toResource(),
+                'tags' => Tag::whereIn('id', $tagIds)->get(['id as value', 'name as label'])->toResourceCollection(),
             ],
             'category_filtering_level' => $category_filtering_level,
         ]);
