@@ -61,7 +61,7 @@ class ProductController extends Controller
         switch ($sort) {
             case 'alpha':
                 // If name is translatable JSON, swap this for a JSON_EXTRACT orderByRaw on the current locale.
-                $query->orderBy('name', $dir);
+                $query->orderBy('name', reverseDir($dir));
                 break;
 
             case 'date':
@@ -104,4 +104,10 @@ class ProductController extends Controller
             'product_resource' => $product->toResource(),
         ]);
     }
+}
+
+
+function reverseDir($direction)
+{
+    return $direction === 'asc' ? 'desc' : 'asc';
 }
