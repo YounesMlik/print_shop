@@ -1,12 +1,16 @@
 import { LanguageSwitcher } from '@/components/language-switcher'
 import { MainNav } from '@/components/navigation-menu'
 import { ScrollToTop } from '@/components/ui/_scroll-to-top'
-import { ChevronUp } from 'lucide-react'
+import { Separator } from '@/components/ui/separator'
+import { ChevronUp, Info, Mail, Phone } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 export default function Layout({ children }) {
     return (
         <>
             <div className="min-h-screen bg-gradient-to-b from-background via-background to-muted/40">
+
+                <TopBar />
 
                 <MainNav />
 
@@ -41,5 +45,26 @@ export default function Layout({ children }) {
                 </ScrollToTop>
             </div>
         </>
+    )
+}
+
+function TopBar() {
+    const { t } = useTranslation();
+    return (
+        <div className='flex items-center bg-blue-600 p-3 text-sm justify-around'>
+            <div className='flex gap-2 items-center h-5'>
+                <Phone />
+                <span>(+212) 660-630-814</span>
+                <Separator orientation="vertical" className='bg-white' />
+                <Mail />
+                <span>underprintmaroc@gmail.com</span>
+            </div>
+
+            <div className='flex gap-2 items-center'>
+                <span className='text-sm'>{t("TopBar.Orders of 500Dhs+ Get Free Shipping")}</span>
+                <Info />
+            </div>
+            {/* <Separator orientation='vertical'/> */}
+        </div>
     )
 }
