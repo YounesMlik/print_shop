@@ -15,10 +15,14 @@ import {
 import { Link, usePage } from "@inertiajs/react"
 import { Sparkles } from "lucide-react"
 import { useTranslation } from "react-i18next";
+import Whatsapp_logo from "/public/img/Whatsapp_logo 1.svg";
+import { LanguageSwitcher } from "@/components/language-switcher";
+import { makeWhatsappMessageUrl } from "@/components/helpers";
 
 export function MainNav() {
     const { t } = useTranslation();
     const super_categories = usePage().props.navigation?.super_categories.data || []
+    const whatsapp_phone_number = import.meta.env.VITE_WHATSAPP_PHONE_NUMBER
 
     return (
         <header className="sticky top-0 z-20 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border/50">
@@ -77,6 +81,21 @@ export function MainNav() {
                             </NavigationMenuLink>
                         </NavigationMenuItem>
 
+                        <NavigationMenuItem>
+                            <NavigationMenuLink asChild>
+                                <Link href={makeWhatsappMessageUrl()} className="flex flex-row items-center bg-green-600 text-sm text-white">
+                                    {t("nav.contact_us_via")}
+                                    <img src={Whatsapp_logo} className="h-10" />
+                                </Link>
+                            </NavigationMenuLink>
+                        </NavigationMenuItem>
+
+                        <NavigationMenuItem>
+                            <NavigationMenuLink asChild>
+                                <LanguageSwitcher />
+                            </NavigationMenuLink>
+                        </NavigationMenuItem>
+
                     </NavigationMenuList>
                 </NavigationMenu>
                 <div className="flex items-center gap-2">
@@ -84,4 +103,4 @@ export function MainNav() {
             </div>
         </header>
     )
-}
+} 
