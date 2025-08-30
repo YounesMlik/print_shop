@@ -19,6 +19,7 @@ import { Button } from '@/components/ui/button'
 import { AspectRatio } from '@/components/ui/aspect-ratio'
 import { useTranslation } from 'react-i18next'
 import mapValues from 'lodash/mapValues'
+import SortPicker from '@/components/sort-picker'
 
 export default function ProductsIndex({ products_collection, availableTags, filters, category_filtering_level }) {
   const { t } = useTranslation();
@@ -140,6 +141,10 @@ export default function ProductsIndex({ products_collection, availableTags, filt
           onChange={handleTagChange}
         />
 
+        <div className="mb-4 flex items-center justify-between">
+          <h1 className="text-xl font-semibold">Products</h1>
+          <SortPicker initialSort={filters?.sort} initialDir={filters?.dir} />
+        </div>
         <Separator />
 
         <ProductList products={products} />
