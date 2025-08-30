@@ -96,12 +96,19 @@ export function useLocalAttribute<T>({
     return { local, setLocal, errors, valid, dirty, saving, save, reset };
 }
 
-export function sendWhatsappMessage(message: string) {
+export function makeWhatsappMessageUrl(message: string = "") {
     const encoded = encodeURIComponent(message);
     // @ts-ignore
     const phone = import.meta.env.VITE_WHATSAPP_PHONE_NUMBER; // Update this with your business number
-    const url = `https://wa.me/${phone}?text=${encoded}`
-    window.open(url, "_blank")
+    const url = `https://wa.me/${phone}?text=${encoded}`;
+    return url;
+}
+
+export function sendWhatsappMessage(message: string) {
+    window.open(
+        makeWhatsappMessageUrl(message),
+        "_blank"
+    )
 }
 
 export function useLocalized(
