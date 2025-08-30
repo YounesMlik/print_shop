@@ -90,36 +90,39 @@ export default function SortPicker({ className, initialSort, initialDir }: Props
                 aria-label={`Sort ${dir === "asc" ? "ascending" : "descending"}`}
             >
 
-                {dir === "asc"
-                    ? (
-                        sort === "popular" && <ArrowUpNarrowWide className="h-4 w-4" /> ||
-                        sort === "date" && <CalendarArrowUp className="h-4 w-4" /> ||
-                        sort === "alpha" && <ArrowUpZA className="h-4 w-4" />
-                    )
-                    : (
-                        sort === "popular" && <ArrowDownWideNarrow className="h-4 w-4" /> ||
-                        sort === "date" && <CalendarArrowDown className="h-4 w-4" /> ||
-                        sort === "alpha" && <ArrowDownAZ className="h-4 w-4" />
-                    )
-                }
-
+                {sort_icons[dir][sort]}
 
                 <span className="ml-2 hidden sm:inline">
-                    {clsx(
-                        dir === "asc"
-                            ? [
-                                sort === "popular" && "Least Popular",
-                                sort === "date" && "Oldest to newest",
-                                sort === "alpha" && "Z to A",
-                            ]
-                            : [
-                                sort === "popular" && "Most Popular",
-                                sort === "date" && "Newest to oldest",
-                                sort === "alpha" && "A to Z",
-                            ]
-                    )}
+                    {sort_labels[dir][sort]}
                 </span>
             </Button>
         </div>
     );
+}
+
+
+const sort_labels = {
+    "asc": {
+        "popular": "Least Popular",
+        "date": "Oldest to newest",
+        "alpha": "Z to A",
+    },
+    "desc": {
+        "popular": "Most Popular",
+        "date": "Newest to oldest",
+        "alpha": "A to Z",
+    },
+}
+
+const sort_icons = {
+    "asc": {
+        "popular": <ArrowUpNarrowWide className="h-4 w-4" />,
+        "date": <ArrowUpNarrowWide className="h-4 w-4" />,
+        "alpha": <ArrowUpZA className="h-4 w-4" />,
+    },
+    "desc": {
+        "popular": <ArrowDownWideNarrow className="h-4 w-4" />,
+        "date": <CalendarArrowDown className="h-4 w-4" />,
+        "alpha": <ArrowDownAZ className="h-4 w-4" />,
+    },
 }
