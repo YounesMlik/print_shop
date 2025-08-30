@@ -117,7 +117,7 @@ const sort_labels = {
 const sort_icons = {
     "asc": {
         "popular": <ArrowUpNarrowWide className="h-4 w-4" />,
-        "date": <ArrowUpNarrowWide className="h-4 w-4" />,
+        "date": <CalendarArrowUp className="h-4 w-4" />,
         "alpha": <ArrowUpZA className="h-4 w-4" />,
     },
     "desc": {
