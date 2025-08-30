@@ -141,8 +141,8 @@ export default function ProductsIndex({ products_collection, availableTags, filt
           onChange={handleTagChange}
         />
 
-        <div className="mb-4 flex items-center justify-between">
-          <h1 className="text-xl font-semibold">Products</h1>
+        <div className="mb-4 flex flex-row-reverse items-center justify-between">
+          {/* <h1 className="text-xl font-semibold">Products</h1> */}
           <SortPicker initialSort={filters?.sort} initialDir={filters?.dir} />
         </div>
         <Separator />
