@@ -90,20 +90,17 @@ export default function SortPicker({ className, initialSort, initialDir }: Props
                 aria-label={`Sort ${dir === "asc" ? "ascending" : "descending"}`}
             >
 
-                {sort !== "popular" ? ""
-                    : dir === "asc"
-                        ? <ArrowUpNarrowWide className="h-4 w-4" />
-                        : <ArrowDownWideNarrow className="h-4 w-4" />
-                }
-                {sort !== "date" ? ""
-                    : dir === "asc"
-                        ? <CalendarArrowUp className="h-4 w-4" />
-                        : <CalendarArrowDown className="h-4 w-4" />
-                }
-                {sort !== "alpha" ? ""
-                    : dir === "asc"
-                        ? <ArrowUpZA className="h-4 w-4" />
-                        : <ArrowDownAZ className="h-4 w-4" />
+                {dir === "asc"
+                    ? (
+                        sort === "popular" && <ArrowUpNarrowWide className="h-4 w-4" /> ||
+                        sort === "date" && <CalendarArrowUp className="h-4 w-4" /> ||
+                        sort === "alpha" && <ArrowUpZA className="h-4 w-4" />
+                    )
+                    : (
+                        sort === "popular" && <ArrowDownWideNarrow className="h-4 w-4" /> ||
+                        sort === "date" && <CalendarArrowDown className="h-4 w-4" /> ||
+                        sort === "alpha" && <ArrowDownAZ className="h-4 w-4" />
+                    )
                 }
 
 
