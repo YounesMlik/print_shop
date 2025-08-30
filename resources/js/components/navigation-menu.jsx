@@ -91,9 +91,7 @@ export function MainNav() {
                         </NavigationMenuItem>
 
                         <NavigationMenuItem>
-                            <NavigationMenuLink asChild>
                                 <LanguageSwitcher />
-                            </NavigationMenuLink>
                         </NavigationMenuItem>
 
                     </NavigationMenuList>
