@@ -83,10 +83,10 @@ export function MainNav() {
 
                         <NavigationMenuItem>
                             <NavigationMenuLink asChild>
-                                <Link href={makeWhatsappMessageUrl()} className="flex flex-row items-center bg-green-600 text-sm text-white">
+                                <a href={makeWhatsappMessageUrl()} target="_blank" className="flex flex-row items-center bg-green-600 text-sm text-white">
                                     {t("nav.contact_us_via")}
                                     <img src={Whatsapp_logo} className="h-10" />
-                                </Link>
+                                </a>
                             </NavigationMenuLink>
                         </NavigationMenuItem>
 
