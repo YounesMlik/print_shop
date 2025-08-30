@@ -72,7 +72,7 @@ class ProductController extends Controller
             default:
                 // All-time if $days <= 0, else last X days
                 // Scope provided by eloquent-viewable
-                $query->orderByViews($dir, Period::pastDays(7));
+                $query->orderByUniqueViews($dir, Period::pastDays(7));
                 break;
         }
 
