@@ -14,6 +14,7 @@ import {
     ArrowUpZA,
 } from "lucide-react";
 import { clsx } from "clsx";
+import { useTranslation } from "react-i18next";
 
 type Sort = "popular" | "date" | "alpha";
 type Direction = "asc" | "desc";
@@ -39,6 +40,7 @@ function parseQuery(url: string) {
 }
 
 export default function SortPicker({ className, initialSort, initialDir }: Props) {
+    const { t } = useTranslation();
     const page = usePage();
     const path = page.url.split("?")[0];
 
@@ -77,9 +79,9 @@ export default function SortPicker({ className, initialSort, initialDir }: Props
                     <SelectValue placeholder="Sort by…" />
                 </SelectTrigger>
                 <SelectContent>
-                    <SelectItem value="popular">Popularity</SelectItem>
-                    <SelectItem value="date">Date</SelectItem>
-                    <SelectItem value="alpha">Alphabetical</SelectItem>
+                    <SelectItem value="popular">{t("SortPicker.sort.popular")}</SelectItem>
+                    <SelectItem value="date">{t("SortPicker.sort.date")}</SelectItem>
+                    <SelectItem value="alpha">{t("SortPicker.sort.alpha")}</SelectItem>
                 </SelectContent>
             </Select>
 
@@ -93,26 +95,13 @@ export default function SortPicker({ className, initialSort, initialDir }: Props
                 {sort_icons[dir][sort]}
 
                 <span className="ml-2 hidden sm:inline">
-                    {sort_labels[dir][sort]}
+                    {t(`SortPicker.dir.${dir}.${sort}`)}
                 </span>
             </Button>
         </div>
     );
 }
 
-
-const sort_labels = {
-    "asc": {
-        "popular": "Least Popular",
-        "date": "Oldest to newest",
-        "alpha": "Z to A",
-    },
-    "desc": {
-        "popular": "Most Popular",
-        "date": "Newest to oldest",
-        "alpha": "A to Z",
-    },
-}
 
 const sort_icons = {
     "asc": {

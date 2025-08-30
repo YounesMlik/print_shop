@@ -9,5 +9,14 @@
     "pagination.next": "الصفحة التالية",
     "no_products_found": "لم يتم العثور على أي منتجات.",
     "tags_search.label": "تصفية حسب العلامات",
-    "tags_search.placeholder": "اختر العلامات..."
+    "tags_search.placeholder": "اختر العلامات...",
+    "SortPicker.sort.popular": "الشعبية",
+    "SortPicker.sort.date": "التاريخ",
+    "SortPicker.sort.alpha": "أبجدي",
+    "SortPicker.dir.asc.popular": "الأقل شيوعًا",
+    "SortPicker.dir.asc.date": "الأقدم إلى الأحدث",
+    "SortPicker.dir.asc.alpha": "من الياء إلى الألف",
+    "SortPicker.dir.desc.popular": "الأكثر شيوعًا",
+    "SortPicker.dir.desc.date": "من الأحدث إلى الأقدم",
+    "SortPicker.dir.desc.alpha": "من الألف إلى الياء"
 }
