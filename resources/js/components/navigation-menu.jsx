@@ -17,6 +17,7 @@ import { useTranslation } from "react-i18next";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import WhatsappButton from "@/components/whatsapp-button";
 import { cn } from "@/lib/utils";
+import { ClipboardList, ShoppingCartIcon } from "lucide-react";
 
 export function MainNav({ className, ...props }) {
     const { t, i18n } = useTranslation();
@@ -36,7 +37,10 @@ export function MainNav({ className, ...props }) {
                             <NavigationMenuTrigger className="bg-transparent">
                                 <NavigationMenuLink asChild>
                                     <Link href={route('products.index')}>
-                                        {t("products")}
+                                        <div className="flex items-center gap-2">
+                                            <ShoppingCartIcon />
+                                            {t("products")}
+                                        </div>
                                     </Link>
                                 </NavigationMenuLink>
                             </NavigationMenuTrigger>
@@ -74,7 +78,10 @@ export function MainNav({ className, ...props }) {
                         <NavigationMenuItem>
                             <NavigationMenuLink asChild>
                                 <Link href={route('custom_order.index')} className="text-sm">
-                                    {t("custom_order")}
+                                    <div className="flex items-center gap-2">
+                                        <ClipboardList />
+                                        {t("custom_order")}
+                                    </div>
                                 </Link>
                             </NavigationMenuLink>
                         </NavigationMenuItem>
