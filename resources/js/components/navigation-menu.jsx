@@ -21,7 +21,6 @@ import { cn } from "@/lib/utils";
 export function MainNav({ className, ...props }) {
     const { t, i18n } = useTranslation();
     const super_categories = usePage().props.navigation?.super_categories.data || []
-    const whatsapp_phone_number = import.meta.env.VITE_WHATSAPP_PHONE_NUMBER
 
     return (
         <header className={cn("sticky top-0 z-20 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border/50")} {...props}>
