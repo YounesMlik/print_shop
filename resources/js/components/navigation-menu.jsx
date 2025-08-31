@@ -19,7 +19,7 @@ import WhatsappButton from "@/components/whatsapp-button";
 import { cn } from "@/lib/utils";
 
 export function MainNav({ className, ...props }) {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const super_categories = usePage().props.navigation?.super_categories.data || []
     const whatsapp_phone_number = import.meta.env.VITE_WHATSAPP_PHONE_NUMBER
 
@@ -32,7 +32,7 @@ export function MainNav({ className, ...props }) {
                 </Link>
 
                 <NavigationMenu delayDuration={0}>
-                    <NavigationMenuList className="hidden md:flex items-center gap-6 text-sm text-muted-foreground">
+                    <NavigationMenuList className="hidden md:flex items-center gap-6 text-sm text-muted-foreground" dir={i18n.dir()}>
                         <NavigationMenuItem>
                             <NavigationMenuTrigger className="bg-transparent">
                                 <NavigationMenuLink asChild>
