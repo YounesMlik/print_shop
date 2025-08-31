@@ -1,6 +1,6 @@
 import { makeWhatsappMessageUrl } from "@/components/helpers";
 import { useTranslation } from "react-i18next";
-import Whatsapp_logo from "/public/img/Whatsapp_logo 1.svg";
+import Whatsapp_logo from "/public/img/Whatsapp_logo.svg";
 import { cn } from "@/lib/utils";
 
 export default function WhatsappButton({ className, ...props }) {
