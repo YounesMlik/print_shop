@@ -16,14 +16,15 @@ import { Link, usePage } from "@inertiajs/react"
 import { useTranslation } from "react-i18next";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import WhatsappButton from "@/components/whatsapp-button";
+import { cn } from "@/lib/utils";
 
-export function MainNav() {
+export function MainNav({ className, ...props }) {
     const { t } = useTranslation();
     const super_categories = usePage().props.navigation?.super_categories.data || []
     const whatsapp_phone_number = import.meta.env.VITE_WHATSAPP_PHONE_NUMBER
 
     return (
-        <header className="sticky top-0 z-20 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border/50">
+        <header className={cn("sticky top-0 z-20 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border/50")} {...props}>
             <div className="container mx-auto px-4 py-4 z-20 flex items-center justify-around">
                 <Link href={route('home.index')} className="flex items-center gap-2">
                     <img src="/img/under_print_icon.svg" className="h-9 w-9 rounded-2xl bg-primary/10" />
