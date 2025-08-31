@@ -13,11 +13,9 @@ import {
     AccordionTrigger,
 } from '@/components/ui/accordion'
 import { Link, usePage } from "@inertiajs/react"
-import { Sparkles } from "lucide-react"
 import { useTranslation } from "react-i18next";
-import Whatsapp_logo from "/public/img/Whatsapp_logo 1.svg";
 import { LanguageSwitcher } from "@/components/language-switcher";
-import { makeWhatsappMessageUrl } from "@/components/helpers";
+import WhatsappButton from "@/components/whatsapp-button";
 
 export function MainNav() {
     const { t } = useTranslation();
@@ -82,16 +80,11 @@ export function MainNav() {
                         </NavigationMenuItem>
 
                         <NavigationMenuItem>
-                            <NavigationMenuLink asChild>
-                                <a href={makeWhatsappMessageUrl()} target="_blank" className="flex flex-row items-center bg-green-600 text-sm text-white">
-                                    {t("nav.contact_us_via")}
-                                    <img src={Whatsapp_logo} className="h-10" />
-                                </a>
-                            </NavigationMenuLink>
+                            <WhatsappButton />
                         </NavigationMenuItem>
 
                         <NavigationMenuItem>
-                                <LanguageSwitcher />
+                            <LanguageSwitcher />
                         </NavigationMenuItem>
 
                     </NavigationMenuList>
