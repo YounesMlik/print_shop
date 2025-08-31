@@ -13,7 +13,7 @@ export default function WhatsappButton({ className, ...props }) {
             className={cn("flex flex-row items-center h-12 bg-green-600 hover:bg-green-600/90 text-sm text-white rounded-sm transition-all", className)}
             {...props}
         >
-            <span className="p-2 text-md font-semibold">
+            <span className="ps-2 text-md font-semibold">
                 {t("nav.contact_us_via")}
             </span>
             <img src={Whatsapp_logo} className="max-h-full" />
