@@ -15,7 +15,7 @@ import {
     CarouselItem,
     CarouselNext,
     CarouselPrevious,
-} from "@/components/ui/carousel"
+} from "@/components/ui/_carousel"
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { sendWhatsappMessage } from "@/components/helpers";
 import { Badge } from "@/components/ui/badge";
