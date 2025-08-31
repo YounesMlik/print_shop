@@ -24,7 +24,7 @@ export function MainNav() {
 
     return (
         <header className="sticky top-0 z-20 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border/50">
-            <div className="container mx-auto px-4 py-4 z-20 flex items-center justify-between">
+            <div className="container mx-auto px-4 py-4 z-20 flex items-center justify-around">
                 <Link href={route('home.index')} className="flex items-center gap-2">
                     <img src="/img/under_print_icon.svg" className="h-9 w-9 rounded-2xl bg-primary/10" />
                     <span className="font-semibold tracking-tight">{import.meta.env.VITE_APP_NAME}</span>
@@ -89,8 +89,6 @@ export function MainNav() {
 
                     </NavigationMenuList>
                 </NavigationMenu>
-                <div className="flex items-center gap-2">
-                </div>
             </div>
         </header>
     )
