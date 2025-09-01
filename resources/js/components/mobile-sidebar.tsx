@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button"
 import { Menu } from "lucide-react"
 import WhatsappButton from "@/components/whatsapp-button"
 import { LanguageSwitcher } from "@/components/language-switcher"
+import under_print_logo_transparent from "/public/img/under_print_logo_transparent.png";
 
 export default function MobileSidebar({ superCategories }: { superCategories: SuperCategory[] }) {
     const { t, i18n } = useTranslation()
@@ -36,7 +37,11 @@ export default function MobileSidebar({ superCategories }: { superCategories: Su
             <SheetContent side={i18n.dir() === "rtl" ? "right" : "left"} className="w-[85vw] sm:w-[360px] p-4">
 
                 <SheetHeader>
-                    <SheetTitle>{app_name}</SheetTitle>
+                    <SheetTitle>
+                        <Link href={route("home.index")} className="flex items-center gap-2">
+                            <img src={under_print_logo_transparent} className="h-12" />
+                        </Link>
+                    </SheetTitle>
                     <SheetDescription></SheetDescription>
                 </SheetHeader>
 

@@ -19,7 +19,7 @@ import WhatsappButton from "@/components/whatsapp-button";
 import { cn } from "@/lib/utils";
 import { ClipboardList, Menu, ShoppingCartIcon } from "lucide-react";
 import MobileSidebar from "@/components/mobile-sidebar";
-// import { route } from "vendor/tightenco/ziggy/src/js";
+import under_print_logo_transparent from "/public/img/under_print_logo_transparent.png";
 
 export function MainNav({ className, ...props }) {
     const { t, i18n } = useTranslation()
@@ -39,15 +39,7 @@ export function MainNav({ className, ...props }) {
         >
             <div className="container mx-auto px-4 py-4 z-20 flex items-center justify-around">
                 <Link href={route("home.index")} className="flex items-center gap-2">
-                    <div className="flex items-center gap-2">
-                        <img
-                            src="/img/under_print_icon.svg"
-                            className="h-9 w-9 rounded-2xl bg-primary/10"
-                        />
-                        <span className="font-semibold tracking-tight">
-                            {app_name}
-                        </span>
-                    </div>
+                    <img src={under_print_logo_transparent} className="h-12"/>
                 </Link>
 
                 {/* Desktop nav (unchanged) */}
