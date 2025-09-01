@@ -5,6 +5,8 @@ namespace App\Models;
 use CyrildeWit\EloquentViewable\Contracts\Viewable;
 use CyrildeWit\EloquentViewable\InteractsWithViews;
 use CyrildeWit\EloquentViewable\Support\Period;
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
@@ -58,14 +60,14 @@ class Product extends Model implements HasMedia, Viewable
 
     /** Eager-load the same relations used in the controller */
     #[Scope]
-    public function withCommonRelations($query)
+    public function withCommonRelations(Builder $query)
     {
         return $query->with('tags', 'category', 'category.superCategory', 'media');
     }
 
     /** Filter by ALL selected tag IDs (AND semantics), identical to the foreach+whereHas chain */
     #[Scope]
-    public function filterTags($query, ?array $tagIds)
+    public function filterTags(Builder $query, ?array $tagIds)
     {
         if (empty($tagIds))
             return $query;
@@ -79,7 +81,7 @@ class Product extends Model implements HasMedia, Viewable
 
     /** Filter by direct category */
     #[Scope]
-    public function filterCategory($query, $categoryId)
+    public function filterCategory(Builder $query, $categoryId)
     {
         if (!$categoryId)
             return $query;
@@ -89,7 +91,7 @@ class Product extends Model implements HasMedia, Viewable
 
     /** Filter by super category through the category relationship */
     #[Scope]
-    public function filterSuperCategory($query, $superCategoryId)
+    public function filterSuperCategory(Builder $query, $superCategoryId)
     {
         if (!$superCategoryId)
             return $query;
@@ -103,7 +105,7 @@ class Product extends Model implements HasMedia, Viewable
 
     /** Apply sort exactly like the switch in the controller */
     #[Scope]
-    public function applySort($query, string $sort, string $dir)
+    public function applySort(Builder $query, string $sort, string $dir)
     {
         switch ($sort) {
             case 'alpha':
