@@ -24,11 +24,15 @@ import { LanguageSwitcher } from "@/components/language-switcher";
 import WhatsappButton from "@/components/whatsapp-button";
 import { cn } from "@/lib/utils";
 import { ClipboardList, Menu, ShoppingCartIcon } from "lucide-react";
+// import { route } from "vendor/tightenco/ziggy/src/js";
 
 export function MainNav({ className, ...props }) {
     const { t, i18n } = useTranslation()
     const super_categories =
         usePage().props.navigation?.super_categories?.data || []
+
+    // @ts-ignore
+    const app_name = import.meta.env.VITE_APP_NAME
 
     return (
         <header
@@ -45,7 +49,7 @@ export function MainNav({ className, ...props }) {
                         className="h-9 w-9 rounded-2xl bg-primary/10"
                     />
                     <span className="font-semibold tracking-tight">
-                        {import.meta.env.VITE_APP_NAME}
+                        {app_name}
                     </span>
                 </Link>
 
@@ -208,3 +212,5 @@ export function MainNav({ className, ...props }) {
         </header>
     )
 }
+
+declare function route(name: string, params?: any);
