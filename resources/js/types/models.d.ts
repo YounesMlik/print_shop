@@ -11,25 +11,25 @@ type Category = {
 type OptionAttribute = {
     id: number,
     name: string,
+    description: string | null,
+    effective_description: string | null,
     value: string,
-    description?: string | null,
-    effective_description?: string | null,
-    pivot?: {
-        description?: string | null,
-    },
+    // pivot?: OptionOptionAttribute,
 }
 
 type OptionOptionAttribute = {
     id: number,
-    description?: string | null,
+    description: string | null,
     value: string,
 }
 
 type Option = {
     id: number,
     name: string,
+    description: string | null,
     price: string | number,
-    option_attributes: OptionAttribute[],
+    product?: Product,
+    option_attributes?: OptionAttribute[],
     created_at: string,
     updated_at: string,
 }
@@ -50,7 +50,7 @@ type SuperCategory = {
     id: number,
     name: string,
     description: string | null,
-    categories: Category[],
+    categories?: Category[],
     created_at: string,
     updated_at: string,
 }
