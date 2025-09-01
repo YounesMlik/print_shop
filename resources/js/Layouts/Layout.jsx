@@ -51,7 +51,7 @@ export default function Layout({ children }) {
 function TopBar() {
     const { t } = useTranslation();
     return (
-        <div className='flex items-center bg-blue-600 p-3 text-sm justify-around'>
+        <div className='flex flex-col md:flex-row gap-3 items-center bg-blue-600 p-3 text-sm justify-around'>
             <div className='flex gap-2 items-center h-5'>
                 <Phone />
                 <span>(+212) 660-630-814</span>
@@ -60,7 +60,7 @@ function TopBar() {
                 <span>underprintmaroc@gmail.com</span>
             </div>
 
-            <div className='flex gap-2 items-center'>
+            <div className='flex flex-row-reverse md:flex-row gap-2 items-center'>
                 <span className='text-sm'>{t("TopBar.Orders of 500Dhs+ Get Free Shipping")}</span>
                 <Info />
             </div>
