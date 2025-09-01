@@ -46,5 +46,13 @@ function Root({ App, props }: any) {
 
 
 declare global {
-  function route(name: string, params?: any)
+  function route(name: string, params?: any);
+  // @ts-ignore
+  module "*.png";
+  // @ts-ignore
+  module "*.svg";
+  // @ts-ignore
+  module "*.jpeg";
+  // @ts-ignore
+  module "*.jpg";
 };
