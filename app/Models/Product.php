@@ -56,6 +56,14 @@ class Product extends Model implements HasMedia, Viewable
             ->sharpen(10);
     }
 
+    /** Eager-load the same relations used in the controller */
+    #[Scope]
+    public function withCommonRelations($query)
+    {
+        return $query->with('tags', 'category', 'category.superCategory', 'media');
+    }
+
+    /** Filter by ALL selected tag IDs (AND semantics), identical to the foreach+whereHas chain */
     #[Scope]
     public function filterTags($query, ?array $tagIds)
     {
