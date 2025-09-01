@@ -5,7 +5,11 @@ import {
 } from "@/components/ui/button";
 import {
   ArrowRight,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
 
 export default function HomePage() {
   const { t } = useTranslation();
@@ -17,6 +21,8 @@ export default function HomePage() {
       <section className="relative">
         <div className="container mx-auto px-4">
           <div className="mx-auto max-w-4xl py-20 text-center md:py-28">
+
+            <HeroSection />
 
             <h1 className="mt-6 text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl">
               Under Print
@@ -49,4 +55,32 @@ export default function HomePage() {
       </section>
     </>
   );
+}
+
+function HeroSection({ className, ...props }) {
+  const { t, i18n } = useTranslation();
+
+  return (
+    <div className={cn("flex justify-between items-center", className)} {...props}>
+      <div className="text-muted-foreground hover:text-foreground transition-all">
+        <Link href={route("products.index")} className="flex items-center">
+          {/* {i18n.dir() === "ltr" ? <ChevronLeft /> : <ChevronRight />} */}
+          <p className="text-4xl tracking-tight sm:text-6xl md:text-7xl lg:text-8xl whitespace-pre-line text-start">
+            {"Discover \nWhat's \nin \nStore"}
+          </p>
+        </Link>
+      </div>
+      <div className="h-30 sm:h-40 md:h-50 lg:h-60">
+        <Separator orientation="vertical" />
+      </div>
+      <div className="text-muted-foreground hover:text-foreground transition-all">
+        <Link href={route("custom_order.index")} className="flex items-center gap-2">
+          <p className="text-4xl tracking-tight sm:text-6xl md:text-7xl lg:text-8xl whitespace-pre-line text-end">
+            {"Start \nYour \nCustom \nOrder"}
+          </p>
+          {/* {i18n.dir() === "ltr" ? <ChevronRight /> : <ChevronLeft />} */}
+        </Link>
+      </div>
+    </div>
+  )
 }
