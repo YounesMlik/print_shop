@@ -7,17 +7,6 @@ import {
   ArrowRight,
 } from "lucide-react";
 
-/**
- * Basic, feature-less main page built for:
- * - Laravel 12 + Inertia 2
- * - React 19
- * - shadcn/ui 2 + Tailwind CSS
- *
- * Drop this file at: resources/js/Pages/HomePage.tsx
- * Route example (web.php): Route::get('/', fn () => Inertia::render('HomePage'));
- */
-
-
 export default function HomePage() {
   const { t } = useTranslation();
   return (
