@@ -1,7 +1,19 @@
 import { useTranslation } from "react-i18next"
 import { Link } from "@inertiajs/react"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion"
+import {
+    Sheet,
+    SheetContent,
+    SheetTrigger,
+    SheetTitle,
+    SheetHeader,
+    SheetDescription
+} from "@/components/ui/sheet"
+import {
+    Accordion,
+    AccordionItem,
+    AccordionTrigger,
+    AccordionContent
+} from "@/components/ui/accordion"
 import { Button } from "@/components/ui/button"
 import { Menu } from "lucide-react"
 import WhatsappButton from "@/components/whatsapp-button"
@@ -9,6 +21,9 @@ import { LanguageSwitcher } from "@/components/language-switcher"
 
 export default function MobileSidebar({ superCategories }: { superCategories: SuperCategory[] }) {
     const { t, i18n } = useTranslation()
+
+    // @ts-ignore
+    const app_name = import.meta.env.VITE_APP_NAME
 
     return (
         <Sheet>
@@ -19,6 +34,12 @@ export default function MobileSidebar({ superCategories }: { superCategories: Su
             </SheetTrigger>
 
             <SheetContent side={i18n.dir() === "rtl" ? "right" : "left"} className="w-[85vw] sm:w-[360px] p-4">
+
+                <SheetHeader>
+                    <SheetTitle>{app_name}</SheetTitle>
+                    <SheetDescription></SheetDescription>
+                </SheetHeader>
+
                 <nav className="flex flex-col gap-4 text-sm">
                     <Link href={route("products.index")} className="font-medium">
                         {t("products")}
