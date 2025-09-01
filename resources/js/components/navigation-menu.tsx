@@ -212,5 +212,3 @@ export function MainNav({ className, ...props }) {
         </header>
     )
 }
-
-declare function route(name: string, params?: any);

@@ -43,3 +43,8 @@ function Root({ App, props }: any) {
     </StrictMode>
   );
 }
+
+
+declare global {
+  function route(name: string, params?: any)
+};
