@@ -35,14 +35,14 @@ class ProductController extends Controller
         }
 
 
-        $products =  Product::query()
-        ->withCommonRelations()
-        ->filterTags($tagIds)
-        ->filterCategory($categoryId)
-        ->filterSuperCategory($superCategoryId)
-        ->applySort($sort, $dir)
-        ->paginate(12)
-        ->withQueryString(); // Keeps the query parameters (e.g., tags) in the pagination links
+        $products = Product::query()
+            ->withCommonRelations()
+            ->filterTags($tagIds)
+            ->filterCategory($categoryId)
+            ->filterSuperCategory($superCategoryId)
+            ->applySort($sort, $dir)
+            ->paginate(12)
+            ->withQueryString(); // Keeps the query parameters (e.g., tags) in the pagination links
 
         return Inertia::render('Products/Index', [
             'products_collection' => $products->toResourceCollection(),
