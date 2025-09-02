@@ -1,20 +1,14 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { Head, Link, router } from '@inertiajs/react'
-import LaravelPagination from '@/components/laravel-pagination'
-import { Separator } from '@/components/ui/separator'
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
-  BreadcrumbSeparator
 } from "@/components/ui/_breadcrumb";
 import { useTranslation } from 'react-i18next'
-import mapValues from 'lodash/mapValues'
-import SortPicker from '@/components/sort-picker'
-import { FilterSection } from '@/components/filter-section';
-import { ProductsList } from '@/components/products-list';
+import { ProductsTagFilter } from '@/components/products-tag-filter';
 
 export default function ProductsIndex({ products_collection, available_tags, current_tags, category_filtering_level }) {
   const { t } = useTranslation();
@@ -23,20 +17,7 @@ export default function ProductsIndex({ products_collection, available_tags, cur
   available_tags = available_tags.data
   current_tags = current_tags.data
 
-  const [selectedTags, setSelectedTags] = useState(mapTagsToSelectFormat(current_tags))
-
-  const tagOptions = useMemo(() => mapTagsToSelectFormat(availableTags), [availableTags])
-
-  function mapTagsToSelectFormat(tags = []) {
-    return tags.map(tag => ({
-      value: tag.id,
-      label: tag.name,
-    }))
-  }
-
-  function handleTagChange(newTags) {
-    const tags = newTags || []
-    setSelectedTags(tags)
+  function handleTagChange(tags) {
     const tagIds = tags.map(tag => tag.value)
 
     router.get(route('products.index'), { tags: tagIds }, {
@@ -45,15 +26,13 @@ export default function ProductsIndex({ products_collection, available_tags, cur
     })
   }
 
-  function handlePageChange(page) {
+  function handlePageChange(page, selectedTags) {
     const tagIds = selectedTags.map(t => t.value)
 
-    if (page != nav_data.current_page) {
-      router.get(route('products.index'), { page, tags: tagIds }, {
-        preserveState: true,
-        preserveScroll: true,
-      })
-    }
+    router.get(route('products.index'), { page, tags: tagIds }, {
+      preserveState: true,
+      preserveScroll: true,
+    })
   }
 
   return (
@@ -120,27 +99,15 @@ export default function ProductsIndex({ products_collection, available_tags, cur
           </BreadcrumbList>
         </Breadcrumb>
 
-        <FilterSection
-          selectedTags={selectedTags}
-          tagOptions={tagOptions}
-          loadTagOptions={loadTagOptions}
-          onChange={handleTagChange}
+        <ProductsTagFilter
+          products={products}
+          available_tags={available_tags}
+          current_tags={current_tags}
+          handleTagChange={handleTagChange}
+          nav_data={nav_data}
+          handlePageChange={handlePageChange}
         />
 
-        <div className="mb-4 flex flex-row-reverse items-center justify-between">
-          {/* <h1 className="text-xl font-semibold">Products</h1> */}
-          <SortPicker initialSort={filters?.sort} initialDir={filters?.dir} />
-        </div>
-        <Separator />
-
-        <ProductsList products={products} />
-
-        {nav_data.last_page > 1 && (
-          <LaravelPagination
-            nav_data={nav_data}
-            onPageChange={handlePageChange}
-          />
-        )}
       </section>
     </>
   )
