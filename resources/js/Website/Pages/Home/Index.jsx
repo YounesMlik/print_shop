@@ -22,9 +22,11 @@ export default function HomePage() {
       {/* Hero */}
       <section className="relative">
         <div className="container mx-auto px-4">
+
+          <HeroSection super_categories={super_categories} />
+
           <div className="mx-auto max-w-4xl py-20 text-center md:py-28">
 
-            <HeroSection super_categories={super_categories} />
 
             <h1 className="mt-6 text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl">
               Under Print
@@ -64,21 +66,21 @@ function HeroSection({ className, super_categories, ...props }) {
 
   return (
     <div className={cn("flex justify-between", className)} {...props}>
-      <div className="flex flex-col basis-63/128 text-muted-foreground hover:text-foreground transition-all text-start">
+      <div className="flex flex-col gap-10 basis-63/128 text-muted-foreground hover:text-foreground transition-all text-start">
         <Link href={route("products.index")} className="flex items-center">
           {/* {i18n.dir() === "ltr" ? <ChevronLeft /> : <ChevronRight />} */}
           <p className="text-4xl tracking-tight sm:text-6xl md:text-7xl lg:text-8xl whitespace-pre-line">
             {"Discover \nWhat's \nin \nStore"}
           </p>
         </Link>
-        <div className="flex">
+        <div className="flex flex-row flex-wrap gap-4 md:gap-0">
           {super_categories.map((super_category) => (
-            <div>
+            <div className="basis-1/1 md:basis-1/2">
               <p className="text-lg">
                 {super_category.name}
               </p>
               {super_category.categories.map((category) => (
-                <p className="text-sm">
+                <p className="text-xs">
                   {category.name}
                 </p>
               ))}
@@ -87,11 +89,11 @@ function HeroSection({ className, super_categories, ...props }) {
         </div>
       </div>
 
-      <div className="flex justify-center basis-2/128 self-center h-30 sm:h-40 md:h-50 lg:h-60">
+      <div className="flex justify-center basis-2/128 self-center h-80 sm:h-90 md:h-100 lg:h-120">
         <Separator orientation="vertical" />
       </div>
 
-      <div className="flex flex-col items-end basis-63/128 text-muted-foreground hover:text-foreground transition-all text-end">
+      <div className="flex flex-col gap-10 items-end basis-63/128 text-muted-foreground hover:text-foreground transition-all text-end">
         <Link href={route("custom_order.index")} className="flex items-center gap-2">
           <p className="text-4xl tracking-tight sm:text-6xl md:text-7xl lg:text-8xl whitespace-pre-line">
             {"Start \nYour \nCustom \nOrder"}
