@@ -1,12 +1,7 @@
 import { Head, router } from '@inertiajs/react'
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbList,
-  BreadcrumbPage,
-} from "@/components/ui/_breadcrumb";
 import { useTranslation } from 'react-i18next'
 import { ProductsTagFilter } from '@/components/products-tag-filter';
+import { Breadcrumbs } from '@/components/breadcrumbs';
 
 export default function ProductsIndex({ products_collection, available_tags, current_tags }) {
   const { t } = useTranslation();
@@ -39,15 +34,9 @@ export default function ProductsIndex({ products_collection, available_tags, cur
 
       <section className="grid gap-6">
 
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbPage>
-                {t("products")}
-              </BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
+        <Breadcrumbs>
+          <span>{t("products")}</span>
+        </Breadcrumbs>
 
         <ProductsTagFilter
           products={products}

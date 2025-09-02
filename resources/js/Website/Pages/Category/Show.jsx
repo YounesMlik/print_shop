@@ -1,14 +1,7 @@
 import { Head, Link, router } from '@inertiajs/react'
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/_breadcrumb";
 import { useTranslation } from 'react-i18next'
 import { ProductsTagFilter } from '@/components/products-tag-filter';
+import { Breadcrumbs } from '@/components/breadcrumbs';
 
 export default function CategoryShow({ products_collection, category_resource, available_tags, current_tags }) {
   const { t } = useTranslation();
@@ -17,8 +10,7 @@ export default function CategoryShow({ products_collection, category_resource, a
   const category = category_resource.data
   available_tags = available_tags.data
   current_tags = current_tags.data
-  console.log(category);
-  
+
 
   function handleTagChange(tags) {
     const tagIds = tags.map(tag => tag.value)
@@ -43,36 +35,19 @@ export default function CategoryShow({ products_collection, category_resource, a
       <Head title={category.name} />
 
       <section className="grid gap-6">
+        <Breadcrumbs>
+          <Link href={route('products.index')} >
+            {t("products")}
+          </Link>
 
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href={route('products.index')} >
-                  {t("products")}
-                </Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
+          <Link href={route('super-categories.show', { super_category: category.super_category.id, })} >
+            {category.super_category.name}
+          </Link>
 
-            <BreadcrumbSeparator />
-
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href={route('super-categories.show', { super_category: category.super_category.id, })} >
-                  {category.super_category.name}
-                </Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-
-            <BreadcrumbSeparator />
-
-            <BreadcrumbItem>
-              <BreadcrumbPage>
-                {category.name}
-              </BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
+          <span>
+            {category.name}
+          </span>
+        </Breadcrumbs>
 
         <ProductsTagFilter
           products={products}

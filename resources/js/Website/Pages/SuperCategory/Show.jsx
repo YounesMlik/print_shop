@@ -1,14 +1,7 @@
 import { Head, Link, router } from '@inertiajs/react'
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/_breadcrumb";
 import { useTranslation } from 'react-i18next'
 import { ProductsTagFilter } from '@/components/products-tag-filter';
+import { Breadcrumbs } from '@/components/breadcrumbs';
 
 export default function SuperCategoryShow({ products_collection, super_category_resource, available_tags, current_tags }) {
   const { t } = useTranslation();
@@ -42,25 +35,14 @@ export default function SuperCategoryShow({ products_collection, super_category_
 
       <section className="grid gap-6">
 
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href={route('products.index')} >
-                  {t("products")}
-                </Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-
-            <BreadcrumbSeparator />
-
-            <BreadcrumbItem>
-              <BreadcrumbPage>
-                {super_category.name}
-              </BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
+        <Breadcrumbs>
+          <Link href={route('products.index')} >
+            {t("products")}
+          </Link>
+          <span>
+            {super_category.name}
+          </span>
+        </Breadcrumbs>
 
         <ProductsTagFilter
           products={products}
