@@ -10,7 +10,7 @@ import {
 import { useTranslation } from 'react-i18next'
 import { ProductsTagFilter } from '@/components/products-tag-filter';
 
-export default function ProductsIndex({ products_collection, super_category_resource, available_tags, current_tags }) {
+export default function SuperCategoryShow({ products_collection, super_category_resource, available_tags, current_tags }) {
   const { t } = useTranslation();
   const nav_data = products_collection.meta
   const products = products_collection.data
