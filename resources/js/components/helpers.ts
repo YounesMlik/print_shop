@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import z from "zod";
+import flatMap from "lodash/flatMap";
 
 export function objectMap(object: object, fn: ([string, unknown]) => [string, unknown]) {
     return Object.fromEntries(Object.entries(object).map(fn))
@@ -116,4 +117,12 @@ export function useLocalized(
 ): string {
     const { i18n } = useTranslation();
     return i18n.languages.map(lang => translations[lang]).find(value => value);
+}
+
+export function intersperse(arr: [], sep: unknown) {
+    return flatMap(arr, (value, index) =>
+        index !== arr.length - 1    // check for the last item
+            ? [value, sep]
+            : value
+    );
 }
