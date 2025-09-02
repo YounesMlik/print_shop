@@ -1,9 +1,7 @@
-import { useState } from 'react'
-import { Head, Link, router } from '@inertiajs/react'
+import { Head, router } from '@inertiajs/react'
 import {
   Breadcrumb,
   BreadcrumbItem,
-  BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
 } from "@/components/ui/_breadcrumb";
@@ -20,7 +18,7 @@ export default function ProductsIndex({ products_collection, available_tags, cur
   function handleTagChange(tags) {
     const tagIds = tags.map(tag => tag.value)
 
-    router.get(route().current(), { tags: tagIds }, {
+    router.get(route(route().current()), { tags: tagIds }, {
       preserveState: true,
       preserveScroll: true,
     })
@@ -29,7 +27,7 @@ export default function ProductsIndex({ products_collection, available_tags, cur
   function handlePageChange(page, selectedTags) {
     const tagIds = selectedTags.map(t => t.value)
 
-    router.get(route().current(), { page, tags: tagIds }, {
+    router.get(route(route().current()), { page, tags: tagIds }, {
       preserveState: true,
       preserveScroll: true,
     })

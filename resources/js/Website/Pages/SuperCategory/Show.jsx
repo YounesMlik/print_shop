@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Head, Link, router } from '@inertiajs/react'
 import {
   Breadcrumb,
@@ -6,21 +5,23 @@ import {
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
+  BreadcrumbSeparator,
 } from "@/components/ui/_breadcrumb";
 import { useTranslation } from 'react-i18next'
 import { ProductsTagFilter } from '@/components/products-tag-filter';
 
-export default function ProductsIndex({ products_collection, available_tags, current_tags }) {
+export default function ProductsIndex({ products_collection, super_category_resource, available_tags, current_tags }) {
   const { t } = useTranslation();
   const nav_data = products_collection.meta
   const products = products_collection.data
+  const super_category = super_category_resource.data
   available_tags = available_tags.data
   current_tags = current_tags.data
 
   function handleTagChange(tags) {
     const tagIds = tags.map(tag => tag.value)
 
-    router.get(route().current(), { tags: tagIds }, {
+    router.get(route(route().current(), { super_category: super_category.id }), { tags: tagIds }, {
       preserveState: true,
       preserveScroll: true,
     })
@@ -29,7 +30,7 @@ export default function ProductsIndex({ products_collection, available_tags, cur
   function handlePageChange(page, selectedTags) {
     const tagIds = selectedTags.map(t => t.value)
 
-    router.get(route().current(), { page, tags: tagIds }, {
+    router.get(route(route().current(), { super_category: super_category.id }), { page, tags: tagIds }, {
       preserveState: true,
       preserveScroll: true,
     })
@@ -37,7 +38,7 @@ export default function ProductsIndex({ products_collection, available_tags, cur
 
   return (
     <>
-      <Head title={filters.super_category.name} />
+      <Head title={super_category.name} />
 
       <section className="grid gap-6">
 
@@ -55,7 +56,7 @@ export default function ProductsIndex({ products_collection, available_tags, cur
 
             <BreadcrumbItem>
               <BreadcrumbPage>
-                {filters.super_category.name}
+                {super_category.name}
               </BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
