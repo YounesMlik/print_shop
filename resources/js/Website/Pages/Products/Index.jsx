@@ -34,15 +34,6 @@ export default function ProductsIndex({ products_collection, availableTags, filt
     }))
   }
 
-  function filterTagsByInput(inputValue) {
-    const lowerInput = inputValue.toLowerCase()
-    return tagOptions.filter(tag => tag.label.toLowerCase().includes(lowerInput))
-  }
-
-  function loadTagOptions(inputValue) {
-    return Promise.resolve(filterTagsByInput(inputValue))
-  }
-
   function handleTagChange(newTags) {
     const tags = newTags || []
     setSelectedTags(tags)
@@ -68,8 +59,8 @@ export default function ProductsIndex({ products_collection, availableTags, filt
   return (
     <>
       {category_filtering_level !== 0 ? "" : <Head title={t("products")} />}
-      {category_filtering_level !== 1 ? "" : <Head title={filters.super_category.name} />}
-      {category_filtering_level !== 2 ? "" : <Head title={filters.category.name} />}
+      {/* {category_filtering_level !== 1 ? "" : <Head title={filters.super_category.name} />} */}
+      {/* {category_filtering_level !== 2 ? "" : <Head title={filters.category.name} />} */}
 
       <section className="grid gap-6">
 
@@ -88,7 +79,7 @@ export default function ProductsIndex({ products_collection, availableTags, filt
                 </BreadcrumbLink>
               }
             </BreadcrumbItem>
-            {!filters.super_category ? "" :
+            {/* {!filters.super_category ? "" :
               <>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
@@ -106,8 +97,8 @@ export default function ProductsIndex({ products_collection, availableTags, filt
 
                 </BreadcrumbItem>
               </>
-            }
-            {!filters.category ? "" :
+            } */}
+            {/* {!filters.category ? "" :
               <>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
@@ -125,7 +116,7 @@ export default function ProductsIndex({ products_collection, availableTags, filt
 
                 </BreadcrumbItem>
               </>
-            }
+            } */}
           </BreadcrumbList>
         </Breadcrumb>
 
