@@ -64,7 +64,7 @@ function HeroSection({ className, super_categories, ...props }) {
 
   return (
     <div className={cn("flex justify-between", className)} {...props}>
-      <div className="text-muted-foreground hover:text-foreground transition-all text-start">
+      <div className="flex flex-col basis-63/128 text-muted-foreground hover:text-foreground transition-all text-start">
         <Link href={route("products.index")} className="flex items-center">
           {/* {i18n.dir() === "ltr" ? <ChevronLeft /> : <ChevronRight />} */}
           <p className="text-4xl tracking-tight sm:text-6xl md:text-7xl lg:text-8xl whitespace-pre-line">
@@ -86,10 +86,12 @@ function HeroSection({ className, super_categories, ...props }) {
           ))}
         </div>
       </div>
-      <div className="self-center h-30 sm:h-40 md:h-50 lg:h-60">
+
+      <div className="flex justify-center basis-2/128 self-center h-30 sm:h-40 md:h-50 lg:h-60">
         <Separator orientation="vertical" />
       </div>
-      <div className="text-muted-foreground hover:text-foreground transition-all text-end">
+
+      <div className="flex flex-col items-end basis-63/128 text-muted-foreground hover:text-foreground transition-all text-end">
         <Link href={route("custom_order.index")} className="flex items-center gap-2">
           <p className="text-4xl tracking-tight sm:text-6xl md:text-7xl lg:text-8xl whitespace-pre-line">
             {"Start \nYour \nCustom \nOrder"}
