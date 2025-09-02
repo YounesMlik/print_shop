@@ -49,7 +49,6 @@ function Root({ App, props }: any) {
 
 
 declare global {
-  function route(name: string, params?: any);
   // @ts-ignore
   module "*.png";
   // @ts-ignore

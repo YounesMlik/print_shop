@@ -1,4 +1,6 @@
 import { Page } from '@inertiajs/core'
+import { route as routeFn } from 'ziggy-js';
+
 
 declare module '@inertiajs/core' {
   interface PageProps extends Page<PageProps> {
@@ -37,4 +39,8 @@ type VariantPickerProps = {
   label?: string,
   /** Optional label when no options are available */
   no_options_available_label?: string,
+}
+
+declare global {
+    var route: typeof routeFn;
 }
