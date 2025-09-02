@@ -12,45 +12,66 @@ const hero_bg = "/public/img/home_page/hero_bg.jpg";
 
 export default function HeroSection({ className, super_categories, ...props }) {
   const { t, i18n } = useTranslation();
+  const [hoverSide, setHoverSide] = useState<0 | 1 | null>(null);
 
   return (
-    <div className={cn(`bg-[url(${hero_bg})] text-shadow-lg/10`, className)} {...props}>
-      <div className="flex justify-between px-4 pb-4 bg-linear-to-r from-black/100 to-black/0">
-        <div className="flex flex-col gap-10 basis-63/128 text-muted-foreground hover:text-foreground transition-all text-start">
-          <Link href={route("products.index")} className="flex items-center">
-            {/* {i18n.dir() === "ltr" ? <ChevronLeft /> : <ChevronRight />} */}
-            <p className="text-4xl font-semibold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl whitespace-pre-line">
-              {"Discover \nWhat's \nin \nStore"}
-            </p>
-          </Link>
-          <div className="flex flex-row flex-wrap gap-4 md:gap-0">
-            {super_categories.map((super_category, i) => (
-              <div className="basis-1/1 md:basis-1/2" key={i}>
-                <p className="text-lg">
-                  {super_category.name}
+    <div className={cn(`relative z-0 flex justify-between px-4 pb-4 bg-[url(${hero_bg})] text-shadow-lg/10`, className)} {...props}>
+      <div
+        className="flex flex-col gap-10 basis-63/128 text-muted-foreground hover:text-foreground transition-all text-start"
+        onMouseEnter={() => setHoverSide(0)}
+        onMouseLeave={() => setHoverSide(null)}
+      >
+        <Link href={route("products.index")} className="flex items-center">
+          {/* {i18n.dir() === "ltr" ? <ChevronLeft /> : <ChevronRight />} */}
+          <p className="text-4xl font-semibold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl whitespace-pre-line">
+            {"Discover \nWhat's \nin \nStore"}
+          </p>
+        </Link>
+        <div className="flex flex-row flex-wrap gap-4 md:gap-0">
+          {super_categories.map((super_category, i) => (
+            <div className="basis-1/1 md:basis-1/2" key={i}>
+              <p className="text-lg">
+                {super_category.name}
+              </p>
+              {super_category.categories.map((category, i) => (
+                <p className="text-xs" key={i}>
+                  {category.name}
                 </p>
-                {super_category.categories.map((category, i) => (
-                  <p className="text-xs" key={i}>
-                    {category.name}
-                  </p>
-                ))}
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ))}
         </div>
+      </div>
 
-        <div className="flex justify-center basis-2/128 self-center h-80 sm:h-90 md:h-100 lg:h-120">
-          <Separator orientation="vertical" />
-        </div>
+      <div className="flex justify-center basis-2/128 self-center h-80 sm:h-90 md:h-100 lg:h-120">
+        <Separator orientation="vertical" />
+      </div>
 
-        <div className="flex flex-col gap-10 items-end basis-63/128 text-muted-foreground hover:text-foreground transition-all text-end">
-          <Link href={route("custom_order.index")} className="flex items-center gap-2">
-            <p className="text-4xl font-semibold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl whitespace-pre-line">
-              {"Start \nYour \nCustom \nOrder"}
-            </p>
-            {/* {i18n.dir() === "ltr" ? <ChevronRight /> : <ChevronLeft />} */}
-          </Link>
-        </div>
+      <div className="flex flex-col gap-10 items-end basis-63/128 text-muted-foreground hover:text-foreground transition-all text-end"
+        onMouseEnter={() => setHoverSide(1)}
+        onMouseLeave={() => setHoverSide(null)}
+      >
+        <Link href={route("custom_order.index")} className="flex items-center gap-2">
+          <p className="text-4xl font-semibold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl whitespace-pre-line">
+            {"Start \nYour \nCustom \nOrder"}
+          </p>
+          {/* {i18n.dir() === "ltr" ? <ChevronRight /> : <ChevronLeft />} */}
+        </Link>
+      </div>
+
+      <div className={cn(
+        "absolute w-full h-full -z-10 inset-0 bg-linear-to-r from-black/0 to-black/100 transition-opacity",
+        hoverSide === 1
+          ? "opacity-0"
+          : "opacity-100"
+      )} >
+      </div>
+      <div className={cn(
+        "absolute w-full h-full -z-10 inset-0 bg-linear-to-r from-black/100 to-black/0 transition-opacity",
+        hoverSide === 1
+          ? "opacity-100"
+          : "opacity-0"
+      )} >
       </div>
     </div>
   )
