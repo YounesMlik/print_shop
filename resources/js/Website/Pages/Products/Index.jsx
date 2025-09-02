@@ -1,11 +1,6 @@
 import { useMemo, useState } from 'react'
 import { Head, Link, router } from '@inertiajs/react'
-import AsyncSelect from 'react-select/async'
-
-import LaravelPagination from '../../../components/laravel-pagination'
-
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Label } from '@/components/ui/label'
+import LaravelPagination from '@/components/laravel-pagination'
 import { Separator } from '@/components/ui/separator'
 import {
   Breadcrumb,
@@ -15,11 +10,11 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator
 } from "@/components/ui/_breadcrumb";
-import { Button } from '@/components/ui/button'
-import { AspectRatio } from '@/components/ui/aspect-ratio'
 import { useTranslation } from 'react-i18next'
 import mapValues from 'lodash/mapValues'
 import SortPicker from '@/components/sort-picker'
+import { FilterSection } from '@/components/filter-section';
+import { ProductList } from '@/components/products-list';
 
 export default function ProductsIndex({ products_collection, availableTags, filters, category_filtering_level }) {
   const { t } = useTranslation();
@@ -157,93 +152,5 @@ export default function ProductsIndex({ products_collection, availableTags, filt
         )}
       </section>
     </>
-  )
-}
-
-function FilterSection({ selectedTags, tagOptions, loadTagOptions, onChange }) {
-  const { t } = useTranslation();
-  return (
-    <div className="space-y-2">
-      <Label htmlFor="product-tags">{t("tags_search.label")}</Label>
-      <AsyncSelect
-        inputId="product-tags"
-        isMulti
-        defaultOptions={tagOptions}
-        cacheOptions
-        value={selectedTags}
-        loadOptions={loadTagOptions}
-        onChange={onChange}
-        placeholder={t("tags_search.placeholder")}
-        classNamePrefix="react-select"
-        styles={{
-          control: (base) => ({
-            ...base,
-            borderRadius: '0.375rem',
-            borderColor: '#e2e8f0',
-            padding: '2px',
-            boxShadow: 'none',
-          }),
-          multiValue: (base) => ({
-            ...base,
-            backgroundColor: '#f1f5f9',
-            borderRadius: '0.375rem',
-          }),
-          multiValueLabel: (base) => ({
-            ...base,
-            color: '#334155',
-          }),
-          multiValueRemove: (base) => ({
-            ...base,
-            color: '#334155',
-            ':hover': {
-              backgroundColor: '#e2e8f0',
-              color: '#1e293b',
-            },
-          }),
-          option: (base, state) => ({
-            ...base,
-            backgroundColor: state.isFocused ? '#e2e8f0' : 'white',
-            color: '#0f172a',
-          }),
-          menu: (base) => ({
-            ...base,
-            zIndex: 20,
-          }),
-        }}
-      />
-    </div>
-  )
-}
-
-function ProductList({ products }) {
-  const { t } = useTranslation();
-  if (products.length === 0) {
-    return <p className="text-muted-foreground">{t("no_products_found")}</p>
-  }
-
-  return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-      {products.map(product => (
-
-        <Link href={route('products.show', product.id)} key={product.id}>
-          <Card className='w-full h-full hover:outline-gray-500/50 hover:outline-2'>
-            <CardHeader>
-              <CardTitle>
-                {product.name}
-              </CardTitle>
-              {product.images.length === 0 ? "" :
-                <AspectRatio ratio={1}>
-                  <img src={product.images[0].url} alt="product image" className="rounded-md w-full h-full object-contain" />
-                </AspectRatio>
-              }
-
-            </CardHeader>
-            <CardContent>
-              <p>{product.description}</p>
-            </CardContent>
-          </Card>
-        </Link>
-      ))}
-    </div>
   )
 }
