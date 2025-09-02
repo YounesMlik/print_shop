@@ -19,7 +19,7 @@ export function Breadcrumbs({ className, children, ...props }) {
           i % 2 === 1  // if Separator
             ? item(i)
             : <BreadcrumbItem key={i}>
-              {i === children.length - 1
+              {i === children.length - 1 // if last item
                 ? <BreadcrumbPage>
                   {item}
                 </BreadcrumbPage>
