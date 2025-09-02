@@ -68,8 +68,8 @@ function HeroSection({ className, super_categories, ...props }) {
   const { t, i18n } = useTranslation();
 
   return (
-    <div>
-      <div className={cn(`flex justify-between px-4 pb-4 bg-[url(${hero_bg})] text-shadow-lg/10`, className)} {...props}>
+    <div className={cn(`bg-[url(${hero_bg})] text-shadow-lg/10`, className)} {...props}>
+      <div class="flex justify-between px-4 pb-4 bg-linear-to-r from-black/100 to-black/0">
         <div className="flex flex-col gap-10 basis-63/128 text-muted-foreground hover:text-foreground transition-all text-start">
           <Link href={route("products.index")} className="flex items-center">
             {/* {i18n.dir() === "ltr" ? <ChevronLeft /> : <ChevronRight />} */}
