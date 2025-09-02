@@ -47,7 +47,7 @@ class ProductController extends Controller
         return Inertia::render('Products/Index', [
             'products_collection' => $products->toResourceCollection(),
             'available_tags' => Tag::select('id', 'name')->get()->toResourceCollection(),
-            'current_tags' => Tag::whereIn('id', $tagIds)->get(['id as value', 'name as label'])->toResourceCollection(),
+            'current_tags' => Tag::whereIn('id', $tagIds)->get()->toResourceCollection(),
             'category_filtering_level' => $category_filtering_level,
         ]);
     }
