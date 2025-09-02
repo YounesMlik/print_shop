@@ -30,7 +30,7 @@ class CategoryController extends Controller
             'products_collection' => $products->toResourceCollection(),
             'available_tags' => Tag::select('id', 'name')->get()->toResourceCollection(),
             'current_tags' => Tag::whereIn('id', $tagIds)->get()->toResourceCollection(),
-            'category_resource' => $category->toResource(),
+            'category_resource' => $category->load('superCategory')->toResource(),
         ]);
     }
 }
