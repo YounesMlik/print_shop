@@ -52,7 +52,7 @@ export default function ProductShow({ product_resource }) {
                     <BreadcrumbSeparator />
                     <BreadcrumbItem>
                         <BreadcrumbLink asChild>
-                            <Link href={route('products.index', { super_category: product.category.super_category.id, })} >
+                            <Link href={route('super-categories.show', { super_category: product.category.super_category.id, })} >
                                 {product.category.super_category.name}
                             </Link>
                         </BreadcrumbLink>
@@ -60,7 +60,7 @@ export default function ProductShow({ product_resource }) {
                     <BreadcrumbSeparator />
                     <BreadcrumbItem>
                         <BreadcrumbLink asChild>
-                            <Link href={route('products.index', { category: product.category.id, })} >
+                            <Link href={route('categories.show', { category: product.category.id, })} >
                                 {product.category.name}
                             </Link>
                         </BreadcrumbLink>

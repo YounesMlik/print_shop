@@ -39,7 +39,7 @@ export function MainNav({ className, ...props }) {
         >
             <div className="container mx-auto px-4 py-4 z-20 flex items-center justify-around">
                 <Link href={route("home.index")} className="flex items-center gap-2">
-                    <img src={under_print_logo_transparent} className="h-12"/>
+                    <img src={under_print_logo_transparent} className="h-12" />
                 </Link>
 
                 {/* Desktop nav (unchanged) */}
@@ -69,7 +69,7 @@ export function MainNav({ className, ...props }) {
                                             <AccordionTrigger className="text-sm font-semibold text-muted-foreground">
                                                 <NavigationMenuLink asChild>
                                                     <Link
-                                                        href={route("products.index", {
+                                                        href={route("super-categories.show", {
                                                             super_category: super_category.id,
                                                         })}
                                                     >
@@ -83,7 +83,7 @@ export function MainNav({ className, ...props }) {
                                                         <li key={category.id}>
                                                             <NavigationMenuLink asChild>
                                                                 <Link
-                                                                    href={route("products.index", {
+                                                                    href={route("categories.show", {
                                                                         category: category.id,
                                                                     })}
                                                                 >

@@ -56,7 +56,7 @@ export default function MobileSidebar({ superCategories }: { superCategories: Su
                                 <AccordionItem key={sc.id} value={`msc-${sc.id}`}>
                                     <AccordionTrigger className="px-3 text-sm">
                                         <Link
-                                            href={route("products.index", { super_category: sc.id })}
+                                            href={route("super-categories.show", { super_category: sc.id })}
                                             className="font-medium"
                                         >
                                             {sc.name}
@@ -67,7 +67,7 @@ export default function MobileSidebar({ superCategories }: { superCategories: Su
                                             {sc.categories?.map((c) => (
                                                 <li key={c.id}>
                                                     <Link
-                                                        href={route("products.index", { category: c.id })}
+                                                        href={route("categories.show", { category: c.id })}
                                                         className="text-muted-foreground hover:text-foreground"
                                                     >
                                                         {c.name}

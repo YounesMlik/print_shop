@@ -37,15 +37,25 @@ export default function ProductsIndex({ products_collection, available_tags, cur
 
   return (
     <>
-      <Head title={t("products")} />
+      <Head title={filters.super_category.name} />
 
       <section className="grid gap-6">
 
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link href={route('products.index')} >
+                  {t("products")}
+                </Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+
+            <BreadcrumbSeparator />
+
+            <BreadcrumbItem>
               <BreadcrumbPage>
-                {t("products")}
+                {filters.super_category.name}
               </BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
