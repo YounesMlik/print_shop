@@ -119,7 +119,7 @@ export function useLocalized(
     return i18n.languages.map(lang => translations[lang]).find(value => value);
 }
 
-export function intersperse(arr: [], sep: unknown) {
+export function intersperse(arr: unknown[], sep: unknown) {
     return flatMap(arr, (value, index) =>
         index !== arr.length - 1    // check for the last item
             ? [value, sep]
