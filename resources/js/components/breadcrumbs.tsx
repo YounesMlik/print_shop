@@ -15,11 +15,11 @@ export function Breadcrumbs({ className, children, ...props }) {
         {intersperse(
           children,
           (key) => <BreadcrumbSeparator key={key} />
-        ).map((item, i) => (
+        ).map((item, i, arr) => (
           i % 2 === 1  // if Separator
             ? item(i)
             : <BreadcrumbItem key={i}>
-              {i === children.length - 1 // if last item
+              {i === arr.length - 1 // if last item
                 ? <BreadcrumbPage>
                   {item}
                 </BreadcrumbPage>
