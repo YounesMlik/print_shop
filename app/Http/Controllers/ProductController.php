@@ -46,7 +46,7 @@ class ProductController extends Controller
 
         return Inertia::render('Products/Index', [
             'products_collection' => $products->toResourceCollection(),
-            'availableTags' => Tag::select('id', 'name')->get()->toResourceCollection(),
+            'available_tags' => Tag::select('id', 'name')->get()->toResourceCollection(),
             'filters' => [
                 'category' => $category?->toResource(),
                 'super_category' => $superCategory?->toResource(),

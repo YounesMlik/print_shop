@@ -16,11 +16,11 @@ import SortPicker from '@/components/sort-picker'
 import { FilterSection } from '@/components/filter-section';
 import { ProductsList } from '@/components/products-list';
 
-export default function ProductsIndex({ products_collection, availableTags, filters, category_filtering_level }) {
+export default function ProductsIndex({ products_collection, available_tags, filters, category_filtering_level }) {
   const { t } = useTranslation();
   const nav_data = products_collection.meta
   const products = products_collection.data
-  availableTags = availableTags.data
+  available_tags = available_tags.data
   filters = mapValues(filters, item => item?.data)
 
   const [selectedTags, setSelectedTags] = useState(mapTagsToSelectFormat(filters.tags))
