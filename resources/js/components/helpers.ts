@@ -120,6 +120,10 @@ export function useLocalized(
 }
 
 export function intersperse(arr: unknown[], sep: unknown) {
+    if (!(arr instanceof Array)) {  // to make it work with react children
+        return [arr];
+    }
+
     return flatMap(arr, (value, index) =>
         index !== arr.length - 1    // check for the last item
             ? [value, sep]
