@@ -5,7 +5,7 @@ import { AspectRatio } from '@/components/ui/aspect-ratio'
 import { useTranslation } from 'react-i18next'
 
 
-export function ProductList({ products }) {
+export function ProductsList({ products }) {
   const { t } = useTranslation();
   if (products.length === 0) {
     return <p className="text-muted-foreground">{t("no_products_found")}</p>

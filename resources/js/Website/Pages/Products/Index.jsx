@@ -14,7 +14,7 @@ import { useTranslation } from 'react-i18next'
 import mapValues from 'lodash/mapValues'
 import SortPicker from '@/components/sort-picker'
 import { FilterSection } from '@/components/filter-section';
-import { ProductList } from '@/components/products-list';
+import { ProductsList } from '@/components/products-list';
 
 export default function ProductsIndex({ products_collection, availableTags, filters, category_filtering_level }) {
   const { t } = useTranslation();
@@ -133,7 +133,7 @@ export default function ProductsIndex({ products_collection, availableTags, filt
         </div>
         <Separator />
 
-        <ProductList products={products} />
+        <ProductsList products={products} />
 
         {nav_data.last_page > 1 && (
           <LaravelPagination
