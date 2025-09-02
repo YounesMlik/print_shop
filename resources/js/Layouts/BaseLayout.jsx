@@ -14,7 +14,7 @@ export default function BaseLayout({ children }) {
 
                 <MainNav />
 
-                <main className="mx-auto py-4">
+                <main className="mx-auto">
                     {/* Soft background accents */}
                     <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
                         <div className="absolute -top-24 -right-32 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />

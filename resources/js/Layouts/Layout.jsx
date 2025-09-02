@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next'
 export default function Layout({ children }) {
     return (
         <BaseLayout>
-            <div className="container mx-auto px-4">
+            <div className="container mx-auto px-4 py-4">
                 {children}
             </div>
         </BaseLayout>
