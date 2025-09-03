@@ -8,6 +8,8 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 const hero_bg = "/public/img/home_page/hero_bg.jpg";
+import hero_bg_circle from "/public/img/home_page/hero_bg_circle.svg";
+import hero_bg_star from "/public/img/home_page/hero_bg_star.svg";
 
 
 export default function HeroSection({ className, super_categories, ...props }) {
@@ -58,6 +60,9 @@ export default function HeroSection({ className, super_categories, ...props }) {
           {/* {i18n.dir() === "ltr" ? <ChevronRight /> : <ChevronLeft />} */}
         </Link>
       </div>
+
+      <img src={hero_bg_circle} className="absolute w-80 blur-3xl" />
+      <img src={hero_bg_star} className="absolute w-80 blur-3xl" />
 
       <div className={cn(
         "absolute w-full h-full -z-10 inset-0 bg-linear-to-r from-black/0 to-black/100 transition-opacity",
