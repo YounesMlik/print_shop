@@ -27,9 +27,9 @@ export default function HeroSection({ className, super_categories, ...props }) {
             {"Discover \nWhat's \nin \nStore"}
           </p>
         </Link>
-        <div className="flex flex-row flex-wrap gap-4 md:gap-0">
+        <div className="flex flex-row flex-wrap gap-8">
           {super_categories.map((super_category, i) => (
-            <div className="basis-1/1 md:basis-1/2" key={i}>
+            <div className="basis-1/1 md:basis-7/16" key={i}>
               <p className="text-lg">
                 {super_category.name}
               </p>
