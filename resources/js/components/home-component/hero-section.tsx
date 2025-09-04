@@ -42,13 +42,26 @@ export default function HeroSection({ className, super_categories, ...props }) {
         <div className="flex flex-row flex-wrap gap-8">
           {super_categories.map((super_category, i) => (
             <div className="basis-1/1 md:basis-7/16" key={i}>
-              <p className="text-lg">
-                {super_category.name}
-              </p>
-              {super_category.categories.map((category, i) => (
-                <p className="text-xs" key={i}>
-                  {category.name}
+              <Link
+                href={route("super-categories.show", {
+                  super_category: super_category.id,
+                })}
+              >
+                <p className="text-lg">
+                  {super_category.name}
                 </p>
+              </Link>
+              {super_category.categories.map((category, i) => (
+                <Link
+                  href={route("categories.show", {
+                    category: category.id,
+                  })}
+                  key={i}
+                >
+                  <p className="text-xs">
+                    {category.name}
+                  </p>
+                </Link>
               ))}
             </div>
           ))}
