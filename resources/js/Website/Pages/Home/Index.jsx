@@ -9,6 +9,7 @@ import {
 import BaseLayout from "@/Layouts/BaseLayout";
 import HeroSection from "@/components/home-component/hero-section";
 import AboutUs from "@/components/home-component/about-us";
+import WhyUs from "@/components/home-component/why-us";
 
 export default function HomePage() {
   const { t } = useTranslation();
@@ -22,6 +23,7 @@ export default function HomePage() {
       <section className="relative">
         <HeroSection super_categories={super_categories} />
         <AboutUs />
+        <WhyUs />
 
         <div className="container mx-auto px-4">
 
