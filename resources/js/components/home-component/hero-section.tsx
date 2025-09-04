@@ -24,7 +24,12 @@ export default function HeroSection({ className, super_categories, ...props }) {
       {...props}
     >
       <div
-        className="flex flex-col gap-10 basis-63/128 text-muted-foreground hover:text-foreground transition-all text-start"
+        className={cn(
+          "flex flex-col gap-10 basis-63/128 transition-all text-start",
+          animationState
+            ? "text-muted-foreground"
+            : "text-foreground"
+        )}
         onMouseEnter={() => setHoverSide(0)}
         onMouseLeave={() => setHoverSide(null)}
       >
@@ -54,7 +59,13 @@ export default function HeroSection({ className, super_categories, ...props }) {
         <Separator orientation="vertical" />
       </div>
 
-      <div className="flex flex-col gap-10 items-end basis-63/128 text-muted-foreground hover:text-foreground transition-all text-end"
+      <div
+        className={cn(
+          "flex flex-col gap-10 items-end basis-63/128 transition-all text-end",
+          animationState
+            ? "text-foreground"
+            : "text-muted-foreground"
+        )}
         onMouseEnter={() => setHoverSide(1)}
         onMouseLeave={() => setHoverSide(null)}
       >
