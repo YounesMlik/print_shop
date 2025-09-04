@@ -15,10 +15,11 @@ import hero_bg_star from "/public/img/home_page/hero_bg_star.svg";
 export default function HeroSection({ className, super_categories, ...props }) {
   const { t, i18n } = useTranslation();
   const [hoverSide, setHoverSide] = useState<0 | 1 | null>(null);
+  const animationState = hoverSide ?? 0;
 
   return (
     <div
-      className={cn(`relative z-0 flex justify-between px-4 pb-4 text-shadow-lg/10`, className)}
+      className={cn(`relative z-0 flex justify-between px-4 pb-4 text-shadow-lg/10 overflow-clip`, className)}
       style={{ backgroundImage: `url(${hero_bg})` }}
       {...props}
     >
@@ -65,19 +66,37 @@ export default function HeroSection({ className, super_categories, ...props }) {
         </Link>
       </div>
 
-      <img src={hero_bg_circle} className="absolute w-80 blur-3xl" />
-      <img src={hero_bg_star} className="absolute w-80 blur-3xl" />
+
+
+      <div className={cn(
+        "absolute -z-10 -top-100 transition-transformation duration-300 ease-in-out",
+        animationState
+          ? "left-4/8"
+          : "-left-1/8"
+      )} >
+        <img src={hero_bg_circle} className="w-[45vw] blur-3xl opacity-90" />
+      </div>
+
+      <div className={cn(
+        "absolute -z-10 -bottom-60 transition-transformation duration-300 delay-50 ease-in-out",
+        animationState
+          ? "left-4/8"
+          : "-left-1/8"
+      )}>
+        <img src={hero_bg_star} className="w-[35vw] blur-2xl" />
+      </div>
+
 
       <div className={cn(
         "absolute w-full h-full -z-10 inset-0 bg-linear-to-r from-black/0 to-black/100 transition-opacity",
-        hoverSide === 1
+        animationState
           ? "opacity-0"
           : "opacity-100"
       )} >
       </div>
       <div className={cn(
         "absolute w-full h-full -z-10 inset-0 bg-linear-to-r from-black/100 to-black/0 transition-opacity",
-        hoverSide === 1
+        animationState
           ? "opacity-100"
           : "opacity-0"
       )} >
