@@ -39,9 +39,7 @@ if [ "$APP_ENV" = "local" ]; then
     php_fpm php artisan backup:restore --backup=latest --connection=pgsql --reset --no-interaction
     php_fpm php artisan migrate
     php_fpm php artisan db:seed LocalSeeder
-    php_fpm php artisan queue:work &
-    php_fpm php artisan schedule:work &
-    php_fpm npm run dev &
+    php_fpm ./work.sh &
     wait
     echo "deployment successful"
 
@@ -51,8 +49,7 @@ elif [ "$APP_ENV" = "production" ]; then
     php_fpm php artisan backup:restore --backup=latest --connection=pgsql --reset --no-interaction
     php_fpm php artisan migrate
     php_fpm npm run build
-    php_fpm php artisan queue:work &
-    php_fpm php artisan schedule:work &
+    php_fpm ./work.sh &
     wait
     echo "deployment successful"
 
