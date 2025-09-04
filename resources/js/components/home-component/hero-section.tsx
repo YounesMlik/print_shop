@@ -40,9 +40,9 @@ export default function HeroSection({ className, super_categories, ...props }) {
             {"Discover \nWhat's \nin \nStore"}
           </p>
         </Link>
-        <div className="flex flex-row flex-wrap gap-8">
+        <ul className="flex flex-row flex-wrap gap-8">
           {super_categories.map((super_category, i) => (
-            <div className="basis-1/1 md:basis-7/16" key={i}>
+            <li className="basis-1/1 md:basis-7/16" key={i}>
               <Link
                 href={route("super-categories.show", {
                   super_category: super_category.id,
@@ -52,21 +52,25 @@ export default function HeroSection({ className, super_categories, ...props }) {
                   {super_category.name}
                 </p>
               </Link>
-              {super_category.categories.map((category, i) => (
-                <Link
-                  href={route("categories.show", {
-                    category: category.id,
-                  })}
-                  key={i}
-                >
-                  <p className="text-xs">
-                    {category.name}
-                  </p>
-                </Link>
-              ))}
-            </div>
+              <ul>
+                {super_category.categories.map((category, i) => (
+                  <li>
+                    <Link
+                      href={route("categories.show", {
+                        category: category.id,
+                      })}
+                      key={i}
+                    >
+                      <p className="text-xs">
+                        {category.name}
+                      </p>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
 
       <div className="flex flex-col items-center basis-2/128 self-center">
