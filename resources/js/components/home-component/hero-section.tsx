@@ -3,6 +3,7 @@ import { Head, Link, usePage } from "@inertiajs/react";
 import {
   ChevronLeft,
   ChevronRight,
+  ChevronsDown,
 } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
@@ -68,8 +69,19 @@ export default function HeroSection({ className, super_categories, ...props }) {
         </div>
       </div>
 
-      <div className="flex justify-center basis-2/128 self-center h-80 sm:h-90 md:h-100 lg:h-120">
-        <Separator orientation="vertical" />
+      <div className="flex flex-col items-center basis-2/128 self-center">
+        <div className="h-80 sm:h-90 md:h-100 lg:h-120">
+          <Separator orientation="vertical" />
+        </div>
+        <div className="flex flex-col items-center opacity-30">
+          <p className="text-nowrap font-semibold text-4xl">
+            Scroll down
+          </p>
+          <p className="text-nowrap text-sm">
+            to know more about us
+          </p>
+          <ChevronsDown size={30} />
+        </div>
       </div>
 
       <div
