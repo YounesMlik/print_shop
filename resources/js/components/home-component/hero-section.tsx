@@ -7,7 +7,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
-const hero_bg = "/public/img/home_page/hero_bg.jpg";
+import hero_bg from "/public/img/home_page/hero_bg.jpg";
 import hero_bg_circle from "/public/img/home_page/hero_bg_circle.svg";
 import hero_bg_star from "/public/img/home_page/hero_bg_star.svg";
 
@@ -17,7 +17,11 @@ export default function HeroSection({ className, super_categories, ...props }) {
   const [hoverSide, setHoverSide] = useState<0 | 1 | null>(null);
 
   return (
-    <div className={cn(`relative z-0 flex justify-between px-4 pb-4 bg-[url(${hero_bg})] text-shadow-lg/10`, className)} {...props}>
+    <div
+      className={cn(`relative z-0 flex justify-between px-4 pb-4 text-shadow-lg/10`, className)}
+      style={{ backgroundImage: `url(${hero_bg})` }}
+      {...props}
+    >
       <div
         className="flex flex-col gap-10 basis-63/128 text-muted-foreground hover:text-foreground transition-all text-start"
         onMouseEnter={() => setHoverSide(0)}
