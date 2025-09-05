@@ -11,7 +11,10 @@ import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { LanguageSwitcher } from '@/components/language-switcher'
-import custom_request_bg from "/public/img/home_page/custom_request_bg.jpg";
+import under_print_wordmark_transparent from "/public/img/under_print_wordmark_transparent.svg";
+import WhatsappButton from "@/components/whatsapp-button";
+import { Facebook, Instagram, WhatsApp } from "@mui/icons-material";
+import { Divider } from "@mui/material";
 
 
 export default function Footer({ className, super_categories, ...props }) {
@@ -21,21 +24,54 @@ export default function Footer({ className, super_categories, ...props }) {
 
     return (
         <footer
-            className={cn("border-t py-8", className)}
+            className={cn("bg-black border-t py-18 px-36", className)}
             {...props}
         >
-            <div className="container mx-auto px-4">
-                <div className="flex flex-col items-center justify-between gap-4 text-sm text-muted-foreground md:flex-row">
-                    <a href="#" className="inline-flex items-center gap-2 text-foreground">
+            <div className="flex flex-col gap-10">
+                <div className="flex justify-between">
+                    <div className="flex flex-col gap-4 items-start basis-1/3">
+                        <img src={under_print_wordmark_transparent} alt={app_name} className="h-16 mb-4" />
+                        <p>
+                            Unlock Your Business's Potential with Our Social Media Solutions
+                        </p>
+                        <ul className="flex gap-6 text-semibold">
+                            <li>
+                                About Us
+                            </li>
+                            <li>
+                                Online Store
+                            </li>
+                            <li>
+                                Custom Order
+                            </li>
+                        </ul>
+                    </div>
 
-                        <img src="/img/under_print_icon.svg" className="h-8 w-8 rounded-2xl bg-primary/10" />
-                        <span className="font-semibold tracking-tight">{app_name}</span>
-                    </a>
-                    <nav className="flex items-center gap-4">
-                        <LanguageSwitcher />
-                    </nav>
-                    {/* <p className="text-xs">© {new Date().getFullYear()} {import.meta.env.VITE_APP_NAME}</p> */}
+                    <div className="flex flex-col gap-4 justify-around items-end">
+                        <WhatsappButton className="px-8 h-18" />
+                        <ul className="flex gap-4">
+                            <li>
+                                <a href="">
+                                    <Instagram className="text-white" fontSize="large" />
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <Facebook className="text-white" fontSize="large" />
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <WhatsApp className="text-white" fontSize="large" />
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
+                <Separator />
+                <p>
+                    © 2025 Under Print. All rights reserved.
+                </p>
             </div>
         </footer>
     )
