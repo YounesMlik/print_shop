@@ -4,6 +4,7 @@ import { ScrollToTop } from '@/components/ui/_scroll-to-top'
 import { Separator } from '@/components/ui/separator'
 import { ChevronUp, Info, Mail, Phone } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import Footer from '../components/footer'
 
 export default function BaseLayout({ children }) {
     return (
@@ -23,21 +24,7 @@ export default function BaseLayout({ children }) {
                     {children}
                 </main>
 
-                <footer id="contact" className="border-t py-8">
-                    <div className="container mx-auto px-4">
-                        <div className="flex flex-col items-center justify-between gap-4 text-sm text-muted-foreground md:flex-row">
-                            <a href="#" className="inline-flex items-center gap-2 text-foreground">
-
-                                <img src="/img/under_print_icon.svg" className="h-8 w-8 rounded-2xl bg-primary/10" />
-                                <span className="font-semibold tracking-tight">{import.meta.env.VITE_APP_NAME}</span>
-                            </a>
-                            <nav className="flex items-center gap-4">
-                                <LanguageSwitcher />
-                            </nav>
-                            {/* <p className="text-xs">© {new Date().getFullYear()} {import.meta.env.VITE_APP_NAME}</p> */}
-                        </div>
-                    </div>
-                </footer>
+                <Footer />
 
 
                 <ScrollToTop minHeight={20} className="fixed right-4 bottom-4">
