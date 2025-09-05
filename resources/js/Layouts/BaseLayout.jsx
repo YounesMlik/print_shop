@@ -37,14 +37,19 @@ export default function BaseLayout({ children }) {
 
 function TopBar() {
     const { t } = useTranslation();
+    const email = "underprintmaroc@gmail.com"
     return (
         <div className='flex flex-col md:flex-row gap-3 items-center bg-blue-600 p-3 text-sm justify-around'>
-            <div className='flex gap-2 items-center h-5'>
-                <Phone />
-                <span>(+212) 660-630-814</span>
+            <div className='flex gap-4 items-center h-5'>
+                <div className='flex gap-2'>
+                    <Phone />
+                    <span>(+212) 660-630-814</span>
+                </div>
                 <Separator orientation="vertical" className='bg-white' />
-                <Mail />
-                <span>underprintmaroc@gmail.com</span>
+                <a href={`mailto:${email}`} className='flex gap-2'>
+                    <Mail />
+                    <span>{email}</span>
+                </a>
             </div>
 
             <div className='flex flex-row-reverse md:flex-row gap-2 items-center'>
