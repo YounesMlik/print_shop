@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import Whatsapp_logo from "/public/img/Whatsapp_logo.svg";
 import { cn } from "@/lib/utils";
 
-export default function WhatsappButton({ className, ...props }) {
+export default function WhatsappButton({ className, ...props }: React.ComponentProps<"a">) {
     const { t } = useTranslation();
 
     return (
