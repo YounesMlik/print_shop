@@ -10,6 +10,7 @@ import BaseLayout from "@/Layouts/BaseLayout";
 import HeroSection from "@/components/home-component/hero-section";
 import AboutUs from "@/components/home-component/about-us";
 import WhyUs from "@/components/home-component/why-us";
+import CustomRequest from "@/components/home-component/custom-request";
 
 export default function HomePage() {
   const { t } = useTranslation();
@@ -24,6 +25,7 @@ export default function HomePage() {
         <HeroSection super_categories={super_categories} />
         <AboutUs />
         <WhyUs />
+        <CustomRequest />
 
         <div className="container mx-auto px-4">
 
