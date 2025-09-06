@@ -37,7 +37,7 @@ export default function HeroSection({ className, super_categories, ...props }) {
         <Link href={route("products.index")} className="flex items-center">
           {/* {i18n.dir() === "ltr" ? <ChevronLeft /> : <ChevronRight />} */}
           <p className="text-4xl font-semibold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl whitespace-pre-line">
-            {"Discover \nWhat's \nin \nStore"}
+            {t("home.hero_section.discover_whats_in_store")}
           </p>
         </Link>
         <ul className="flex flex-row flex-wrap gap-8">
@@ -54,12 +54,11 @@ export default function HeroSection({ className, super_categories, ...props }) {
               </Link>
               <ul>
                 {super_category.categories.map((category, i) => (
-                  <li>
+                  <li key={i}>
                     <Link
                       href={route("categories.show", {
                         category: category.id,
                       })}
-                      key={i}
                     >
                       <p className="text-xs">
                         {category.name}
@@ -79,10 +78,10 @@ export default function HeroSection({ className, super_categories, ...props }) {
         </div>
         <div className="flex flex-col items-center opacity-30">
           <p className="text-nowrap font-semibold text-4xl">
-            Scroll down
+            {t("home.hero_section.scroll_down")}
           </p>
           <p className="text-nowrap text-sm">
-            to know more about us
+            {t("home.hero_section.to_know_more_about_us")}
           </p>
           <ChevronsDown size={30} />
         </div>
@@ -100,7 +99,7 @@ export default function HeroSection({ className, super_categories, ...props }) {
       >
         <Link href={route("custom_order.index")} className="flex items-center gap-2">
           <p className="text-4xl font-semibold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl whitespace-pre-line">
-            {"Start \nYour \nCustom \nOrder"}
+            {t("home.hero_section.start_your_custom_order")}
           </p>
           {/* {i18n.dir() === "ltr" ? <ChevronRight /> : <ChevronLeft />} */}
         </Link>

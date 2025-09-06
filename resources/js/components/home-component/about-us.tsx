@@ -30,52 +30,36 @@ export default function AboutUs({ className, super_categories, ...props }) {
       </div>
       <div className="flex flex-col gap-6 basis-1/2 py-16 ps-6 text-lg/7">
         <p className="text-muted-foreground">
-          About Us
+          {t("home.about_us.about_us")}
         </p>
 
         <p className="text-5xl">
-          Your Vision. Our Ink.
+          {t("home.about_us.tagline_1")}
         </p>
 
         <p className="text-6xl font-semibold">
-          Under Print.
+          {t("home.about_us.tagline_2")}
         </p>
 
         <div>
-          <p>
-            Under Print is a Laâyoune-based printing studio in Morocco.
-          </p>
-          <p>
-            We exist to help brands look sharp and communicate clearly.
-          </p>
-          <p>
-            From day one, our focus has been uncompromising quality,
-            on-time delivery, and bringing our clients' objectives to life with design
-            that speaks directly to their audience.
-          </p>
+          {(t("home.about_us.description") as unknown as string[]).map((desc, i) =>
+            <p key={i}>
+              {desc}
+            </p>
+          )}
         </div>
 
         <p className="text-2xl font-semibold">
-          What sets us apart
+          {t("home.about_us.section_title")}
         </p>
 
         <ul className="flex flex-col gap-6">
-          <li className="flex items-center gap-6">
-            <CornerDownRight color="#FF005E" />
-            Quality that shows: Premium stocks, sharp color, and durable finishes—so your brand feels as good as it looks.
-          </li>
-          <li className="flex items-center gap-6">
-            <CornerDownRight color="#FF005E" />
-            Delivery you can count on: Reliable turnaround times to keep your campaigns on schedule.
-          </li>
-          <li className="flex items-center gap-6">
-            <CornerDownRight color="#FF005E" />
-            Your goals, first: Every project starts with your objectives and ends with measurable impact.
-          </li>
-          <li className="flex items-center gap-6">
-            <CornerDownRight color="#FF005E" />
-            Design that connects: Strong, inspiring visuals that target your audience and deliver your message with clarity.
-          </li>
+          {(t("home.about_us.highlights") as unknown as string[]).map((highlight, i) =>
+            <li className="flex items-center gap-6" key={i}>
+              <CornerDownRight color="#FF005E" />
+              {highlight}
+            </li>
+          )}
         </ul>
       </div>
     </div>

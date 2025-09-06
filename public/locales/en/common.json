@@ -20,5 +20,56 @@
     "SortPicker.dir.desc.date": "Newest to Oldest",
     "SortPicker.dir.desc.alpha": "A to Z",
     "nav.contact_us_via": "Contact us via",
-    "TopBar.Orders of 500Dhs+ Get Free Shipping": "Orders of 500Dhs+ Get Free Shipping"
+    "TopBar.Orders of 500Dhs+ Get Free Shipping": "Orders of 500Dhs+ Get Free Shipping",
+    "home.hero_section.discover_whats_in_store": "Discover \nWhat's \nin \nStore",
+    "home.hero_section.start_your_custom_order": "Start \nYour \nCustom \nOrder",
+    "home.hero_section.scroll_down": "Scroll down",
+    "home.hero_section.to_know_more_about_us": "to know more about us",
+    "home.about_us.about_us": "About Us",
+    "home.about_us.tagline_1": "Your Vision. Our Ink.",
+    "home.about_us.tagline_2": "Under Print.",
+    "home.about_us.description": [
+        "Under Print is a Laâyoune-based printing studio in Morocco.",
+        "We exist to help brands look sharp and communicate clearly.",
+        "From day one, our focus has been uncompromising quality, on-time delivery, and bringing our clients' objectives to life with design that speaks directly to their audience."
+    ],
+    "home.about_us.section_title": "What sets us apart",
+    "home.about_us.highlights": [
+        "Quality that shows: Premium stocks, sharp color, and durable finishes—so your brand feels as good as it looks.",
+        "Delivery you can count on: Reliable turnaround times to keep your campaigns on schedule.",
+        "Your goals, first: Every project starts with your objectives and ends with measurable impact.",
+        "Design that connects: Strong, inspiring visuals that target your audience and deliver your message with clarity."
+    ],
+    "home.why_us.why_us": "Why Under Print",
+    "home.why_us.headline": "We help your brand look sharp, move fast, and speak clearly",
+    "home.why_us.subheadline": "Unlock your business's potential with standout design, flawless print, and the workplace essentials to keep your team producing at its best.",
+    "home.why_us.features": [
+        {
+            "title": "Quality you can see :",
+            "description": "Calibrated color, premium materials, and rigorous checks on every job."
+        },
+        {
+            "title": "Speed without shortcuts :",
+            "description": "Reliable turnarounds and on-time delivery you can plan around."
+        },
+        {
+            "title": "Results-first mindset :",
+            "description": "We start with your objectives, target your audience, and design to convert."
+        },
+        {
+            "title": "All-in-one partner :",
+            "description": "Print solutions plus printing supplies, Office Furniture & Accessories, and Tech & Accessories—one trusted partner."
+        },
+        {
+            "title": "Design that connects :",
+            "description": "Strong, inspiring visuals that deliver your message clearly."
+        },
+        {
+            "title": "Transparent pricing & proofs :",
+            "description": "No surprises—clear quotes, pre-print proofs, and proactive updates."
+        }
+    ],
+    "home.custom_request.headline": "Request Your Custom print job !",
+    "home.custom_request.description": "Send your specs (size, quantity, paper/finish, sides, binding), deadline, delivery location, and budget—upload artwork or request design—and we’ll deliver premium, on-time print from Laâyoune across Morocco.",
+    "home.custom_request.button": "Request Now!"
 }

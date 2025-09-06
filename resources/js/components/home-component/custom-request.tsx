@@ -25,16 +25,16 @@ export default function CustomRequest({ className, super_categories, ...props })
       <div className="flex flex-col items-center gap-10 w-7/10 text-center">
         <div className="flex flex-col items-center gap-6">
           <p className="text-7xl w-4/5 tracking-tighter">
-            Request Your Custom print job !
+            {t("home.custom_request.headline")}
           </p>
           <p className="text-lg text-stone-300">
-            Send your specs (size, quantity, paper/finish, sides, binding), deadline, delivery location, and budget—upload artwork or request design—and we’ll deliver premium, on-time print from Laâyoune across Morocco.
+            {t("home.custom_request.description")}
           </p>
         </div>
         <Button className="bg-blue-600 py-7 px-10" variant="secondary">
           <Link href={route("custom_order.index")}>
             <span className="text-lg">
-              Request Now!
+              {t("home.custom_request.button")}
             </span>
           </Link>
         </Button>

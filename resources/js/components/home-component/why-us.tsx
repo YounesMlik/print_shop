@@ -15,7 +15,14 @@ import img_3 from "/public/img/home_page/why_us/3.jpg";
 import img_4 from "/public/img/home_page/why_us/4.jpg";
 import img_5 from "/public/img/home_page/why_us/5.jpg";
 import img_6 from "/public/img/home_page/why_us/6.jpg";
-
+const images = [
+  img_1,
+  img_2,
+  img_3,
+  img_4,
+  img_5,
+  img_6,
+]
 
 export default function WhyUs({ className, super_categories, ...props }) {
   const { t, i18n } = useTranslation();
@@ -27,61 +34,31 @@ export default function WhyUs({ className, super_categories, ...props }) {
     >
       <div className="flex flex-col items-center gap-6 w-3/5 text-center">
         <p className="text-lg text-muted-foreground">
-          Why Under Print
+          {t("home.why_us.why_us")}
         </p>
         <p className="text-5xl">
-          We help your brand look sharp, move fast, and speak clearly
+          {t("home.why_us.headline")}
         </p>
         <p className="text-lg text-muted-foreground">
-          Unlock your business's potential with standout design, flawless print, and the workplace essentials to keep your team producing at its best.
+          {t("home.why_us.subheadline")}
         </p>
       </div>
 
       <ul className="grid grid-cols-3 grid-rows-2 gap-6 px-30">
-        {[
-          {
-            img: img_1,
-            title: "Quality you can see :",
-            desc: "Calibrated color, premium materials, and rigorous checks on every job.",
-          },
-          {
-            img: img_2,
-            title: "Speed without shortcuts :",
-            desc: "Reliable turnarounds and on-time delivery you can plan around.",
-          },
-          {
-            img: img_3,
-            title: "Results-first mindset :",
-            desc: "We start with your objectives, target your audience, and design to convert.",
-          },
-          {
-            img: img_4,
-            title: "All-in-one partner :",
-            desc: "Print solutions plus printing supplies, Office Furniture & Accessories, and Tech & Accessories—one trusted partner.",
-          },
-          {
-            img: img_5,
-            title: "Design that connects :",
-            desc: "Strong, inspiring visuals that deliver your message clearly.",
-          },
-          {
-            img: img_6,
-            title: "Transparent pricing & proofs :",
-            desc: "No surprises—clear quotes, pre-print proofs, and proactive updates.",
-          }
-        ].map(({ img, title, desc }) => (
-          <li className="flex flex-col gap-6 px-4 pt-4 pb-16 bg-card rounded-2xl">
-            <img src={img} className="rounded-2xl" />
-            <div className="flex flex-col gap-2 px-2">
-              <p className="text-xl text-card-foreground">
-                {title}
-              </p>
-              <p className="text-sm text-card-foreground">
-                {desc}
-              </p>
-            </div>
-          </li>
-        ))}
+        {(t("home.why_us.features") as unknown as [{ title: string, description: string }])
+          .map(({ title, description }, i) => (
+            <li className="flex flex-col gap-6 px-4 pt-4 pb-16 bg-card rounded-2xl" key={i}>
+              <img src={images[i]} className="rounded-2xl" />
+              <div className="flex flex-col gap-2 px-2">
+                <p className="text-xl text-card-foreground">
+                  {title}
+                </p>
+                <p className="text-sm text-card-foreground">
+                  {description}
+                </p>
+              </div>
+            </li>
+          ))}
       </ul>
     </div>
   )
