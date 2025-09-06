@@ -32,17 +32,17 @@ export default function Footer({ className, super_categories, ...props }) {
                     <div className="flex flex-col gap-4 items-start basis-1/3">
                         <img src={under_print_wordmark_transparent} alt={app_name} className="h-16 mb-4" />
                         <p>
-                            Unlock Your Business's Potential with Our Social Media Solutions
+                            {t("footer.description")}
                         </p>
                         <ul className="flex gap-6 text-semibold">
                             <li>
-                                About Us
+                                {t("footer.links.about_us")}
                             </li>
                             <li>
-                                Online Store
+                                {t("footer.links.online_store")}
                             </li>
                             <li>
-                                Custom Order
+                                {t("footer.links.custom_order")}
                             </li>
                         </ul>
                     </div>
@@ -70,7 +70,7 @@ export default function Footer({ className, super_categories, ...props }) {
                 </div>
                 <Separator />
                 <p>
-                    © 2025 Under Print. All rights reserved.
+                    {t("footer.copyright")}
                 </p>
             </div>
         </footer>

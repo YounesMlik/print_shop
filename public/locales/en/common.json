@@ -71,5 +71,14 @@
     ],
     "home.custom_request.headline": "Request Your Custom print job !",
     "home.custom_request.description": "Send your specs (size, quantity, paper/finish, sides, binding), deadline, delivery location, and budget—upload artwork or request design—and we’ll deliver premium, on-time print from Laâyoune across Morocco.",
-    "home.custom_request.button": "Request Now!"
+    "home.custom_request.button": "Request Now!",
+    "footer": {
+        "description": "Unlock Your Business's Potential with Our Social Media Solutions",
+        "links": {
+            "about_us": "About Us",
+            "online_store": "Online Store",
+            "custom_order": "Custom Order"
+        },
+        "copyright": "© 2025 Under Print. All rights reserved."
+    }
 }

@@ -71,5 +71,14 @@
     ],
     "home.custom_request.headline": "Demandez votre impression personnalisée !",
     "home.custom_request.description": "Envoyez vos spécifications (taille, quantité, papier/finitions, recto/verso, reliure), délais, lieu de livraison et budget—téléversez vos fichiers ou demandez un design—et nous livrerons une impression premium et ponctuelle depuis Laâyoune dans tout le Maroc.",
-    "home.custom_request.button": "Demander maintenant !"
+    "home.custom_request.button": "Demander maintenant !",
+    "footer": {
+        "description": "Libérez le potentiel de votre entreprise avec nos solutions de réseaux sociaux",
+        "links": {
+            "about_us": "À propos de nous",
+            "online_store": "Boutique en ligne",
+            "custom_order": "Commande personnalisée"
+        },
+        "copyright": "© 2025 Under Print. Tous droits réservés."
+    }
 }
