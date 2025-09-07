@@ -36,7 +36,7 @@ export default function HeroSection({ className, super_categories, ...props }) {
       >
         <Link href={route("products.index")} className="flex items-center">
           {/* {i18n.dir() === "ltr" ? <ChevronLeft /> : <ChevronRight />} */}
-          <p className="text-4xl font-semibold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl whitespace-pre-line">
+          <p className="font-semibold tracking-tight text-3xl sm:text-5xl md:text-6xl lg:text-7xl whitespace-pre-line">
             {t("home.hero_section.discover_whats_in_store")}
           </p>
         </Link>
@@ -98,7 +98,7 @@ export default function HeroSection({ className, super_categories, ...props }) {
         onMouseLeave={() => setHoverSide(null)}
       >
         <Link href={route("custom_order.index")} className="flex items-center gap-2">
-          <p className="text-4xl font-semibold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl whitespace-pre-line">
+          <p className="font-semibold tracking-tight text-3xl sm:text-5xl md:text-6xl lg:text-7xl whitespace-pre-line">
             {t("home.hero_section.start_your_custom_order")}
           </p>
           {/* {i18n.dir() === "ltr" ? <ChevronRight /> : <ChevronLeft />} */}
