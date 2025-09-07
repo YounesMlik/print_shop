@@ -127,17 +127,23 @@ export default function HeroSection({ className, super_categories, ...props }) {
 
 
       <div className={cn(
-        "absolute w-full h-full -z-10 inset-0 bg-linear-to-r from-black/0 to-black/100 transition-opacity",
+        "absolute w-full h-full -z-10 inset-0 from-black/0 to-black/100 transition-opacity",
         animationState
           ? "opacity-0"
-          : "opacity-90"
+          : "opacity-90",
+        i18n.dir() === "ltr"
+          ? "bg-linear-to-r"
+          : "bg-linear-to-l",
       )} >
       </div>
       <div className={cn(
-        "absolute w-full h-full -z-10 inset-0 bg-linear-to-r from-black/100 to-black/0 transition-opacity",
+        "absolute w-full h-full -z-10 inset-0 from-black/0 to-black/100 transition-opacity",
         animationState
           ? "opacity-90"
-          : "opacity-0"
+          : "opacity-0",
+        i18n.dir() === "ltr"
+          ? "bg-linear-to-l"
+          : "bg-linear-to-r",
       )} >
       </div>
     </div>
