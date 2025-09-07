@@ -24,17 +24,17 @@ export default function Footer({ className, super_categories, ...props }) {
 
     return (
         <footer
-            className={cn("bg-black border-t py-18 px-36", className)}
+            className={cn("bg-black border-t py-18 px-10 sm:px-20 md:px-28 lg:px-36", className)}
             {...props}
         >
             <div className="flex flex-col gap-10">
-                <div className="flex justify-between">
+                <div className="flex justify-between gap-8 flex-col md:flex-row">
                     <div className="flex flex-col gap-4 items-start basis-1/3">
                         <img src={under_print_wordmark_transparent} alt={app_name} className="h-16 mb-4" />
                         <p>
                             {t("footer.description")}
                         </p>
-                        <ul className="flex gap-6 text-semibold">
+                        <ul className="flex gap-6 text-semibold flex-col sm:flex-row">
                             <li>
                                 {t("footer.links.about_us")}
                             </li>
