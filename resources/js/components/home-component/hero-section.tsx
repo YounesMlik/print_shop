@@ -110,8 +110,8 @@ export default function HeroSection({ className, super_categories, ...props }) {
       <div className={cn(
         "absolute -z-10 -top-100 transition-transformation duration-300 ease-in-out",
         animationState
-          ? "left-4/8"
-          : "-left-1/8"
+          ? "start-4/8"
+          : "-start-1/8"
       )} >
         <img src={hero_bg_circle} className="w-[45vw] blur-3xl opacity-90" />
       </div>
@@ -119,8 +119,8 @@ export default function HeroSection({ className, super_categories, ...props }) {
       <div className={cn(
         "absolute -z-10 -bottom-60 transition-transformation duration-300 delay-50 ease-in-out",
         animationState
-          ? "left-4/8"
-          : "-left-1/8"
+          ? "start-4/8"
+          : "-start-1/8"
       )}>
         <img src={hero_bg_star} className="w-[35vw] blur-2xl" />
       </div>
