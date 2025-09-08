@@ -17,7 +17,7 @@ export default function HeroSection({ className, super_categories, ...props }) {
   const { t, i18n } = useTranslation();
   const [hoverSide, setHoverSide] = useState<0 | 1 | null>(null);
   const animationState = hoverSide ?? 0;
-  const isWidthMd = window.innerWidth >= 768
+  const isWidthMd = window.innerWidth >= 1024
 
   return (
     <div
@@ -122,19 +122,19 @@ export default function HeroSection({ className, super_categories, ...props }) {
 
 
       <div className={cn(
-        "absolute -z-10 -top-100 transition-transformation duration-300 ease-in-out",
+        "absolute -z-10 -top-100 -start-1/8 transition-transformation duration-300 ease-in-out",
         animationState
-          ? "start-4/8"
-          : "-start-1/8"
+          ? "translate-x-2/1"
+          : "translate-x-0"
       )} >
         <img src={hero_bg_circle} className="w-[45vw] blur-3xl opacity-90" />
       </div>
 
       <div className={cn(
-        "absolute -z-10 -bottom-60 transition-transformation duration-300 delay-50 ease-in-out",
+        "absolute -z-10 -bottom-60 -start-1/8 transition-transformation duration-300 delay-50 ease-in-out",
         animationState
-          ? "start-4/8"
-          : "-start-1/8"
+          ? "translate-x-5/2"
+          : "translate-x-0"
       )}>
         <img src={hero_bg_star} className="w-[35vw] blur-2xl" />
       </div>
