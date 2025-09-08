@@ -76,7 +76,7 @@ export default function HeroSection({ className, super_categories, ...props }) {
         <div className="h-80 sm:h-90 md:h-100 lg:h-120">
           <Separator orientation="vertical" />
         </div>
-        <div className="flex flex-col items-center opacity-30">
+        <a className="flex flex-col items-center opacity-30" href="#about_us">
           <p className="text-nowrap font-semibold text-4xl">
             {t("home.hero_section.scroll_down")}
           </p>
@@ -84,7 +84,7 @@ export default function HeroSection({ className, super_categories, ...props }) {
             {t("home.hero_section.to_know_more_about_us")}
           </p>
           <ChevronsDown size={30} />
-        </div>
+        </a>
       </div>
 
       <div
