@@ -20,7 +20,7 @@ export default function AboutUs({ className, super_categories, ...props }) {
       className={cn("flex", className)}
       {...props}
     >
-      <div className="relative basis-1/3 flex">
+      <div className="relative basis-0 md:basis-1/3 flex">
         <img src={about_us_bg} className={cn(
           "w-full object-cover",
           i18n.dir() === "ltr"
@@ -28,7 +28,7 @@ export default function AboutUs({ className, super_categories, ...props }) {
             : "mask-l-from-50%"
         )} />
       </div>
-      <div className="flex flex-col gap-6 basis-1/2 py-16 ps-6 text-lg/7">
+      <div className="flex flex-col gap-6 basis-1/1 sm:basis-3/4 md:basis-1/2 py-16 ps-6 text-lg/7">
         <p className="text-muted-foreground">
           {t("home.about_us.about_us")}
         </p>
