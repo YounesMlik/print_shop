@@ -4,6 +4,7 @@ import {
   ChevronLeft,
   ChevronRight,
   ChevronsDown,
+  CornerDownLeft,
   CornerDownRight,
 } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
@@ -56,7 +57,10 @@ export default function AboutUs({ className, super_categories, ...props }) {
         <ul className="flex flex-col gap-6">
           {(t("home.about_us.highlights") as unknown as string[]).map((highlight, i) =>
             <li className="flex items-center gap-6" key={i}>
-              <CornerDownRight color="#FF005E" />
+              {i18n.dir() === "ltr"
+                ? <CornerDownRight color="#FF005E" />
+                : <CornerDownLeft color="#FF005E" />
+              }
               {highlight}
             </li>
           )}
