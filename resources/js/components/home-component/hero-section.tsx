@@ -17,10 +17,11 @@ export default function HeroSection({ className, super_categories, ...props }) {
   const { t, i18n } = useTranslation();
   const [hoverSide, setHoverSide] = useState<0 | 1 | null>(null);
   const animationState = hoverSide ?? 0;
+  const isWidthMd = window.innerWidth >= 768
 
   return (
     <div
-      className={cn(`relative z-0 flex justify-between px-24 py-12 text-shadow-lg/10 overflow-clip`, className)}
+      className={cn(`relative z-0 flex justify-between px-24 py-12 text-shadow-lg/10 overflow-clip flex-col lg:flex-row`, className)}
       style={{ backgroundImage: `url(${hero_bg})` }}
       {...props}
     >
@@ -72,19 +73,27 @@ export default function HeroSection({ className, super_categories, ...props }) {
         </ul>
       </div>
 
-      <div className="flex flex-col items-center basis-2/128 self-center">
-        <div className="h-80 sm:h-90 md:h-100 lg:h-120">
-          <Separator orientation="vertical" />
-        </div>
-        <a className="flex flex-col items-center opacity-30" href="#about_us">
-          <p className="text-nowrap font-semibold text-4xl">
-            {t("home.hero_section.scroll_down")}
-          </p>
-          <p className="text-nowrap text-sm">
-            {t("home.hero_section.to_know_more_about_us")}
-          </p>
-          <ChevronsDown size={30} />
-        </a>
+      <div className="flex flex-col items-center basis-2/128 self-center w-full">
+        {isWidthMd
+          ? <>
+            <div className="h-80 sm:h-90 md:h-100 lg:h-120">
+              <Separator orientation="vertical" />
+            </div>
+            <a className="flex flex-col items-center opacity-30" href="#about_us">
+              <p className="text-nowrap font-semibold text-4xl">
+                {t("home.hero_section.scroll_down")}
+              </p>
+              <p className="text-nowrap text-sm">
+                {t("home.hero_section.to_know_more_about_us")}
+              </p>
+              <ChevronsDown size={30} />
+            </a>
+          </>
+
+          : <div className="py-10 w-full">
+            <Separator orientation="horizontal" />
+          </div>
+        }
       </div>
 
       <div
