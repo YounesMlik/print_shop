@@ -32,7 +32,7 @@ export default function WhyUs({ className, super_categories, ...props }) {
       className={cn("flex flex-col items-center gap-16 py-20", className)}
       {...props}
     >
-      <div className="flex flex-col items-center gap-6 w-3/5 text-center">
+      <div className="flex flex-col items-center gap-6 w-4/5 md:w-3/5 text-center">
         <p className="text-lg text-muted-foreground">
           {t("home.why_us.why_us")}
         </p>
@@ -44,7 +44,7 @@ export default function WhyUs({ className, super_categories, ...props }) {
         </p>
       </div>
 
-      <ul className="grid grid-cols-3 grid-rows-2 gap-6 px-30">
+      <ul className="grid grid-cols-1 grid-rows-6 sm:grid-cols-2 sm:grid-rows-3 lg:grid-cols-3 lg:grid-rows-2 gap-6 px-10 md:px-20 lg:px-30">
         {(t("home.why_us.features") as unknown as [{ title: string, description: string }])
           .map(({ title, description }, i) => (
             <li className="flex flex-col gap-6 px-4 pt-4 pb-16 bg-card rounded-2xl" key={i}>
