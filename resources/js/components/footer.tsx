@@ -35,15 +35,21 @@ export default function Footer({ className, super_categories, ...props }) {
                         <p>
                             {t("footer.description")}
                         </p>
-                        <ul className="flex gap-6 text-semibold flex-col sm:flex-row">
+                        <ul className="flex gap-6 font-semibold flex-col sm:flex-row">
                             <li>
-                                {t("footer.links.about_us")}
+                                <Link href={route("home.index") + "#about_us"}>
+                                    {t("footer.links.about_us")}
+                                </Link>
                             </li>
                             <li>
-                                {t("footer.links.online_store")}
+                                <Link href={route("products.index")}>
+                                    {t("footer.links.online_store")}
+                                </Link>
                             </li>
                             <li>
-                                {t("footer.links.custom_order")}
+                                <Link href={route("custom_order.index")}>
+                                    {t("footer.links.custom_order")}
+                                </Link>
                             </li>
                         </ul>
                     </div>

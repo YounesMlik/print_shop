@@ -23,7 +23,7 @@ export default function HomePage() {
       {/* Hero */}
       <section className="relative">
         <HeroSection super_categories={super_categories} />
-        <AboutUs />
+        <AboutUs id="about_us"/>
         <WhyUs />
         <CustomRequest />
 
