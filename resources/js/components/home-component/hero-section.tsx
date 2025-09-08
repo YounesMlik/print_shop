@@ -29,8 +29,8 @@ export default function HeroSection({ className, super_categories, ...props }) {
         className={cn(
           "flex flex-col gap-10 basis-63/128 transition-all text-start",
           animationState
-            ? "text-muted-foreground"
-            : "text-foreground"
+            ? "text-muted-foreground opacity-80"
+            : "text-foreground opacity-100"
         )}
         onMouseEnter={() => setHoverSide(0)}
         onMouseLeave={() => setHoverSide(null)}
@@ -100,8 +100,8 @@ export default function HeroSection({ className, super_categories, ...props }) {
         className={cn(
           "flex flex-col gap-10 items-end basis-63/128 transition-all text-end",
           animationState
-            ? "text-foreground"
-            : "text-muted-foreground"
+            ? "text-foreground opacity-100"
+            : "text-muted-foreground opacity-80"
         )}
         onMouseEnter={() => setHoverSide(1)}
         onMouseLeave={() => setHoverSide(null)}
