@@ -44,7 +44,9 @@ export default function HeroSection({ className, super_categories, ...props }) {
         <ul className={cn(
           "flex flex-row flex-wrap gap-8 transition-transform",
           animationState
-            ? "-translate-x-1/1"
+            ? i18n.dir() === "ltr"
+              ? "-translate-x-1/1"
+              : "translate-x-1/1"
             : "translate-x-0"
         )}>
           {super_categories.map((super_category, i) => (
@@ -124,7 +126,9 @@ export default function HeroSection({ className, super_categories, ...props }) {
       <div className={cn(
         "absolute -z-10 -top-100 -start-1/8 transition-transformation duration-300 ease-in-out",
         animationState
-          ? "translate-x-2/1"
+          ? i18n.dir() === "ltr"
+            ? "translate-x-2/1"
+            : "-translate-x-2/1"
           : "translate-x-0"
       )} >
         <img src={hero_bg_circle} className="w-[45vw] blur-3xl opacity-90" />
@@ -133,7 +137,9 @@ export default function HeroSection({ className, super_categories, ...props }) {
       <div className={cn(
         "absolute -z-10 -bottom-60 -start-1/8 transition-transformation duration-300 delay-50 ease-in-out",
         animationState
-          ? "translate-x-5/2"
+          ? i18n.dir() === "ltr"
+            ? "translate-x-5/2"
+            : "-translate-x-5/2"
           : "translate-x-0"
       )}>
         <img src={hero_bg_star} className="w-[35vw] blur-2xl" />
