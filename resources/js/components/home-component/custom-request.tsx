@@ -24,7 +24,7 @@ export default function CustomRequest({ className, super_categories, ...props })
     >
       <div className="flex flex-col items-center gap-10 w-7/10 text-center">
         <div className="flex flex-col items-center gap-6">
-          <p className="text-7xl w-4/5 tracking-tighter">
+          <p className="text-5xl sm:text-7xl w-4/5 tracking-tighter">
             {t("home.custom_request.headline")}
           </p>
           <p className="text-lg text-stone-300">
