@@ -15,6 +15,7 @@ import under_print_wordmark_transparent from "/public/img/under_print_wordmark_t
 import WhatsappButton from "@/components/whatsapp-button";
 import { Facebook, Instagram, WhatsApp } from "@mui/icons-material";
 import { Divider } from "@mui/material";
+import { makeWhatsappMessageUrl } from "@/components/helpers";
 
 
 export default function Footer({ className, super_categories, ...props }) {
@@ -50,18 +51,18 @@ export default function Footer({ className, super_categories, ...props }) {
                     <div className="flex flex-col gap-4 justify-around items-end">
                         <WhatsappButton className="px-8 h-18" />
                         <ul className="flex gap-4">
-                            <li>
-                                <a href="">
+                            {/* <li>
+                                <a href="" target="_blank">
                                     <Instagram className="text-white" fontSize="large" />
                                 </a>
-                            </li>
+                            </li> */}
                             <li>
-                                <a href="">
+                                <a href="https://www.facebook.com/people/Under-print/61570942541154" target="_blank">
                                     <Facebook className="text-white" fontSize="large" />
                                 </a>
                             </li>
                             <li>
-                                <a href="">
+                                <a href={makeWhatsappMessageUrl()} target="_blank">
                                     <WhatsApp className="text-white" fontSize="large" />
                                 </a>
                             </li>
