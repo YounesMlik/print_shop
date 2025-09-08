@@ -41,7 +41,12 @@ export default function HeroSection({ className, super_categories, ...props }) {
             {t("home.hero_section.discover_whats_in_store")}
           </p>
         </Link>
-        <ul className="flex flex-row flex-wrap gap-8">
+        <ul className={cn(
+          "flex flex-row flex-wrap gap-8 transition-transform",
+          animationState
+            ? "-translate-x-1/1"
+            : "translate-x-0"
+        )}>
           {super_categories.map((super_category, i) => (
             <li className="basis-1/1 md:basis-7/16" key={i}>
               <Link
