@@ -15,11 +15,12 @@ function AccordionItem({
   dir,
   ...props
 }: React.ComponentProps<typeof AccordionPrimitive.Item>) {
-  const { dir: _dir } = useDirection(dir)
+  const { direction } = useDirection(dir)
   return (
     <AccordionPrimitive.Item
       data-slot="accordion-item"
       className={cn("border-b last:border-b-0", className)}
+      dir={direction}
       {...props}
     />
   )
