@@ -10,16 +10,16 @@ export function cn(...inputs: ClassValue[]) {
 export type Direction = "ltr" | "rtl";
 
 type UseDirectionResult = Readonly<{
-  dir: Direction;
+  direction: Direction;
   isRTL: boolean;
   isLTR: boolean;
 }>;
 
 export function useDirection(localDir?: string): UseDirectionResult;
-export function useDirection(localDir: "rtl"): { dir: "rtl"; isRTL: true; isLTR: false };
-export function useDirection(localDir: "ltr"): { dir: "ltr"; isRTL: false; isLTR: true };
+export function useDirection(localDir: "rtl"): { direction: "rtl"; isRTL: true; isLTR: false };
+export function useDirection(localDir: "ltr"): { direction: "ltr"; isRTL: false; isLTR: true };
 export function useDirection(localDir?: string) {
-  const dir = useMemo<Direction>(() => {
+  const direction = useMemo<Direction>(() => {
     const raw =
       (localDir ??
         (typeof document !== "undefined" ? document.documentElement.dir : "ltr") ??
@@ -29,6 +29,6 @@ export function useDirection(localDir?: string) {
     return raw === "rtl" ? "rtl" : "ltr";
   }, [localDir]);
 
-  const isRTL = dir === "rtl";
-  return { dir, isRTL, isLTR: !isRTL };
+  const isRTL = direction === "rtl";
+  return { direction, isRTL, isLTR: !isRTL };
 }
