@@ -137,12 +137,17 @@
 /* One logical family name: UP-Text */
 @font-face {
     font-family: "UP-Text";
-    src: url("/fonts/Manrope-VariableFont_wght.ttf") format("truetype");
+    src: url("/public/fonts/Manrope-VariableFont_wght.ttf") format("truetype");
     unicode-range: U+0000-00FF, U+0100-024F; /* Latin */
 }
 @font-face {
     font-family: "UP-Text";
-    src: url("/fonts/Almarai-Regular.ttf") format("truetype");
+    src: url("/public/fonts/Almarai-Regular.ttf") format("truetype");
+    unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFF; /* Arabic + forms */
+}
+@font-face {
+    font-family: "UP-Text";
+    src: url("/public/fonts/Foda-Free-Font.ttf") format("truetype");
     unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFF; /* Arabic + forms */
 }
 html {
