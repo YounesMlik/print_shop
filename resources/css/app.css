@@ -126,10 +126,25 @@
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+    * {
+        @apply border-border outline-ring/50;
     }
-  body {
-    @apply bg-background text-foreground;
+    body {
+        @apply bg-background text-foreground;
     }
+}
+
+/* One logical family name: UP-Text */
+@font-face {
+    font-family: "UP-Text";
+    src: url("/fonts/Manrope-VariableFont_wght.ttf") format("truetype");
+    unicode-range: U+0000-00FF, U+0100-024F; /* Latin */
+}
+@font-face {
+    font-family: "UP-Text";
+    src: url("/fonts/Almarai-Regular.ttf") format("truetype");
+    unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFF; /* Arabic + forms */
+}
+html {
+    font-family: "UP-Text", system-ui, sans-serif;
 }
