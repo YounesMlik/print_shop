@@ -145,11 +145,37 @@
     src: url("/public/fonts/Almarai-Regular.ttf") format("truetype");
     unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFF; /* Arabic + forms */
 }
+
+/* One logical family name: UP-Title */
 @font-face {
-    font-family: "UP-Text";
+    font-family: "UP-Title";
+    src: url("/public/fonts/Manrope-VariableFont_wght.ttf") format("truetype");
+    unicode-range: U+0000-00FF, U+0100-024F; /* Latin */
+}
+@font-face {
+    font-family: "UP-Title";
     src: url("/public/fonts/Foda-Free-Font.ttf") format("truetype");
     unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFF; /* Arabic + forms */
 }
 html {
     font-family: "UP-Text", system-ui, sans-serif;
+}
+
+/* 
+.text-xs,
+.text-sm,
+.text-base,
+.text-lg,
+.text-xl,
+*/
+.text-1xl,
+.text-2xl,
+.text-3xl,
+.text-4xl,
+.text-5xl,
+.text-6xl,
+.text-7xl,
+.text-8xl,
+.text-9xl {
+    font-family: "UP-Title", system-ui, sans-serif;
 }
