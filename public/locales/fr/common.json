@@ -1,13 +1,116 @@
 {
-    "hero.headline": "Acheter un produit ou une commande personnalisée",
+    "hero": {
+        "headline": "Acheter un produit ou une commande personnalisée"
+    },
     "products": "Produits",
     "custom_order": "Commande Personnalisée",
     "order_via_whatsapp": "Commande via WhatsApp",
-    "option_picker.choose_an_option": "Choisissez une option",
-    "option_picker.no_options_available": "Aucune option disponible",
-    "pagination.previous": "précédent",
-    "pagination.next": "suivante",
+    "option_picker": {
+        "choose_an_option": "Choisissez une option",
+        "no_options_available": "Aucune option disponible"
+    },
+    "pagination": {
+        "previous": "précédent",
+        "next": "suivante"
+    },
     "no_products_found": "Aucun produit trouvé.",
-    "tags_search.label": "Filtrer par tags",
-    "tags_search.placeholder": "Sélectionnez les balises..."
+    "tags_search": {
+        "label": "Filtrer par tags",
+        "placeholder": "Sélectionnez les balises..."
+    },
+    "SortPicker": {
+        "sort": {
+            "popular": "Popularité",
+            "date": "Date",
+            "alpha": "Alphabétique"
+        },
+        "dir": {
+            "asc": {
+                "popular": "Le moins populaire",
+                "date": "Du plus ancien au plus récent",
+                "alpha": "Z à A"
+            },
+            "desc": {
+                "popular": "Le plus populaire",
+                "date": "Du plus récent au plus ancien",
+                "alpha": "A à Z"
+            }
+        }
+    },
+    "nav": {
+        "contact_us_via": "Contactez-nous via"
+    },
+    "TopBar": {
+        "Orders of 500Dhs+ Get Free Shipping": "Livraison gratuite pour toute commande de 500 Dhs ou plus"
+    },
+    "home": {
+        "hero_section": {
+            "discover_whats_in_store": "Découvrez \nCe qui \nVous \nAttend",
+            "start_your_custom_order": "Commencez \nVotre \nCommande \nPersonnalisée",
+            "scroll_down": "Faites défiler",
+            "to_know_more_about_us": "pour en savoir plus sur nous"
+        },
+        "about_us": {
+            "about_us": "À propos de nous",
+            "tagline_1": "Votre vision. Notre encre.",
+            "tagline_2": "Under Print.",
+            "description": [
+                "Under Print est un studio d'impression basé à Laâyoune, au Maroc.",
+                "Nous existons pour aider les marques à se démarquer et à communiquer clairement.",
+                "Depuis le premier jour, notre priorité est la qualité sans compromis, la livraison ponctuelle, et donner vie aux objectifs de nos clients avec un design qui parle directement à leur audience."
+            ],
+            "section_title": "Ce qui nous distingue",
+            "highlights": [
+                "Une qualité visible : papiers premium, couleurs nettes et finitions durables—pour que votre marque soit aussi agréable à toucher qu'à regarder.",
+                "Une livraison fiable : des délais respectés pour garder vos campagnes sur la bonne voie.",
+                "Vos objectifs avant tout : chaque projet commence par vos besoins et se termine par un impact mesurable.",
+                "Un design qui connecte : des visuels forts et inspirants qui ciblent votre audience et transmettent votre message avec clarté."
+            ]
+        },
+        "why_us": {
+            "why_us": "Pourquoi Under Print",
+            "headline": "Nous aidons votre marque à être percutante, rapide et claire",
+            "subheadline": "Libérez le potentiel de votre entreprise avec un design marquant, une impression impeccable, et l'essentiel de bureau pour maintenir vos équipes au meilleur niveau.",
+            "features": [
+                {
+                    "title": "Qualité visible :",
+                    "description": "Couleurs calibrées, matériaux premium, et contrôles rigoureux sur chaque projet."
+                },
+                {
+                    "title": "Rapidité sans compromis :",
+                    "description": "Des délais fiables et des livraisons ponctuelles sur lesquelles vous pouvez compter."
+                },
+                {
+                    "title": "Esprit orienté résultats :",
+                    "description": "Nous commençons par vos objectifs, ciblons votre audience et concevons pour convertir."
+                },
+                {
+                    "title": "Partenaire tout-en-un :",
+                    "description": "Solutions d'impression, fournitures, mobilier & accessoires de bureau, et technologies—un partenaire de confiance."
+                },
+                {
+                    "title": "Design qui connecte :",
+                    "description": "Des visuels forts et inspirants qui transmettent votre message clairement."
+                },
+                {
+                    "title": "Tarification & épreuves transparentes :",
+                    "description": "Pas de surprises—devis clairs, épreuves avant impression et mises à jour proactives."
+                }
+            ]
+        },
+        "custom_request": {
+            "headline": "Demandez votre impression personnalisée !",
+            "description": "Envoyez vos spécifications (taille, quantité, papier/finitions, recto/verso, reliure), délais, lieu de livraison et budget—téléversez vos fichiers ou demandez un design—et nous livrerons une impression premium et ponctuelle depuis Laâyoune dans tout le Maroc.",
+            "button": "Demander maintenant !"
+        }
+    },
+    "footer": {
+        "description": "Libérez le potentiel de votre entreprise avec nos solutions de réseaux sociaux",
+        "links": {
+            "about_us": "À propos de nous",
+            "online_store": "Boutique en ligne",
+            "custom_order": "Commande personnalisée"
+        },
+        "copyright": "© 2025 Under Print. Tous droits réservés."
+    }
 }

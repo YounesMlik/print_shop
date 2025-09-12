@@ -23,6 +23,9 @@ createInertiaApp({
 
     root.render(<Root App={App} props={props} />);
   },
+  progress: {
+    color: "#14fd0b"
+  }
 });
 
 
@@ -43,3 +46,15 @@ function Root({ App, props }: any) {
     </StrictMode>
   );
 }
+
+
+declare global {
+  // @ts-ignore
+  module "*.png";
+  // @ts-ignore
+  module "*.svg";
+  // @ts-ignore
+  module "*.jpeg";
+  // @ts-ignore
+  module "*.jpg";
+};

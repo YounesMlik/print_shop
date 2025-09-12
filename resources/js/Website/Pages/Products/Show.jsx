@@ -1,27 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import { Head, Link } from "@inertiajs/react";
 import { Button } from "@/components/ui/button";
-import {
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbList,
-    BreadcrumbPage,
-    BreadcrumbSeparator
-} from "@/components/ui/_breadcrumb";
 import {
     Carousel,
     CarouselContent,
     CarouselItem,
     CarouselNext,
     CarouselPrevious,
-} from "@/components/ui/carousel"
+} from "@/components/ui/_carousel"
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { sendWhatsappMessage } from "@/components/helpers";
 import { Badge } from "@/components/ui/badge";
 
 import VariantPicker from "@/components/product-option-picker";
 import { useTranslation } from "react-i18next";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export default function ProductShow({ product_resource }) {
     const { t } = useTranslation();
@@ -40,37 +33,20 @@ export default function ProductShow({ product_resource }) {
     return (
         <div className="container mx-auto p-4 max-w-xl grid gap-4">
             <Head title={product.name} />
-            <Breadcrumb>
-                <BreadcrumbList>
-                    <BreadcrumbItem>
-                        <BreadcrumbLink asChild>
-                            <Link href={route('products.index')} >
-                                {t("products")}
-                            </Link>
-                        </BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                        <BreadcrumbLink asChild>
-                            <Link href={route('products.index', { super_category: product.category.super_category.id, })} >
-                                {product.category.super_category.name}
-                            </Link>
-                        </BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                        <BreadcrumbLink asChild>
-                            <Link href={route('products.index', { category: product.category.id, })} >
-                                {product.category.name}
-                            </Link>
-                        </BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                        <BreadcrumbPage>{product.name}</BreadcrumbPage>
-                    </BreadcrumbItem>
-                </BreadcrumbList>
-            </Breadcrumb>
+            <Breadcrumbs>
+                <Link href={route('products.index')} >
+                    {t("products")}
+                </Link>
+                <Link href={route('super-categories.show', { super_category: product.category.super_category.id, })} >
+                    {product.category.super_category.name}
+                </Link>
+                <Link href={route('categories.show', { category: product.category.id, })} >
+                    {product.category.name}
+                </Link>
+                <span>
+                    {product.name}
+                </span>
+            </Breadcrumbs>
 
             <h1 className="text-2xl font-bold mb-4">{product.name}</h1>
 

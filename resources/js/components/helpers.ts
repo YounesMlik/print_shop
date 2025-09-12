@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import z from "zod";
+import flatMap from "lodash/flatMap";
 
 export function objectMap(object: object, fn: ([string, unknown]) => [string, unknown]) {
     return Object.fromEntries(Object.entries(object).map(fn))
@@ -96,12 +97,19 @@ export function useLocalAttribute<T>({
     return { local, setLocal, errors, valid, dirty, saving, save, reset };
 }
 
-export function sendWhatsappMessage(message: string) {
+export function makeWhatsappMessageUrl(message: string = "") {
     const encoded = encodeURIComponent(message);
     // @ts-ignore
     const phone = import.meta.env.VITE_WHATSAPP_PHONE_NUMBER; // Update this with your business number
-    const url = `https://wa.me/${phone}?text=${encoded}`
-    window.open(url, "_blank")
+    const url = `https://wa.me/${phone}?text=${encoded}`;
+    return url;
+}
+
+export function sendWhatsappMessage(message: string) {
+    window.open(
+        makeWhatsappMessageUrl(message),
+        "_blank"
+    )
 }
 
 export function useLocalized(
@@ -109,4 +117,16 @@ export function useLocalized(
 ): string {
     const { i18n } = useTranslation();
     return i18n.languages.map(lang => translations[lang]).find(value => value);
+}
+
+export function intersperse(arr: unknown[], sep: unknown) {
+    if (!(arr instanceof Array)) {  // to make it work with react children
+        return [arr];
+    }
+
+    return flatMap(arr, (value, index) =>
+        index !== arr.length - 1    // check for the last item
+            ? [value, sep]
+            : value
+    );
 }

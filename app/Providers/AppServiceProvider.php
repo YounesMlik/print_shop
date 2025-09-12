@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Inertia::share('navigation.super_categories', function () {
             return SuperCategory::with('children:id,name,super_category_id')
-                ->get(['id', 'name'])
+                ->get()
                 ->toResourceCollection();
         });
 

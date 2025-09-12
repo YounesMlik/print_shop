@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { usePage } from "@inertiajs/react";
+import { ChevronDown } from "lucide-react";
 
 const languages_labels = {
     fr: "Français",
@@ -21,7 +22,10 @@ export function LanguageSwitcher() {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button variant="outline">{i18n.language?.toUpperCase()}</Button>
+                <Button variant="outline">
+                    {i18n.language?.toUpperCase()}
+                    <ChevronDown />
+                </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
                 {languages.map((l) => (

@@ -1,244 +1,53 @@
-import { useMemo, useState } from 'react'
-import { Head, Link, router } from '@inertiajs/react'
-import AsyncSelect from 'react-select/async'
-
-import LaravelPagination from '../../../components/laravel-pagination'
-
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Label } from '@/components/ui/label'
-import { Separator } from '@/components/ui/separator'
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator
-} from "@/components/ui/_breadcrumb";
-import { Button } from '@/components/ui/button'
-import { AspectRatio } from '@/components/ui/aspect-ratio'
+import { Head, router } from '@inertiajs/react'
 import { useTranslation } from 'react-i18next'
-import mapValues from 'lodash/mapValues'
+import { ProductsTagFilter } from '@/components/products-tag-filter';
+import { Breadcrumbs } from '@/components/breadcrumbs';
 
-export default function ProductsIndex({ products_collection, availableTags, filters, category_filtering_level }) {
+export default function ProductsIndex({ products_collection, available_tags, current_tags }) {
   const { t } = useTranslation();
   const nav_data = products_collection.meta
   const products = products_collection.data
-  availableTags = availableTags.data
-  filters = mapValues(filters, item => item?.data)
+  available_tags = available_tags.data
+  current_tags = current_tags.data
 
-  const [selectedTags, setSelectedTags] = useState(mapTagsToSelectFormat(filters.tags))
-
-  const tagOptions = useMemo(() => mapTagsToSelectFormat(availableTags), [availableTags])
-
-  function mapTagsToSelectFormat(tags = []) {
-    return tags.map(tag => ({
-      value: tag.id,
-      label: tag.name,
-    }))
-  }
-
-  function filterTagsByInput(inputValue) {
-    const lowerInput = inputValue.toLowerCase()
-    return tagOptions.filter(tag => tag.label.toLowerCase().includes(lowerInput))
-  }
-
-  function loadTagOptions(inputValue) {
-    return Promise.resolve(filterTagsByInput(inputValue))
-  }
-
-  function handleTagChange(newTags) {
-    const tags = newTags || []
-    setSelectedTags(tags)
+  function handleTagChange(tags) {
     const tagIds = tags.map(tag => tag.value)
 
-    router.get(route('products.index'), { tags: tagIds }, {
+    router.get(route(route().current()), { tags: tagIds }, {
       preserveState: true,
       preserveScroll: true,
     })
   }
 
-  function handlePageChange(page) {
+  function handlePageChange(page, selectedTags) {
     const tagIds = selectedTags.map(t => t.value)
 
-    if (page != nav_data.current_page) {
-      router.get(route('products.index'), { page, tags: tagIds }, {
-        preserveState: true,
-        preserveScroll: true,
-      })
-    }
+    router.get(route(route().current()), { page, tags: tagIds }, {
+      preserveState: true,
+      preserveScroll: true,
+    })
   }
 
   return (
     <>
-      {category_filtering_level !== 0 ? "" : <Head title={t("products")} />}
-      {category_filtering_level !== 1 ? "" : <Head title={filters.super_category.name} />}
-      {category_filtering_level !== 2 ? "" : <Head title={filters.category.name} />}
+      <Head title={t("products")} />
 
       <section className="grid gap-6">
 
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              {category_filtering_level === 0 ?
-                <BreadcrumbPage>
-                  {t("products")}
-                </BreadcrumbPage>
-                :
-                <BreadcrumbLink asChild>
-                  <Link href={route('products.index')} >
-                    {t("products")}
-                  </Link>
-                </BreadcrumbLink>
-              }
-            </BreadcrumbItem>
-            {!filters.super_category ? "" :
-              <>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  {category_filtering_level === 1 ?
-                    <BreadcrumbPage>
-                      {filters.super_category.name}
-                    </BreadcrumbPage>
-                    :
-                    <BreadcrumbLink asChild>
-                      <Link href={route('products.index', { super_category: filters.super_category.id, })} >
-                        {filters.super_category.name}
-                      </Link>
-                    </BreadcrumbLink>
-                  }
+        <Breadcrumbs>
+          <span>{t("products")}</span>
+        </Breadcrumbs>
 
-                </BreadcrumbItem>
-              </>
-            }
-            {!filters.category ? "" :
-              <>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  {category_filtering_level === 2 ?
-                    <BreadcrumbPage>
-                      {filters.category.name}
-                    </BreadcrumbPage>
-                    :
-                    <BreadcrumbLink asChild>
-                      <Link href={route('products.index', { category: filters.category.id, })} >
-                        {filters.category.name}
-                      </Link>
-                    </BreadcrumbLink>
-                  }
-
-                </BreadcrumbItem>
-              </>
-            }
-          </BreadcrumbList>
-        </Breadcrumb>
-
-        <FilterSection
-          selectedTags={selectedTags}
-          tagOptions={tagOptions}
-          loadTagOptions={loadTagOptions}
-          onChange={handleTagChange}
+        <ProductsTagFilter
+          products={products}
+          available_tags={available_tags}
+          current_tags={current_tags}
+          handleTagChange={handleTagChange}
+          nav_data={nav_data}
+          handlePageChange={handlePageChange}
         />
 
-        <Separator />
-
-        <ProductList products={products} />
-
-        {nav_data.last_page > 1 && (
-          <LaravelPagination
-            nav_data={nav_data}
-            onPageChange={handlePageChange}
-          />
-        )}
       </section>
     </>
-  )
-}
-
-function FilterSection({ selectedTags, tagOptions, loadTagOptions, onChange }) {
-  const { t } = useTranslation();
-  return (
-    <div className="space-y-2">
-      <Label htmlFor="product-tags">{t("tags_search.label")}</Label>
-      <AsyncSelect
-        inputId="product-tags"
-        isMulti
-        defaultOptions={tagOptions}
-        cacheOptions
-        value={selectedTags}
-        loadOptions={loadTagOptions}
-        onChange={onChange}
-        placeholder={t("tags_search.placeholder")}
-        classNamePrefix="react-select"
-        styles={{
-          control: (base) => ({
-            ...base,
-            borderRadius: '0.375rem',
-            borderColor: '#e2e8f0',
-            padding: '2px',
-            boxShadow: 'none',
-          }),
-          multiValue: (base) => ({
-            ...base,
-            backgroundColor: '#f1f5f9',
-            borderRadius: '0.375rem',
-          }),
-          multiValueLabel: (base) => ({
-            ...base,
-            color: '#334155',
-          }),
-          multiValueRemove: (base) => ({
-            ...base,
-            color: '#334155',
-            ':hover': {
-              backgroundColor: '#e2e8f0',
-              color: '#1e293b',
-            },
-          }),
-          option: (base, state) => ({
-            ...base,
-            backgroundColor: state.isFocused ? '#e2e8f0' : 'white',
-            color: '#0f172a',
-          }),
-          menu: (base) => ({
-            ...base,
-            zIndex: 20,
-          }),
-        }}
-      />
-    </div>
-  )
-}
-
-function ProductList({ products }) {
-  const { t } = useTranslation();
-  if (products.length === 0) {
-    return <p className="text-muted-foreground">{t("no_products_found")}</p>
-  }
-
-  return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-      {products.map(product => (
-
-        <Link href={route('products.show', product.id)} key={product.id}>
-          <Card className='w-full h-full hover:outline-gray-500/50 hover:outline-2'>
-            <CardHeader>
-              <CardTitle>
-                {product.name}
-              </CardTitle>
-              {product.images.length === 0 ? "" :
-                <AspectRatio ratio={1}>
-                  <img src={product.images[0].url} alt="product image" className="rounded-md w-full h-full object-contain" />
-                </AspectRatio>
-              }
-
-            </CardHeader>
-            <CardContent>
-              <p>{product.description}</p>
-            </CardContent>
-          </Card>
-        </Link>
-      ))}
-    </div>
   )
 }

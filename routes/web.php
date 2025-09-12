@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FormSchemaController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SuperCategoryController;
 use Inertia\Inertia;
 use Filament\Http\Middleware\Authenticate as FilamentAuthenticate;
 
@@ -17,6 +19,12 @@ Route::get("/", function () {
 
 Route::resource('/products', ProductController::class)
     ->only(["index", "show"]);
+
+Route::resource('/super-categories', SuperCategoryController::class)
+    ->only(["show"]);
+
+Route::resource('/categories', CategoryController::class)
+    ->only(["show"]);
 
 Route::get('/custom_order', [FormSchemaController::class, 'index'])
     ->name('custom_order.index');
