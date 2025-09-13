@@ -43,6 +43,7 @@ if [ "$1" = "local" ]; then
     php_fpm php artisan backup:restore --backup=latest --connection=pgsql --reset --no-interaction
     php_fpm php artisan migrate
     php_fpm php artisan db:seed LocalSeeder
+    php_fpm php artisan config:cache
     php_fpm ./work.sh &
     wait
     echo "deployment successful"
@@ -56,11 +57,11 @@ elif [ "$1" = "production" ]; then
     php_fpm php artisan key:generate
     php_fpm php artisan backup:restore --backup=latest --connection=pgsql --reset --no-interaction
     php_fpm php artisan migrate
+    php_fpm php artisan config:cache
     php_fpm npm run build
     php_fpm ./work.sh &
     wait
     echo "deployment successful"
-
 else
     echo "$1 is not recognized as a valid APP_ENV value"
 fi
