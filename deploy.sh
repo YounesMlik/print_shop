@@ -30,13 +30,14 @@ shared_init() {
     wait_for_service webserver
     wait_for_postgres
     wait_for_service php-fpm
-    php_fpm php artisan i18n:bump
-    php_fpm php artisan key:generate
 }
 
-if [ "$APP_ENV" = "local" ]; then
+if [ "$1" = "local" ]; then
     echo "deploying local"
     shared_init
+    php_fpm cp .env.local .env
+    php_fpm php artisan i18n:bump
+    php_fpm php artisan key:generate
     php_fpm php artisan backup:restore --backup=latest --connection=pgsql --reset --no-interaction
     php_fpm php artisan migrate
     php_fpm php artisan db:seed LocalSeeder
@@ -44,9 +45,12 @@ if [ "$APP_ENV" = "local" ]; then
     wait
     echo "deployment successful"
 
-elif [ "$APP_ENV" = "production" ]; then
+elif [ "$1" = "production" ]; then
     echo "deploying production"
     shared_init
+    php_fpm cp .env.production .env
+    php_fpm php artisan i18n:bump
+    php_fpm php artisan key:generate
     php_fpm php artisan backup:restore --backup=latest --connection=pgsql --reset --no-interaction
     php_fpm php artisan migrate
     php_fpm npm run build
@@ -55,5 +59,5 @@ elif [ "$APP_ENV" = "production" ]; then
     echo "deployment successful"
 
 else
-    echo "$APP_ENV is not recognized as a valid APP_ENV value"
+    echo "$1 is not recognized as a valid APP_ENV value"
 fi
