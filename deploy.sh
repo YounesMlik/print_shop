@@ -30,6 +30,8 @@ shared_init() {
     wait_for_service webserver
     wait_for_postgres
     wait_for_service php-fpm
+    php-fpm composer install --no-interaction
+    php-fpm php artisan optimize:clear
 }
 
 if [ "$1" = "local" ]; then
@@ -49,6 +51,7 @@ elif [ "$1" = "production" ]; then
     echo "deploying production"
     shared_init
     php_fpm cp .env.production .env
+    php-fpm php artisan optimize
     php_fpm php artisan i18n:bump
     php_fpm php artisan key:generate
     php_fpm php artisan backup:restore --backup=latest --connection=pgsql --reset --no-interaction
