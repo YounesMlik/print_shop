@@ -31,6 +31,7 @@ shared_init() {
     wait_for_postgres
     wait_for_service php-fpm
     php_fpm php artisan i18n:bump
+    php_fpm php artisan key:generate
 }
 
 if [ "$APP_ENV" = "local" ]; then
