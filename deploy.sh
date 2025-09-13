@@ -7,6 +7,15 @@ php_fpm() {
     docker compose exec -T php-fpm "$@"
 }
 
+fix_perms() {
+  php_fpm bash -lc '
+    mkdir -p storage/framework/{cache,sessions,views} bootstrap/cache &&
+    chown -R www-data:www-data storage bootstrap/cache &&
+    find storage bootstrap/cache -type d -exec chmod 775 {} \; &&
+    find storage bootstrap/cache -type f -exec chmod 664 {} \;
+  '
+}
+
 wait_for_service() {
     local service="$1"
     echo "Waiting for $service to be running..."
@@ -30,6 +39,7 @@ shared_init() {
     wait_for_service webserver
     wait_for_postgres
     wait_for_service php-fpm
+    fix_perms
     php_fpm composer install --no-interaction
     php_fpm php artisan optimize:clear
 }
