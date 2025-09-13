@@ -56,7 +56,7 @@ elif [ "$1" = "production" ]; then
     php_fpm php artisan i18n:bump
     php_fpm php artisan key:generate
     php_fpm php artisan backup:restore --backup=latest --connection=pgsql --reset --no-interaction
-    php_fpm php artisan migrate
+    php_fpm php artisan migrate --force
     php_fpm php artisan config:cache
     php_fpm npm run build
     php_fpm ./work.sh &
