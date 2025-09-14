@@ -40,6 +40,7 @@ shared_init() {
     wait_for_postgres
     wait_for_service php-fpm
     fix_perms
+    php_fpm npm install --production
     php_fpm composer install --no-interaction
     php_fpm php artisan optimize:clear
 }
