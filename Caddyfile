@@ -1,0 +1,32 @@
+{
+	# Optional: set your ACME email (helps with rate limits/ownership)
+	# email {$ACME_EMAIL}
+	# Optional: more verbose logs during first setup
+	# debug
+}
+
+# Plain HTTP health endpoint so your healthcheck never depends on TLS.
+:80 {
+	@health path /health
+	handle @health {
+		respond "ok" 200
+	}
+
+	# Everything else on :80 will be redirected to HTTPS for your domain
+	redir https://{host}{uri}
+}
+
+# Your Laravel site with automatic HTTPS and renewal
+:443 {
+	root * /application/public
+	php_fastcgi php-fpm:9000
+	file_server
+	encode zstd gzip
+
+	# (optional) security headers
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "no-referrer-when-downgrade"
+	}
+}
