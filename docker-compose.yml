@@ -51,26 +51,26 @@ services:
             timeout: 3s
             retries: 20
 
-    php-fpm:
-        build: phpdocker/php-fpm
-        working_dir: /application
-        volumes:
-            - ".:/application"
-            - "/application/node_modules"
-            - "./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/8.4/fpm/conf.d/99-overrides.ini"
-            - "./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/8.4/cli/conf.d/99-overrides.ini"
-        ports:
-            - "5173:5173"
-        healthcheck:
-            # Checks PHP-FPM is up (port 5173) and PHP CLI is usable
-            test:
-                [
-                    "CMD-SHELL",
-                    "php -v >/dev/null 2>&1 && (nc -z 127.0.0.1 5173 || ss -ltn | grep -q ':5173')",
-                ]
-            interval: 5s
-            timeout: 3s
-            retries: 30
+    # php-fpm:
+    #     build: phpdocker/php-fpm
+    #     working_dir: /application
+    #     volumes:
+    #         - ".:/application"
+    #         - "/application/node_modules"
+    #         - "./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/8.4/fpm/conf.d/99-overrides.ini"
+    #         - "./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/8.4/cli/conf.d/99-overrides.ini"
+    #     ports:
+    #         - "5173:5173"
+    #     healthcheck:
+    #         # Checks PHP-FPM is up (port 5173) and PHP CLI is usable
+    #         test:
+    #             [
+    #                 "CMD-SHELL",
+    #                 "php -v >/dev/null 2>&1 && (nc -z 127.0.0.1 5173 || ss -ltn | grep -q ':5173')",
+    #             ]
+    #         interval: 5s
+    #         timeout: 3s
+    #         retries: 30
 
 volumes:
     caddy_data:
