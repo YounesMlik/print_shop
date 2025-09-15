@@ -19,15 +19,17 @@ export default defineConfig({
         },
     },
     server: {
+        https: true,
         host: "0.0.0.0",
         port: 5173,
-        hmr: {
-            host: "0.0.0.0",
-            port: 5173,
-        },
+        hmr: false,
+        // hmr: {
+        //     host: "0.0.0.0",
+        //     port: 5173,
+        // },
     },
     build: {
-        outDir: 'public/build',
+        outDir: "public/build",
         emptyOutDir: true,
     },
 });
