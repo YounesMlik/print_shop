@@ -1,9 +1,9 @@
 services:
     postgres:
-        image: "postgres:15-alpine"
+        image: postgres:15-alpine
         working_dir: /application
         volumes:
-            - ".:/application"
+            - .:/application
         environment:
             - POSTGRES_USER=postgres
             - POSTGRES_PASSWORD=psql
@@ -20,21 +20,28 @@ services:
             timeout: 3s
             retries: 20
 
-    webserver:
-        image: caddy:2-alpine
-        working_dir: /application
+    app:
+        build: phpdocker/frankenphp
+        working_dir: /app
         ports:
             - "80:80"
             - "443:443"
+            # (dev only) expose Vite if you want HMR:
+            # - "5173:5173"
         volumes:
-            - ./:/application
+            - ./:/app
             - ./Caddyfile:/etc/caddy/Caddyfile:ro
             - caddy_data:/data
             - caddy_config:/config
+        environment:
+            # Recommended: ACME account email for auto-HTTPS
+            # ACME_EMAIL: you@example.com
+            # Optional: gate on-demand TLS to allowed hostnames (URL that returns 200 if allowed)
+            ON_DEMAND_ASK:
+            # (dev only) set VITE_HOST=0.0.0.0 in your env if running HMR inside the container
         depends_on:
-            - php-fpm
+            - postgres
         healthcheck:
-            # Hit a dedicated HTTP /health endpoint that we expose below (no HTTPS, no cert needed)
             test:
                 [
                     "CMD-SHELL",

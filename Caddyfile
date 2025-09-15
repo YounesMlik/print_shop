@@ -1,32 +1,34 @@
 {
-	# Optional: set your ACME email (helps with rate limits/ownership)
-	# email {$ACME_EMAIL}
-	# Optional: more verbose logs during first setup
-	# debug
+    email {$ACME_EMAIL}
+    # debug
 }
 
-# Plain HTTP health endpoint so your healthcheck never depends on TLS.
+# Plain HTTP for healthcheck; everything else redirects to HTTPS on same host
 :80 {
-	@health path /health
-	handle @health {
-		respond "ok" 200
-	}
-
-	# Everything else on :80 will be redirected to HTTPS for your domain
-	redir https://{host}{uri}
+    @health path /health
+    handle @health { respond "ok" 200 }
+    redir https://{host}{uri}
 }
 
-# Your Laravel site with automatic HTTPS and renewal
+# Catch-all HTTPS: issues certs on demand for whatever Host header hits you
 :443 {
-	root * /application/public
-	php_fastcgi php-fpm:9000
-	file_server
-	encode zstd gzip
+    tls {
+        on_demand
+        # Optional: prevent random domains from using your ACME quota:
+        # ask {$ON_DEMAND_ASK}
+    }
 
-	# (optional) security headers
-	header {
-		Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
-		X-Content-Type-Options "nosniff"
-		Referrer-Policy "no-referrer-when-downgrade"
-	}
+    root * /app/public
+
+    # FrankenPHP runs PHP in-process (no php-fpm)
+    php_server
+
+    file_server
+    encode zstd gzip
+
+    header {
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        X-Content-Type-Options "nosniff"
+        Referrer-Policy "no-referrer-when-downgrade"
+    }
 }
