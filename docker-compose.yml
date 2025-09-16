@@ -39,6 +39,9 @@ services:
             # Optional: gate on-demand TLS to allowed hostnames (URL that returns 200 if allowed)
             ON_DEMAND_ASK:
             # (dev only) set VITE_HOST=0.0.0.0 in your env if running HMR inside the container
+
+            CANONICAL_DOMAIN: ${APP_URL}
+            WWW_DOMAIN: www.${APP_URL}
         depends_on:
             - postgres
         healthcheck:

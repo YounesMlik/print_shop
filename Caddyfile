@@ -31,14 +31,12 @@ localhost, 127.0.0.1, ::1 {
 	# No HSTS in dev to avoid sticky browser state
 }
 
+{$WWW_DOMAIN} {
+  redir https://{$CANONICAL_DOMAIN}{uri}
+}
+
 # 3) PROD: any real domain that points to this server (public Let's Encrypt)
-:443 {
-	tls {
-		on_demand # issue certs per Host header
-		# Strongly recommended: only allow hosts you own to avoid ACME abuse
-		# Provide an endpoint that returns 200 for allowed hostnames:
-		# ask {$ON_DEMAND_ASK}
-	}
+${CANONICAL_DOMAIN} {
 
 	import serve_php
 
