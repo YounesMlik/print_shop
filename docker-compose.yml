@@ -1,24 +1,24 @@
 services:
-    postgres:
-        image: postgres:15-alpine
-        working_dir: /application
-        volumes:
-            - .:/application
-        environment:
-            - POSTGRES_USER=postgres
-            - POSTGRES_PASSWORD=psql
-            - POSTGRES_DB=printing_shop_db
-        ports:
-            - "27004:5432"
-        healthcheck:
-            test:
-                [
-                    "CMD-SHELL",
-                    "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB} -h 127.0.0.1 -p 5432",
-                ]
-            interval: 3s
-            timeout: 3s
-            retries: 20
+    # postgres:
+    #     image: postgres:15-alpine
+    #     working_dir: /application
+    #     volumes:
+    #         - .:/application
+    #     environment:
+    #         - POSTGRES_USER=postgres
+    #         - POSTGRES_PASSWORD=psql
+    #         - POSTGRES_DB=printing_shop_db
+    #     ports:
+    #         - "27004:5432"
+    #     healthcheck:
+    #         test:
+    #             [
+    #                 "CMD-SHELL",
+    #                 "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB} -h 127.0.0.1 -p 5432",
+    #             ]
+    #         interval: 3s
+    #         timeout: 3s
+    #         retries: 20
 
     app:
         build: phpdocker/frankenphp
@@ -42,8 +42,6 @@ services:
 
             CANONICAL_DOMAIN: ${APP_URL}
             WWW_DOMAIN: www.${APP_URL}
-        depends_on:
-            - postgres
         healthcheck:
             test:
                 [
