@@ -36,7 +36,12 @@ localhost, 127.0.0.1, ::1 {
 	# header X-Env dev-local
 
 	import serve_php
+
 	# No HSTS in dev to avoid sticky browser state
+	header {
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "no-referrer-when-downgrade"
+	}
 }
 
 {$WWW_DOMAIN} {
