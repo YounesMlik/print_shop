@@ -1,14 +1,22 @@
-{
-	# email {$ACME_EMAIL}  # public ACME account email for prod
-	# debug
-}
+# {
+# 	email {$ACME_EMAIL}  # public ACME account email for prod
+# 	# debug
+# }
 
 (serve_php) {
+	handle_path /.well-known/* {
+		# Normally static; if you prefer, just let file_server serve it.
+		file_server
+	}
+
 	root * /app/public
 
 	php_server
 
-	file_server
+	file_server {
+		hide /.*
+	}
+
 	encode zstd gzip
 }
 
@@ -24,20 +32,19 @@
 # 2) DEV: trusted HTTPS for localhost only (uses internal CA)
 localhost, 127.0.0.1, ::1 {
 	tls internal # generates a localhost cert you can trust locally
-    
-    # header X-Env dev-local
+
+	# header X-Env dev-local
 
 	import serve_php
 	# No HSTS in dev to avoid sticky browser state
 }
 
 {$WWW_DOMAIN} {
-  redir https://{$CANONICAL_DOMAIN}{uri}
+	redir https://{$CANONICAL_DOMAIN}{uri}
 }
 
 # 3) PROD: any real domain that points to this server (public Let's Encrypt)
-${CANONICAL_DOMAIN} {
-
+{$CANONICAL_DOMAIN} {
 	import serve_php
 
 	# Production-only hardening
@@ -46,8 +53,4 @@ ${CANONICAL_DOMAIN} {
 		X-Content-Type-Options "nosniff"
 		Referrer-Policy "no-referrer-when-downgrade"
 	}
-
-	# Block hidden files (except ACME)
-	@dotfiles path_regexp /\.(?!well-known)
-	respond @dotfiles 404
 }
