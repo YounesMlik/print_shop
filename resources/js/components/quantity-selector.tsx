@@ -40,7 +40,7 @@ export function QuantitySelector({
         <Minus className="h-4 w-4" />
       </Button>
 
-      <Input
+      <input
         type="number"
         inputMode="numeric"
         value={value}
@@ -48,7 +48,7 @@ export function QuantitySelector({
         max={max}
         step={step}
         onChange={(e) => set(Number(e.target.value) || min)}
-        className="w-16 text-center"
+        className={cn("text-center field-sizing-content px-2", number_input_no_arrows)}
         aria-label={label}
         aria-valuemin={min}
         aria-valuemax={max}
@@ -69,3 +69,4 @@ export function QuantitySelector({
     </div>
   );
 }
+const number_input_no_arrows = "[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
