@@ -12,7 +12,7 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { sendWhatsappMessage } from "@/components/helpers";
 import { Badge } from "@/components/ui/badge";
 
-import VariantPicker from "@/components/product-option-picker";
+import VariantPicker from "@/components/variant-picker";
 import { useTranslation } from "react-i18next";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
