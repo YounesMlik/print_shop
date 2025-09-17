@@ -5,6 +5,8 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Badge } from "@/components/ui/badge";
 import { useTranslation } from "react-i18next";
 import { VariantPickerProps } from "@/types/global";
+import { QuantitySelector } from "@/components/quantity-selector";
+import { cn } from "@/lib/utils";
 
 export default function VariantPicker({
   options,
@@ -18,6 +20,9 @@ export default function VariantPicker({
   const [selectedId, setSelectedId] = React.useState<number | null>(
     value ?? null
   );
+  const [quantity, setQuantity] = React.useState(1);
+  console.log(value);
+
 
   // keep internal state in sync with controlled value
   React.useEffect(() => {
@@ -53,18 +58,19 @@ export default function VariantPicker({
   const handleChange = (idStr: string) => {
     const id = Number(idStr);
     setSelectedId(id);
-    onChange?.(options.find((o) => o.id === id) ?? null);
+    onChange?.(options.find((o) => o.id === id) ?? null, quantity);
   };
 
   return (
-    <Card className={["p-3", className].filter(Boolean).join(" ")}>
+    <Card className={cn("p-3", className)}>
       {options.length === 0 ?
         <p className="text-sm text-muted-foreground">{no_options_available_label}</p>
         :
         <>
 
-          <CardHeader className="p-0 pb-2">
-            <div className="text-sm text-muted-foreground">{label}</div>
+          <CardHeader className="p-0 pb-2 flex items-center justify-between">
+            <p className="text-sm text-muted-foreground">{label}</p>
+            <QuantitySelector value={quantity} onChange={setQuantity} />
           </CardHeader>
 
           <CardContent className="p-0">

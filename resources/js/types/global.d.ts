@@ -30,7 +30,7 @@ type VariantPickerProps = {
   /** Controlled selected option id (optional) */
   value?: number | null,
   /** Called with the full selected option object (or null) */
-  onChange?: (option: Option | null) => void,
+  onChange?: (selected: Option | null, quantity: number) => void,
   /** Currency code for price formatting (defaults to MAD) */
   currency?: string,
   /** Extra className for the outer Card */
@@ -42,5 +42,5 @@ type VariantPickerProps = {
 }
 
 declare global {
-    var route: typeof routeFn;
+  var route: typeof routeFn;
 }

@@ -21,13 +21,15 @@ export default function ProductShow({ product_resource }) {
     const product = product_resource.data;
 
     const [selectedOption, setSelectedOption] = React.useState(null);
+    const [quantity, setQuantity] = React.useState(1);
     const [message, setMessage] = React.useState("");
 
     // console.log(message);
 
-    function optionSelectedHandler(option) {
+    function optionSelectedHandler(option, quantity) {
         setSelectedOption(option);
-        setMessage(buildWhatsAppMessage(product, option))
+        setQuantity(quantity);
+        setMessage(buildWhatsAppMessage(product, option, quantity))
     }
 
     return (
@@ -99,8 +101,9 @@ export default function ProductShow({ product_resource }) {
 }
 
 
-function buildWhatsAppMessage(product, option) {
+function buildWhatsAppMessage(product, option, quantity) {
     let message = `Product name: ${product.name}\n`;
+    message += `Quantity: ${quantity}\n`;
     message += `Option name: ${option.name}\n`;
     message += `Option Attributes:\n`;
     option.option_attributes.forEach((attribute) => {
