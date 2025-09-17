@@ -19,7 +19,7 @@ export function QuantitySelector({
   value,
   onChange,
   min = 1,
-  max = 99,
+  max = 1e12,
   step = 1,
   className,
   label = "Quantity",
