@@ -34,6 +34,20 @@
             }
         }
     },
+    "shopping_cart": {
+        "title": "Votre panier",
+        "trigger": "Panier",
+        "empty": "Votre panier est vide.",
+        "subtotal": "Sous-total",
+        "total": "Total",
+        "unit": "{{price}} / unité",
+        "checkout": "Payer",
+        "clear": "Vider",
+        "remove": "Supprimer",
+        "items_count_one": "{{count}} article",
+        "items_count_other": "{{count}} articles",
+        "add": "Ajouter au panier"
+    },
     "nav": {
         "contact_us_via": "Contactez-nous via"
     },

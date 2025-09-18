@@ -34,6 +34,20 @@
             }
         }
     },
+    "shopping_cart": {
+        "title": "Your Cart",
+        "trigger": "Cart",
+        "empty": "Your cart is empty.",
+        "subtotal": "Subtotal",
+        "total": "Total",
+        "unit": "{{price}} / unit",
+        "checkout": "Checkout",
+        "clear": "Clear",
+        "remove": "Remove",
+        "items_count_one": "{{count}} item",
+        "items_count_other": "{{count}} items",
+        "add": "Add to Cart"
+    },
     "nav": {
         "contact_us_via": "Contact us via"
     },

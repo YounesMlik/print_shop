@@ -34,6 +34,20 @@
             }
         }
     },
+    "shopping_cart": {
+        "title": "سلّة التسوّق",
+        "trigger": "السلة",
+        "empty": "سلتك فارغة.",
+        "subtotal": "الإجمالي الفرعي",
+        "total": "الإجمالي",
+        "unit": "{{price}} / وحدة",
+        "checkout": "إتمام الشراء",
+        "clear": "تفريغ",
+        "remove": "حذف",
+        "items_count_one": "{{count}} منتج",
+        "items_count_other": "{{count}} منتجات",
+        "add": "أضف إلى السلة"
+    },
     "nav": {
         "contact_us_via": "تواصل معنا عبر"
     },
