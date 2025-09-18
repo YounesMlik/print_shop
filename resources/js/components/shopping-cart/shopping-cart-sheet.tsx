@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 
 import { CartLine, shoppingCart } from "./shopping-cart-store"; // your dict-based singleton store
+import { QuantitySelector } from "@/components/quantity-selector";
 
 // ---- utils ----
 function formatMoney(value: number, currency = "MAD", locale = "fr-MA") {
@@ -136,21 +137,10 @@ const CartLineRow = observer(function CartLineRow({ lineItem }: LineProps) {
                     {formatMoney(option.price)} / unit
                 </div>
 
-                <div className="mt-3 flex items-center gap-2">
-                    <Button variant="outline" size="icon" onClick={dec} disabled={quantity <= 0}>
-                        <Minus className="h-4 w-4" />
-                    </Button>
-                    <Input
-                        inputMode="numeric"
-                        pattern="[0-9]*"
-                        value={lineItem.quantity}
-                        onChange={onManualQty}
-                        className="h-8 w-16 text-center"
-                    />
-                    <Button variant="outline" size="icon" onClick={inc}>
-                        <Plus className="h-4 w-4" />
-                    </Button>
-                </div>
+                <QuantitySelector
+                    value={quantity}
+                    onChange={(quantity) => shoppingCart.setQuantity(product.id, option.id, quantity)}
+                />
             </div>
 
             <div className="flex flex-col items-end gap-2">
