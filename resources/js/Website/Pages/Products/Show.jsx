@@ -15,6 +15,8 @@ import { Badge } from "@/components/ui/badge";
 import VariantPicker from "@/components/variant-picker";
 import { useTranslation } from "react-i18next";
 import { Breadcrumbs } from "@/components/breadcrumbs";
+import { shoppingCart } from "@/components/shopping-cart/shopping-cart-store";
+import { toJS } from "mobx";
 
 export default function ProductShow({ product_resource }) {
     const { t } = useTranslation();
@@ -24,7 +26,7 @@ export default function ProductShow({ product_resource }) {
     const [quantity, setQuantity] = React.useState(1);
     const message = !selectedOption ? null : buildWhatsAppMessage(product, selectedOption, quantity);
 
-    // console.log(message);
+    console.log(toJS(shoppingCart.items));
 
 
     return (
@@ -87,13 +89,23 @@ export default function ProductShow({ product_resource }) {
                 no_options_available_label={t("option_picker.no_options_available")}
             />
 
-            <Button
-                className="mt-6 w-full"
-                disabled={selectedOption === null}
-                onClick={() => sendWhatsappMessage(message)}
-            >
-                {t("order_via_whatsapp")}
-            </Button>
+            <div className="flex gap-4 justify-between mt-6 w-full">
+                <Button
+                    className="grow"
+                    disabled={selectedOption === null}
+                    onClick={() => sendWhatsappMessage(message)}
+                >
+                    {t("order_via_whatsapp")}
+                </Button>
+
+                <Button
+                    className="grow"
+                    disabled={selectedOption === null}
+                    onClick={() => shoppingCart.add(product, selectedOption, quantity)}
+                >
+                    {t("shopping_cart.add")}
+                </Button>
+            </div>
         </div>
     );
 }

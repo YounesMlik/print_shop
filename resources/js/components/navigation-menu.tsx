@@ -20,6 +20,8 @@ import { cn } from "@/lib/utils";
 import { ClipboardList, Menu, ShoppingCartIcon } from "lucide-react";
 import MobileSidebar from "@/components/mobile-sidebar";
 import under_print_logo_transparent from "/public/img/under_print_logo_transparent.png";
+import { ShoppingCartSheet } from "@/components/shopping-cart/shopping-cart-sheet";
+import { ComponentProps } from "react";
 
 export function MainNav({ className, ...props }: ComponentProps<"header">) {
   const { t, i18n } = useTranslation()
@@ -118,6 +120,15 @@ export function MainNav({ className, ...props }: ComponentProps<"header">) {
             <NavigationMenuItem>
               <LanguageSwitcher />
             </NavigationMenuItem>
+            <NavigationMenuItem>
+              <ShoppingCartSheet
+                onCheckout={() => {
+                  // Example: redirect to checkout page
+                  window.location.href = "/checkout";
+                }}
+              />
+            </NavigationMenuItem>
+
 
           </NavigationMenuList>
         </NavigationMenu>
