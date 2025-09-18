@@ -43,7 +43,7 @@ function TopBar() {
             <div className='flex gap-4 items-center h-5'>
                 <div className='flex gap-2'>
                     <Phone />
-                    <span>(+212) 660-630-814</span>
+                    <span dir='ltr'>(+212) 660-630-814</span>
                 </div>
                 <Separator orientation="vertical" className='bg-white' />
                 <a href={`mailto:${email}`} className='flex gap-2'>

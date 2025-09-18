@@ -5,6 +5,7 @@ import { usePage } from "@inertiajs/react";
 import { ChevronDown } from "lucide-react";
 
 const languages_labels = {
+    en: "English",
     fr: "Français",
     ar: "العربية",
 };

@@ -3,6 +3,7 @@ import laravel from "laravel-vite-plugin";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
+import { readFileSync } from "fs";
 
 export default defineConfig({
     plugins: [
@@ -19,14 +20,18 @@ export default defineConfig({
         },
     },
     server: {
-        https: true,
+        // https: {
+        //     key: read("/data/caddy/certificates/local/localhost/key.pem"),
+        //     cert: read("/data/caddy/certificates/local/localhost/cert.pem"),
+        // },
         host: "0.0.0.0",
         port: 5173,
-        hmr: false,
-        // hmr: {
-        //     host: "0.0.0.0",
-        //     port: 5173,
-        // },
+        // hmr: false,
+        hmr: {
+            protocol: "ws",
+            host: "localhost",
+            port: 5173,
+        },
     },
     build: {
         outDir: "public/build",

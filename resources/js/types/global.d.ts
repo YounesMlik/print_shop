@@ -27,14 +27,18 @@ type I18n = {
 type VariantPickerProps = {
   /** Your options array, as provided */
   options: Option[],
-  /** Controlled selected option id (optional) */
-  value?: number | null,
+  /** Controlled selected option id */
+  selectedOption: Option | null,
+  /** Controlled quantity */
+  quantity: number,
   /** Called with the full selected option object (or null) */
-  onChange?: (option: Option | null) => void,
+  onOptionChange: (selected: Option | null) => void,
+  /** Called with the quantity */
+  onQuantityChange: (quantity: number) => void,
   /** Currency code for price formatting (defaults to MAD) */
   currency?: string,
   /** Extra className for the outer Card */
-  className?: string,
+  className?: string | undefined,
   /** Optional label above the list */
   label?: string,
   /** Optional label when no options are available */
@@ -42,5 +46,5 @@ type VariantPickerProps = {
 }
 
 declare global {
-    var route: typeof routeFn;
+  var route: typeof routeFn;
 }

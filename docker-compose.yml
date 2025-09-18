@@ -27,7 +27,7 @@ services:
             - "80:80"
             - "443:443"
             # (dev only) expose Vite if you want HMR:
-            # - "5173:5173"
+            - "5173:5173"
         volumes:
             - ./:/app
             - ./Caddyfile:/etc/caddy/Caddyfile:ro

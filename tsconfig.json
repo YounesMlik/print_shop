@@ -3,11 +3,12 @@
         "jsx": "react-jsx",
         "module": "ESNext",
         "target": "ESNext",
-        "moduleResolution": "Node",
+        "moduleResolution": "bundler",
         "baseUrl": ".",
         "paths": {
             "@/*": ["resources/js/*"],
             "ziggy-js": ["./vendor/tightenco/ziggy"]
-        }
+        },
+        "strict": true
     }
 }

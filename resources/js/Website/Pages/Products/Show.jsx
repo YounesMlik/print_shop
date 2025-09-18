@@ -12,7 +12,7 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { sendWhatsappMessage } from "@/components/helpers";
 import { Badge } from "@/components/ui/badge";
 
-import VariantPicker from "@/components/product-option-picker";
+import VariantPicker from "@/components/variant-picker";
 import { useTranslation } from "react-i18next";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
@@ -21,14 +21,11 @@ export default function ProductShow({ product_resource }) {
     const product = product_resource.data;
 
     const [selectedOption, setSelectedOption] = React.useState(null);
-    const [message, setMessage] = React.useState("");
+    const [quantity, setQuantity] = React.useState(1);
+    const message = !selectedOption ? null : buildWhatsAppMessage(product, selectedOption, quantity);
 
     // console.log(message);
 
-    function optionSelectedHandler(option) {
-        setSelectedOption(option);
-        setMessage(buildWhatsAppMessage(product, option))
-    }
 
     return (
         <div className="container mx-auto p-4 max-w-xl grid gap-4">
@@ -82,7 +79,10 @@ export default function ProductShow({ product_resource }) {
 
             <VariantPicker
                 options={product.options}
-                onChange={optionSelectedHandler}
+                selectedOption={selectedOption}
+                onOptionChange={setSelectedOption}
+                quantity={quantity}
+                onQuantityChange={setQuantity}
                 label={t("option_picker.choose_an_option")}
                 no_options_available_label={t("option_picker.no_options_available")}
             />
@@ -99,8 +99,9 @@ export default function ProductShow({ product_resource }) {
 }
 
 
-function buildWhatsAppMessage(product, option) {
+function buildWhatsAppMessage(product, option, quantity) {
     let message = `Product name: ${product.name}\n`;
+    message += `Quantity: ${quantity}\n`;
     message += `Option name: ${option.name}\n`;
     message += `Option Attributes:\n`;
     option.option_attributes.forEach((attribute) => {
