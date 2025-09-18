@@ -41,7 +41,7 @@
         "subtotal": "Subtotal",
         "total": "Total",
         "unit": "{{price}} / unit",
-        "checkout": "Checkout",
+        "checkout": "Checkout via WhatsApp",
         "clear": "Clear",
         "remove": "Remove",
         "items_count_one": "{{count}} item",

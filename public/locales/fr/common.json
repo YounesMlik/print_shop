@@ -41,7 +41,7 @@
         "subtotal": "Sous-total",
         "total": "Total",
         "unit": "{{price}} / unité",
-        "checkout": "Payer",
+        "checkout": "Payer via WhatsApp",
         "clear": "Vider",
         "remove": "Supprimer",
         "items_count_one": "{{count}} article",
