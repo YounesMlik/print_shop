@@ -1,7 +1,4 @@
 {
-    "hero": {
-        "headline": "Buy a product or custom order"
-    },
     "products": "Products",
     "custom_order": "Custom Order",
     "order_via_whatsapp": "Order via WhatsApp",
