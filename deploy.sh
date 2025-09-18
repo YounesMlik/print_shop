@@ -76,3 +76,6 @@ fi
 
 # Copy built bundle to server
 # scp -r public/build root@underprint.ma:/root/apps/print_shop/public
+
+# load server config
+# frankenphp reload
