@@ -28,7 +28,7 @@ declare global {
         id: number,
         name: string,
         description: string | null,
-        price: string | number,
+        price: number,
         product?: Product,
         option_attributes?: OptionAttribute[],
         created_at: string,
