@@ -79,3 +79,6 @@ fi
 
 # load server config
 # frankenphp reload
+
+# php artisan optimize:clear
+# php artisan optimize:safe
