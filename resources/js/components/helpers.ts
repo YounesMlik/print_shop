@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import z from "zod";
-import flatMap from "lodash/flatMap";
+import z, { ZodError } from "zod";
+import { flatMap } from "lodash-es";
 
-export function objectMap(object: object, fn: ([string, unknown]) => [string, unknown]) {
+export function objectMap(object: object, fn: ([k, v]: [string, unknown]) => [string, unknown]) {
     return Object.fromEntries(Object.entries(object).map(fn))
 }
 
@@ -19,7 +19,7 @@ export function tryCatch(fn: () => void) {
 }
 
 export function tryCatchZod(fn: () => void): string[] {
-    let err = tryCatch(fn);
+    let err = tryCatch(fn) as ZodError;
     if (err) {
         return z.treeifyError(err).errors
     } else {
@@ -116,7 +116,7 @@ export function useLocalized(
     translations: { [key: string]: string }
 ): string {
     const { i18n } = useTranslation();
-    return i18n.languages.map(lang => translations[lang]).find(value => value);
+    return i18n.languages.map(lang => translations[lang]).find(value => value) ?? "[ERROR: missing translation]";
 }
 
 export function intersperse(arr: unknown[], sep: unknown) {
