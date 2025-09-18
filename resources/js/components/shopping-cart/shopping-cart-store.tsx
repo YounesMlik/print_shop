@@ -72,7 +72,7 @@ export class ShoppingCartStore {
     }
 }
 
-class CartLine {
+export class CartLine {
     product: Product;
     option: Option;
     quantity: number;
