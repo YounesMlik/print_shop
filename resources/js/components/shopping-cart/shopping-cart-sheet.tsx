@@ -19,6 +19,7 @@ import { Badge } from "@/components/ui/badge";
 
 import { CartLine, shoppingCart } from "./shopping-cart-store"; // your dict-based singleton store
 import { QuantitySelector } from "@/components/quantity-selector";
+import { useTranslation } from "react-i18next";
 
 // ---- utils ----
 function formatMoney(value: number, currency = "MAD", locale = "fr-MA") {
@@ -36,6 +37,7 @@ type Props = {
 export const ShoppingCartSheet = observer(function CartSheet({
   onCheckout,
 }: Props) {
+  const { t } = useTranslation();
   const itemCount = shoppingCart.itemCount;
   const total = shoppingCart.total;
 
@@ -44,16 +46,18 @@ export const ShoppingCartSheet = observer(function CartSheet({
       <SheetTrigger asChild>
         <Button variant="outline" size="sm" className="relative">
           <ShoppingCart className="mr-2 h-4 w-4" />
-          Cart
+          {t("shopping_cart.trigger")}
           {itemCount > 0 && (
-            <Badge className="ml-2">{itemCount}</Badge>
+            <Badge className="ml-2">
+              {t("shopping_cart.items_count", { count: itemCount })}
+            </Badge>
           )}
         </Button>
       </SheetTrigger>
 
       <SheetContent className="flex w-full max-w-lg flex-col p-0">
         <SheetHeader className="px-6 py-4">
-          <SheetTitle className="text-lg">Your Cart</SheetTitle>
+          <SheetTitle className="text-lg">{t("shopping_cart.title")}</SheetTitle>
         </SheetHeader>
 
         <Separator />
@@ -63,8 +67,9 @@ export const ShoppingCartSheet = observer(function CartSheet({
             <EmptyState />
           ) : (
             <div className="space-y-4">
-              {shoppingCart.lines.map((line) => (
+              {shoppingCart.lines.map((line, key) => (
                 <CartLineRow
+                  key={key}
                   lineItem={line}
                 />
               ))}
@@ -77,7 +82,7 @@ export const ShoppingCartSheet = observer(function CartSheet({
         <SheetFooter className="px-6 py-4">
           <div className="w-full space-y-3">
             <div className="flex items-center justify-between text-sm">
-              <span className="text-muted-foreground">Subtotal</span>
+              <span className="text-muted-foreground">{t("shopping_cart.subtotal")}</span>
               <span className="font-medium">{formatMoney(total)}</span>
             </div>
             <div className="flex gap-2">
@@ -86,14 +91,14 @@ export const ShoppingCartSheet = observer(function CartSheet({
                 disabled={shoppingCart.isEmpty}
                 onClick={onCheckout}
               >
-                Checkout
+                {t("shopping_cart.checkout")}
               </Button>
               <Button
                 variant="ghost"
                 disabled={shoppingCart.isEmpty}
                 onClick={() => shoppingCart.clear()}
               >
-                Clear
+                {t("shopping_cart.clear")}
               </Button>
             </div>
           </div>
@@ -104,10 +109,11 @@ export const ShoppingCartSheet = observer(function CartSheet({
 });
 
 function EmptyState() {
+  const { t } = useTranslation();
   return (
     <div className="flex h-40 flex-col items-center justify-center text-center text-sm text-muted-foreground">
       <ShoppingCart className="mb-2 h-5 w-5" />
-      Your cart is empty.
+      {t("shopping_cart.empty")}
     </div>
   );
 }
@@ -117,6 +123,7 @@ type LineProps = {
 };
 
 const CartLineRow = observer(function CartLineRow({ lineItem }: LineProps) {
+  const { t } = useTranslation();
   const { product, option, quantity } = lineItem;
 
   const dec = () => shoppingCart.setQuantity(product.id, option.id, quantity - 1);
@@ -149,7 +156,7 @@ const CartLineRow = observer(function CartLineRow({ lineItem }: LineProps) {
           size="icon"
           onClick={remove}
           className="h-8 w-8"
-          title="Remove"
+          title={t("shopping_cart.remove")}
         >
           <Trash2 className="h-4 w-4" />
         </Button>

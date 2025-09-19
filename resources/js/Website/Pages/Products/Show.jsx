@@ -26,7 +26,7 @@ export default function ProductShow({ product_resource }) {
     const [quantity, setQuantity] = React.useState(1);
     const message = !selectedOption ? null : buildWhatsAppMessage(product, selectedOption, quantity);
 
-    console.log(toJS(shoppingCart.items));
+    // console.log(toJS(shoppingCart.items));
 
 
     return (
