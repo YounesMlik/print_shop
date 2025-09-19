@@ -9,6 +9,7 @@
             "@/*": ["resources/js/*"],
             "ziggy-js": ["./vendor/tightenco/ziggy"]
         },
+        "resolveJsonModule": true,
         "strict": true
     }
 }
