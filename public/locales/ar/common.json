@@ -44,7 +44,11 @@
         "checkout": "إتمام الشراء عبر واتساب",
         "clear": "تفريغ",
         "remove": "حذف",
+        "items_count_zero": "لا منتجات",
         "items_count_one": "{{count}} منتج",
+        "items_count_two": "{{count}} منتجات",
+        "items_count_few": "{{count}} منتجات",
+        "items_count_many": "{{count}} منتجات",
         "items_count_other": "{{count}} منتجات",
         "add": "أضف إلى السلة"
     },
