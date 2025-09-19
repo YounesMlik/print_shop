@@ -82,7 +82,7 @@ export const ShoppingCartSheet = observer(function CartSheet({
         <SheetFooter className="px-6 py-4">
           <div className="w-full space-y-3">
             <div className="flex items-center justify-between text-sm">
-              <span className="text-muted-foreground">{t("shopping_cart.subtotal")}</span>
+              <span className="text-muted-foreground">{t("shopping_cart.total")}</span>
               <span className="font-medium">{formatMoney(total)}</span>
             </div>
             <div className="flex gap-2">
