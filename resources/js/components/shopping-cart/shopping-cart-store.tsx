@@ -1,5 +1,6 @@
 import { makeAutoObservable, computed } from "mobx";
 import { makePersistable } from "mobx-persist-store";
+import { SetRequired } from 'type-fest';
 
 export class ShoppingCartStore {
     // persisted
@@ -42,7 +43,7 @@ export class ShoppingCartStore {
 
     // ===== actions =====
 
-    add(product: Product, option: Option, quantity = 1) {
+    add(product: Product, option: SetRequired<Option, "option_attributes">, quantity = 1) {
         if (quantity <= 0) return;
         const key = `${product.id}:${option.id}`;
 
@@ -74,10 +75,10 @@ export class ShoppingCartStore {
 
 export class CartLine {
     product: Product;
-    option: Option;
+    option: SetRequired<Option, "option_attributes">;
     quantity: number;
 
-    constructor(product: Product, option: Option, quantity: number) {
+    constructor(product: Product, option: SetRequired<Option, "option_attributes">, quantity: number) {
         this.product = { ...product }; // snapshot
         this.option = { ...option };   // snapshot
         this.quantity = quantity;
