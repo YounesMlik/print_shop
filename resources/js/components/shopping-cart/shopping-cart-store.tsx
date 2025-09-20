@@ -2,11 +2,15 @@ import { makeAutoObservable, computed } from "mobx";
 import { makePersistable } from "mobx-persist-store";
 import { SetRequired } from 'type-fest';
 
-export class ShoppingCartStore {
+export class ShoppingCart {
     // persisted
     items: Record<string, CartLine> = {};
 
-    constructor() {
+    constructor(initial?: Record<string, CartLine>) {
+        if (initial) {
+            this.items = { ...initial }
+        };
+
         makeAutoObservable(this, {
             lines: computed,
             itemCount: computed,
@@ -92,7 +96,7 @@ export class CartLine {
 
 
 // singleton
-export const shoppingCart = new ShoppingCartStore();
+export const shoppingCart = new ShoppingCart();
 
 // Hook persistence in directly
 makePersistable(shoppingCart, {
