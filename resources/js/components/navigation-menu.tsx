@@ -121,12 +121,7 @@ export function MainNav({ className, ...props }: ComponentProps<"header">) {
               <LanguageSwitcher />
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <ShoppingCartSheet
-                onCheckout={() => {
-                  // Example: redirect to checkout page
-                  window.location.href = "/checkout";
-                }}
-              />
+              <ShoppingCartSheet />
             </NavigationMenuItem>
 
 

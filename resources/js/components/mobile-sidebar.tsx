@@ -94,12 +94,7 @@ export default function MobileSidebar({ superCategories }: { superCategories: Su
                         <LanguageSwitcher />
                     </div>
                     <div>
-                        <ShoppingCartSheet
-                            onCheckout={() => {
-                                // Example: redirect to checkout page
-                                window.location.href = "/checkout";
-                            }}
-                        />
+                        <ShoppingCartSheet />
                     </div>
                 </nav>
             </SheetContent>

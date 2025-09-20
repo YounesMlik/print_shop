@@ -30,13 +30,7 @@ function formatMoney(value: number, currency = "MAD", locale = "fr-MA") {
   }
 }
 
-type Props = {
-  onCheckout?: () => void;
-};
-
-export const ShoppingCartSheet = observer(function CartSheet({
-  onCheckout,
-}: Props) {
+export const ShoppingCartSheet = observer(function CartSheet() {
   const { t } = useTranslation();
   const itemCount = shoppingCart.itemCount;
   const total = shoppingCart.total;
@@ -89,7 +83,6 @@ export const ShoppingCartSheet = observer(function CartSheet({
               <Button
                 className="flex-1"
                 disabled={shoppingCart.isEmpty}
-                onClick={onCheckout}
               >
                 {t("shopping_cart.checkout")}
               </Button>

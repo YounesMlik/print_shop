@@ -93,7 +93,6 @@ export default function ProductShow({ product_resource }) {
                 <Button
                     className="grow"
                     disabled={selectedOption === null}
-                    onClick={() => sendWhatsappMessage(message)}
                 >
                     {t("order_via_whatsapp")}
                 </Button>
