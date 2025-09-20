@@ -13,13 +13,6 @@ export class ShoppingCartStore {
             total: computed,
             isEmpty: computed,
         });
-
-        makePersistable(this, {
-            name: "cart-v1",
-            properties: ["items"],
-            storage: window.localStorage,
-            stringify: true,
-        });
     }
 
     // ===== computed =====
@@ -100,3 +93,11 @@ export class CartLine {
 
 // singleton
 export const shoppingCart = new ShoppingCartStore();
+
+// Hook persistence in directly
+makePersistable(shoppingCart, {
+    name: "cart-v1",
+    properties: ["items"],
+    storage: window.localStorage,
+    stringify: true,
+});
