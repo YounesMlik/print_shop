@@ -15,8 +15,9 @@ import { Badge } from "@/components/ui/badge";
 import VariantPicker from "@/components/variant-picker";
 import { useTranslation } from "react-i18next";
 import { Breadcrumbs } from "@/components/breadcrumbs";
-import { shoppingCart } from "@/components/shopping-cart/shopping-cart-store";
+import { CartLine, ShoppingCart, shoppingCart } from "@/components/shopping-cart/shopping-cart-store";
 import { toJS } from "mobx";
+import { CheckoutDialog } from "@/components/checkout";
 
 export default function ProductShow({ product_resource }) {
     const { t } = useTranslation();
@@ -24,7 +25,12 @@ export default function ProductShow({ product_resource }) {
 
     const [selectedOption, setSelectedOption] = React.useState(null);
     const [quantity, setQuantity] = React.useState(1);
-    const message = !selectedOption ? null : buildWhatsAppMessage(product, selectedOption, quantity);
+    const local_shoppingCart = new ShoppingCart(
+        !selectedOption
+            ? []
+            : [new CartLine(product, selectedOption, quantity)]
+    );
+
 
     // console.log(toJS(shoppingCart.items));
 
@@ -90,12 +96,15 @@ export default function ProductShow({ product_resource }) {
             />
 
             <div className="flex gap-4 justify-between mt-6 w-full">
-                <Button
-                    className="grow"
-                    disabled={selectedOption === null}
-                >
-                    {t("order_via_whatsapp")}
-                </Button>
+                <CheckoutDialog shoppingCart={local_shoppingCart} >
+                    <Button
+                        className="grow"
+                        disabled={selectedOption === null}
+                    >
+                        {t("checkout.open")}
+                    </Button>
+                </CheckoutDialog>
+
 
                 <Button
                     className="grow"
@@ -108,15 +117,3 @@ export default function ProductShow({ product_resource }) {
         </div>
     );
 }
-
-
-function buildWhatsAppMessage(product, option, quantity) {
-    let message = `Product name: ${product.name}\n`;
-    message += `Quantity: ${quantity}\n`;
-    message += `Option name: ${option.name}\n`;
-    message += `Option Attributes:\n`;
-    option.option_attributes.forEach((attribute) => {
-        message += `    ${attribute.name}: ${attribute.value}\n`;
-    });
-    return message;
-};
