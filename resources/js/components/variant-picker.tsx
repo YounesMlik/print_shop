@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 type VariantPickerProps = {
   /** Your options array, as provided */
   options: Option[],
-  /** Controlled selected option id */
+  /** Controlled selected option */
   selectedOption: Option | null,
   /** Controlled quantity */
   quantity: number,
