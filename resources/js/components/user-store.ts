@@ -9,24 +9,6 @@ export class User {
     constructor() {
         makeAutoObservable(this);
     }
-
-    setName(name: string) {
-        this.name = name;
-    }
-
-    setAddress(address: string) {
-        this.address = address;
-    }
-
-    setEmail(email?: string) {
-        this.email = email;
-    }
-
-    clear() {
-        this.name = "";
-        this.address = "";
-        this.email = undefined;
-    }
 }
 
 export const userStore = new User();
