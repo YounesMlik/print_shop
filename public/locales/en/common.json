@@ -41,12 +41,20 @@
         "subtotal": "Subtotal",
         "total": "Total",
         "unit": "{{price}} / unit",
-        "checkout": "Checkout via WhatsApp",
         "clear": "Clear",
         "remove": "Remove",
         "items_count_one": "{{count}} item",
         "items_count_other": "{{count}} items",
         "add": "Add to Cart"
+    },
+    "checkout": {
+        "open": "Checkout",
+        "cancel": "Cancel",
+        "title": "Checkout Information",
+        "description": "Please fill in your details to proceed with your order.",
+        "name": "Name",
+        "address": "Address",
+        "email": "Email (optional)"
     },
     "nav": {
         "contact_us_via": "Contact us via"

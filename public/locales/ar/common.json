@@ -41,7 +41,6 @@
         "subtotal": "الإجمالي الفرعي",
         "total": "الإجمالي",
         "unit": "{{price}} / وحدة",
-        "checkout": "إتمام الشراء عبر واتساب",
         "clear": "تفريغ",
         "remove": "حذف",
         "items_count_zero": "لا منتجات",
@@ -51,6 +50,15 @@
         "items_count_many": "{{count}} منتجات",
         "items_count_other": "{{count}} منتجات",
         "add": "أضف إلى السلة"
+    },
+    "checkout": {
+        "open": "إتمام الشراء",
+        "cancel": "إلغاء",
+        "title": "معلومات الدفع",
+        "description": "يرجى ملء بياناتك للمتابعة مع طلبك.",
+        "name": "الاسم",
+        "address": "العنوان",
+        "email": "البريد الإلكتروني (اختياري)"
     },
     "nav": {
         "contact_us_via": "تواصل معنا عبر"
