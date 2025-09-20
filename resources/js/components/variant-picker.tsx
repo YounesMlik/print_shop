@@ -108,18 +108,15 @@ export default function VariantPicker({
   );
 }
 
-function asCurrency(p: Option["price"], currency = "MAD") {
-  if (p === null || p === undefined) return "";
-  const num = typeof p === "string" ? parseFloat(p) : Number(p);
-  if (Number.isNaN(num)) return "";
+function asCurrency(price: Option["price"], currency = "MAD") {
   try {
     return new Intl.NumberFormat(undefined, {
       style: "currency",
       currency,
-    }).format(num);
+    }).format(price);
   } catch {
     // fallback if currency code is invalid
-    return `${num.toFixed(2)} ${currency}`;
+    return `${price.toFixed(2)} ${currency}`;
   }
 };
 
