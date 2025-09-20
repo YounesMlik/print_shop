@@ -4,9 +4,28 @@ import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Badge } from "@/components/ui/badge";
 import { useTranslation } from "react-i18next";
-import { VariantPickerProps } from "@/types/global";
 import { QuantitySelector } from "@/components/quantity-selector";
 import { cn } from "@/lib/utils";
+
+
+type VariantPickerProps = {
+  /** Your options array, as provided */
+  options: Option[],
+  /** Controlled selected option id */
+  selectedOption: Option | null,
+  /** Controlled quantity */
+  quantity: number,
+  /** Called with the full selected option object (or null) */
+  onOptionChange: (selected: Option | null) => void,
+  /** Called with the quantity */
+  onQuantityChange: (quantity: number) => void,
+  /** Extra className for the outer Card */
+  className?: string | undefined,
+  /** Optional label above the list */
+  label?: string,
+  /** Optional label when no options are available */
+  no_options_available_label?: string,
+}
 
 export default function VariantPicker({
   options,
@@ -14,39 +33,12 @@ export default function VariantPicker({
   quantity,
   onOptionChange,
   onQuantityChange,
-  currency = "MAD",
   className,
   label = "Choose an option",
   no_options_available_label = "No options available",
 }: VariantPickerProps) {
 
-  const asCurrency = (p: Option["price"]) => {
-    if (p === null || p === undefined) return "";
-    const num = typeof p === "string" ? parseFloat(p) : Number(p);
-    if (Number.isNaN(num)) return "";
-    try {
-      return new Intl.NumberFormat(undefined, {
-        style: "currency",
-        currency,
-      }).format(num);
-    } catch {
-      // fallback if currency code is invalid
-      return `${num.toFixed(2)} ${currency}`;
-    }
-  };
-
-  const displayName = (o: Option): string => {
-    const name = o.name?.trim();
-    if (name) {
-      return name;
-    } else if (o.option_attributes?.length) {
-      return o.option_attributes.map(a => a.name).join(" / ");
-    } else {
-      return `Option #${o.id}`;
-    }
-  };
-
-  const handleChange = (idStr: string) => {
+  function handleChange(idStr: string) {
     const id = Number(idStr);
     onOptionChange(options.find((o) => o.id === id) ?? null);
   };
@@ -85,7 +77,7 @@ export default function VariantPicker({
                     <div className="flex items-center gap-3">
                       <RadioGroupItem id={`opt-${o.id}`} value={o.id.toString()} />
                       <div>
-                        <div className="font-medium">{displayName(o)}</div>
+                        <div className="font-medium">{o.name}</div>
 
                         {o.option_attributes?.length ? (
                           <div className="mt-1 flex flex-wrap gap-1">
@@ -116,6 +108,21 @@ export default function VariantPicker({
   );
 }
 
+function asCurrency(p: Option["price"], currency = "MAD") {
+  if (p === null || p === undefined) return "";
+  const num = typeof p === "string" ? parseFloat(p) : Number(p);
+  if (Number.isNaN(num)) return "";
+  try {
+    return new Intl.NumberFormat(undefined, {
+      style: "currency",
+      currency,
+    }).format(num);
+  } catch {
+    // fallback if currency code is invalid
+    return `${num.toFixed(2)} ${currency}`;
+  }
+};
+
 export function ProductBuyBox({ options }: { options: any[] }) {
   const [selected, setSelected] = React.useState<any | null>(null);
   const [quantity, setQuantity] = React.useState<number>(1);
@@ -128,7 +135,6 @@ export function ProductBuyBox({ options }: { options: any[] }) {
         onOptionChange={setSelected}
         quantity={quantity}
         onQuantityChange={setQuantity}
-        currency="MAD"
       />
 
       <button
