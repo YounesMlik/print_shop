@@ -23,7 +23,7 @@ import { useTranslation } from "react-i18next";
 import { CheckoutDialog } from "@/components/checkout";
 
 
-export const ShoppingCartSheet = observer(function CartSheet() {
+export const ShoppingCartSheet = observer(() => {
   const { t } = useTranslation();
   const itemCount = shoppingCart.itemCount;
   const total = shoppingCart.total;
