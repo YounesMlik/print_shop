@@ -1,3 +1,5 @@
+import { SetRequired } from "type-fest"
+
 declare global {
     type Category = {
         id: number,
@@ -14,7 +16,10 @@ declare global {
         name: string,
         description: string | null,
         effective_description: string | null,
-        value: string,
+        // attribute value in a specific option
+        value?: string,
+        // all attribute values in a specific product
+        values?: string[],
         // pivot?: OptionOptionAttribute,
     }
 
@@ -30,7 +35,7 @@ declare global {
         description: string | null,
         price: number,
         product?: Product,
-        option_attributes?: OptionAttribute[],
+        option_attributes?: SetRequired<OptionAttribute, "value">[],
         created_at: string,
         updated_at: string,
     }
