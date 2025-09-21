@@ -2,6 +2,12 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import z, { ZodError } from "zod";
 import { flatMap } from "lodash-es";
+import { WritableKeysOf } from "type-fest";
+
+
+export function setter<T extends object>(this: T, key: WritableKeysOf<T>, value: T[WritableKeysOf<T>]) {
+    this[key] = value;
+}
 
 export function objectMap(object: object, fn: ([k, v]: [string, unknown]) => [string, unknown]) {
     return Object.fromEntries(Object.entries(object).map(fn))
