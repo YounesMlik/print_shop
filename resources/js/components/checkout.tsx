@@ -43,7 +43,7 @@ export const CheckoutDialog = observer(({ children, shoppingCart, ...props }: Ch
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4">
-            {(Object.keys(userStore))
+            {["name", "address", "email"]
               .map((field, i) => (
                 <div className="grid gap-3" key={i}>
                   <Label htmlFor={field}>{t(`checkout.${field}` as any)}</Label>
