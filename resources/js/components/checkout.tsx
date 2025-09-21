@@ -1,5 +1,5 @@
 import { sendWhatsappMessage } from "@/components/helpers"
-import { CartLine, ShoppingCart } from "@/components/shopping-cart/shopping-cart-store"
+import { CartLine, shoppingCart as globalShoppingCart, ShoppingCart } from "@/components/shopping-cart/shopping-cart-store"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -17,6 +17,17 @@ import { User, userStore } from "@/components/user-store"
 import { observer } from "mobx-react-lite"
 import { useTranslation } from "react-i18next"
 import { KeyAsString, WritableKeysOf } from "type-fest"
+
+
+type CheckoutProps = React.ComponentProps<typeof Dialog>
+
+export const Checkout = observer(({ children, ...props }: CheckoutProps) => {
+  return (
+    <CheckoutDialog shoppingCart={globalShoppingCart} >
+      {children}
+    </CheckoutDialog>
+  )
+})
 
 type CheckoutDialogProps = React.ComponentProps<typeof Dialog> & { shoppingCart: ShoppingCart }
 

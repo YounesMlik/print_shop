@@ -20,7 +20,7 @@ import { Badge } from "@/components/ui/badge";
 import { CartLine, shoppingCart } from "./shopping-cart-store"; // your dict-based singleton store
 import { QuantitySelector } from "@/components/quantity-selector";
 import { useTranslation } from "react-i18next";
-import { CheckoutDialog } from "@/components/checkout";
+import { Checkout } from "@/components/checkout";
 
 
 export const ShoppingCartSheet = observer(() => {
@@ -73,14 +73,14 @@ export const ShoppingCartSheet = observer(() => {
               <span className="font-medium">{formatMoney(total)}</span>
             </div>
             <div className="flex gap-2">
-              <CheckoutDialog shoppingCart={shoppingCart} >
+              <Checkout>
                 <Button
                   className="flex-1"
                   disabled={shoppingCart.isEmpty}
                 >
                   {t("checkout.open")}
                 </Button>
-              </CheckoutDialog>
+              </Checkout>
 
               <Button
                 variant="ghost"
