@@ -4,7 +4,31 @@ import z, { ZodError } from "zod";
 import { flatMap } from "lodash-es";
 import { WritableKeysOf } from "type-fest";
 
-
+/**
+ * Set a **writable** property on the current instance with exact key/value typing.
+ *
+ * Install as an instance field:
+ *
+ * ```ts
+ * class User {
+ *   name = "";
+ *   address = "";
+ * 
+ *   readonly set = setter<this>;
+ * }
+ *
+ * const u = new User();
+ * 
+ * u.set("name", "Amina");  // ok
+ * u.set("name", 123);      // error
+ * u.set("email", "x");     // error
+ * ```
+ *
+ * @template T - The instance type.
+ * @param this - The current instance.
+ * @param key - Writable key on the instance.
+ * @param value - Value compatible with the chosen key.
+ */
 export function setter<T extends object>(this: T, key: WritableKeysOf<T>, value: T[WritableKeysOf<T>]) {
     this[key] = value;
 }
