@@ -22,14 +22,6 @@ import { QuantitySelector } from "@/components/quantity-selector";
 import { useTranslation } from "react-i18next";
 import { CheckoutDialog } from "@/components/checkout";
 
-// ---- utils ----
-function formatMoney(value: number, currency = "MAD", locale = "fr-MA") {
-  try {
-    return new Intl.NumberFormat(locale, { style: "currency", currency }).format(value);
-  } catch {
-    return `${value.toFixed(2)} ${currency}`;
-  }
-}
 
 export const ShoppingCartSheet = observer(function CartSheet() {
   const { t } = useTranslation();
@@ -164,3 +156,12 @@ const CartLineRow = observer(function CartLineRow({ lineItem }: LineProps) {
     </div>
   );
 });
+
+// ---- utils ----
+function formatMoney(value: number, currency = "MAD", locale = "fr-MA") {
+  try {
+    return new Intl.NumberFormat(locale, { style: "currency", currency }).format(value);
+  } catch {
+    return `${value.toFixed(2)} ${currency}`;
+  }
+}
