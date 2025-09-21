@@ -8,13 +8,15 @@ export class ShoppingCart {
     items: Record<string, CartLine> = {};
 
     constructor(initial?: Record<string, CartLine> | CartLine[]) {
-        if (is.object(initial)) {
-            this.items = { ...initial } as Record<string, CartLine>
-        } else if (is.array(initial)) {
+        if (is.array(initial)) {
             (initial as CartLine[])
                 .map(({ product, option, quantity }) => {
+                    console.log([product, option, quantity]);
+
                     this.add(product, option, quantity)
                 })
+        } else if (is.object(initial)) {
+            this.items = { ...initial } as Record<string, CartLine>
         };
 
         makeAutoObservable(this, {
