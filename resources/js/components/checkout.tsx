@@ -18,9 +18,8 @@ import { observer } from "mobx-react-lite"
 import { useTranslation } from "react-i18next"
 import { KeyAsString, WritableKeysOf } from "type-fest"
 
-type CheckoutDialogProps = React.ComponentProps<typeof Dialog> & {
-  shoppingCart: ShoppingCart
-}
+type CheckoutDialogProps = React.ComponentProps<typeof Dialog> & { shoppingCart: ShoppingCart }
+
 export const CheckoutDialog = observer(({ children, shoppingCart, ...props }: CheckoutDialogProps) => {
   const { t } = useTranslation();
   const message = buildWhatsAppMessage(userStore, shoppingCart)
