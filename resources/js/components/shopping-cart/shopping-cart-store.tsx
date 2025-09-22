@@ -5,9 +5,9 @@ import is from "@sindresorhus/is";
 
 export class ShoppingCart {
     // persisted
-    items: Record<string, CartLine> = {};
+    items: Map<string, CartLine> = new Map();
 
-    constructor(initial?: Record<string, CartLine> | CartLine[]) {
+    constructor(initial?: CartLine[]) {
         makeAutoObservable(this, {
             lines: computed,
             itemCount: computed,
@@ -15,15 +15,13 @@ export class ShoppingCart {
             isEmpty: computed,
         });
 
-        if (is.array(initial)) {
+        if (initial) {
             (initial as CartLine[])
                 .forEach(({ product, option, quantity }) => {
                     console.log([product, option, quantity]);
 
                     this.add(product, option, quantity)
                 })
-        } else if (is.object(initial)) {
-            this.items = { ...initial } as Record<string, CartLine>
         };
     }
 
@@ -31,7 +29,7 @@ export class ShoppingCart {
 
     /** lines array for rendering */
     get lines() {
-        return Object.values(this.items);
+        return this.items.values();
     }
 
     get itemCount() {
@@ -43,7 +41,7 @@ export class ShoppingCart {
     }
 
     get isEmpty() {
-        return this.lines.length === 0;
+        return this.items.size === 0;
     }
 
     // ===== actions =====
@@ -52,29 +50,29 @@ export class ShoppingCart {
         if (quantity <= 0) return;
         const key = `${product.id}:${option.id}`;
 
-        const existing = this.items[key];
+        const existing = this.items.get(key);
         if (existing) {
             existing.quantity += quantity;
         } else {
-            this.items[key] = new CartLine(product, option, quantity);
+            this.items.set(key, new CartLine(product, option, quantity))
         }
     }
 
     setQuantity(pId: Product["id"], oId: Option["id"], quantity: number) {
         const key = `${pId}:${oId}`;
-        const line = this.items[key];
+        const line = this.items.get(key);
         if (!line) return;
 
-        if (quantity <= 0) delete this.items[key];
+        if (quantity <= 0) this.items.delete(key);
         else line.quantity = quantity;
     }
 
     remove(pId: Product["id"], oId: Option["id"]) {
-        delete this.items[`${pId}:${oId}`];
+        this.items.delete(`${pId}:${oId}`);
     }
 
     clear() {
-        this.items = {};
+        this.items.clear();
     }
 }
 
