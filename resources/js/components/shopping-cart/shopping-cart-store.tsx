@@ -79,7 +79,7 @@ export class CartLine {
     option: SetRequired<Option, "option_attributes">;
     quantity: number;
 
-    constructor(product: Product, option: SetRequired<Option, "option_attributes">, quantity: number) {
+    constructor(product: Product, option: SetRequired<Option, "option_attributes">, quantity: number = 1) {
         this.product = { ...product }; // snapshot
         this.option = { ...option };   // snapshot
         this.quantity = quantity;
