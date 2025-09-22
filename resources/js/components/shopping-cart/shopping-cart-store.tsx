@@ -105,7 +105,24 @@ export const shoppingCart = new ShoppingCart();
 // Hook persistence in directly
 makePersistable(shoppingCart, {
     name: "cart-v1",
-    properties: ["items"],
+    properties: [{
+        key: "items",
+        serialize: items => items,
+        deserialize(data: ObservableMap<string, SerializedCartLine>) {
+            return new ObservableMap<string, CartLine>(
+                data.entries().toArray().map(
+                    ([k, v]) =>
+                        [k, new CartLine(v.product, v.option, v.quantity)]
+                )
+            )
+        },
+    }],
     storage: window.localStorage,
     stringify: true,
 });
+
+type SerializedCartLine = Readonly<{
+    product: Product;
+    option: SetRequired<Option, "option_attributes">;
+    quantity: number;
+}>;
