@@ -26,7 +26,6 @@ export function setupI18n(i18nProps: I18nProps) {
 
     i18n
         .use(HttpBackend)
-        .use(ICU)
         .use(initReactI18next)
         .init({
             lng: locale,

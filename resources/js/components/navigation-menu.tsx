@@ -20,11 +20,13 @@ import { cn } from "@/lib/utils";
 import { ClipboardList, Menu, ShoppingCartIcon } from "lucide-react";
 import MobileSidebar from "@/components/mobile-sidebar";
 import under_print_logo_transparent from "/public/img/under_print_logo_transparent.png";
+import { ShoppingCartSheet } from "@/components/shopping-cart/shopping-cart-sheet";
+import { ComponentProps } from "react";
 
-export function MainNav({ className, ...props }) {
+export function MainNav({ className, ...props }: ComponentProps<"header">) {
   const { t, i18n } = useTranslation()
   const super_categories =
-    usePage().props.navigation?.super_categories?.data || []
+    usePage().props.navigation.super_categories.data
 
   // @ts-ignore
   const app_name = import.meta.env.VITE_APP_NAME
@@ -79,7 +81,7 @@ export function MainNav({ className, ...props }) {
                       </AccordionTrigger>
                       <AccordionContent>
                         <ul className="space-y-1">
-                          {super_category.categories.map((category) => (
+                          {super_category.categories!.map((category) => (
                             <li key={category.id}>
                               <NavigationMenuLink asChild>
                                 <Link
@@ -118,6 +120,10 @@ export function MainNav({ className, ...props }) {
             <NavigationMenuItem>
               <LanguageSwitcher />
             </NavigationMenuItem>
+            <NavigationMenuItem>
+              <ShoppingCartSheet />
+            </NavigationMenuItem>
+
 
           </NavigationMenuList>
         </NavigationMenu>

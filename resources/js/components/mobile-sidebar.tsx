@@ -19,6 +19,7 @@ import { Menu } from "lucide-react"
 import WhatsappButton from "@/components/whatsapp-button"
 import { LanguageSwitcher } from "@/components/language-switcher"
 import under_print_logo_transparent from "/public/img/under_print_logo_transparent.png";
+import { ShoppingCartSheet } from "@/components/shopping-cart/shopping-cart-sheet"
 
 export default function MobileSidebar({ superCategories }: { superCategories: SuperCategory[] }) {
     const { t, i18n } = useTranslation()
@@ -85,12 +86,15 @@ export default function MobileSidebar({ superCategories }: { superCategories: Su
                         {t("custom_order")}
                     </Link>
 
-                    <div className="pt-2">
+                    <div>
                         <WhatsappButton />
                     </div>
 
                     <div>
                         <LanguageSwitcher />
+                    </div>
+                    <div>
+                        <ShoppingCartSheet />
                     </div>
                 </nav>
             </SheetContent>

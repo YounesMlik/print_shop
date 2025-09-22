@@ -73,3 +73,12 @@ elif [ "$1" = "production" ]; then
 else
     echo "$1 is not recognized as a valid APP_ENV value"
 fi
+
+# Copy built bundle to server
+# scp -r public/build root@underprint.ma:/root/apps/print_shop/public
+
+# load server config
+# frankenphp reload
+
+# php artisan optimize:clear
+# php artisan optimize:safe
