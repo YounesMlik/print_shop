@@ -27,7 +27,7 @@ export class ShoppingCart {
 
     /** lines array for rendering */
     get lines() {
-        return this.items.values();
+        return this.items.values().toArray();
     }
 
     get itemCount() {

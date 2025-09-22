@@ -91,7 +91,7 @@ export function buildWhatsAppMessage(
     .filter(Boolean)
     .join("\n");
 
-  const body = lines.map((line, i) => renderLine(line, i)).toArray().join("\n\n");
+  const body = lines.map((line, i) => renderLine(line, i)).join("\n\n");
 
   const footer = [
     "",

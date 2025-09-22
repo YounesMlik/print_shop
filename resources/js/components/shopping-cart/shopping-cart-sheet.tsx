@@ -28,6 +28,11 @@ export const ShoppingCartSheet = observer(() => {
   const itemCount = shoppingCart.itemCount;
   const total = shoppingCart.total;
 
+  console.log(shoppingCart.items.values().toArray());
+  console.log(shoppingCart.lines);
+  console.log(shoppingCart.itemCount);
+  
+
   return (
     <Sheet>
       <SheetTrigger asChild>
