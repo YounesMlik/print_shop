@@ -8,6 +8,13 @@ export class ShoppingCart {
     items: Record<string, CartLine> = {};
 
     constructor(initial?: Record<string, CartLine> | CartLine[]) {
+        makeAutoObservable(this, {
+            lines: computed,
+            itemCount: computed,
+            total: computed,
+            isEmpty: computed,
+        });
+
         if (is.array(initial)) {
             (initial as CartLine[])
                 .map(({ product, option, quantity }) => {
@@ -18,13 +25,6 @@ export class ShoppingCart {
         } else if (is.object(initial)) {
             this.items = { ...initial } as Record<string, CartLine>
         };
-
-        makeAutoObservable(this, {
-            lines: computed,
-            itemCount: computed,
-            total: computed,
-            isEmpty: computed,
-        });
     }
 
     // ===== computed =====
