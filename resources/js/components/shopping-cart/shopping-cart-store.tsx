@@ -18,8 +18,6 @@ export class ShoppingCart {
         if (initial) {
             (initial as CartLine[])
                 .forEach(({ product, option, quantity }) => {
-                    console.log([product, option, quantity]);
-
                     this.add(product, option, quantity)
                 })
         };
