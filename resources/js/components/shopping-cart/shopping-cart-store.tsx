@@ -1,11 +1,11 @@
-import { makeAutoObservable, computed } from "mobx";
+import { makeAutoObservable, computed, ObservableMap } from "mobx";
 import { makePersistable } from "mobx-persist-store";
 import { SetRequired } from 'type-fest';
 import is from "@sindresorhus/is";
 
 export class ShoppingCart {
     // persisted
-    items: Map<string, CartLine> = new Map();
+    items = new ObservableMap<string, CartLine>();
 
     constructor(initial?: CartLine[]) {
         makeAutoObservable(this, {
