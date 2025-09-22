@@ -96,14 +96,16 @@ export default function ProductShow({ product_resource }) {
             />
 
             <div className="flex gap-4 justify-between mt-6 w-full">
-                <CheckoutDialog shoppingCart={local_shoppingCart} >
+                {/*    WARNING: COMMENTED OUT BECAUSE OF BUG
+                 <CheckoutDialog shoppingCart={local_shoppingCart} >
                     <Button
                         className="grow"
                         disabled={selectedOption === null}
                     >
                         {t("checkout.open")}
                     </Button>
-                </CheckoutDialog>
+                </CheckoutDialog> 
+                */}
 
 
                 <Button
