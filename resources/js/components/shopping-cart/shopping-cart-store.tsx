@@ -17,7 +17,7 @@ export class ShoppingCart {
 
         if (is.array(initial)) {
             (initial as CartLine[])
-                .map(({ product, option, quantity }) => {
+                .forEach(({ product, option, quantity }) => {
                     console.log([product, option, quantity]);
 
                     this.add(product, option, quantity)
