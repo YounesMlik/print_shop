@@ -2,4 +2,4 @@
 set -e
 
 
-docker compose exec -T app "$@"
+docker compose exec app "$@"
