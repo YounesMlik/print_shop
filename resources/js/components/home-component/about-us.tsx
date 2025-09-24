@@ -43,7 +43,7 @@ export default function AboutUs({ className, super_categories, ...props }) {
         </p>
 
         <div>
-          {(t("home.about_us.description") as unknown as string[]).map((desc, i) =>
+          {(t("home.about_us.description", { returnObjects: true }) as unknown as string[]).map((desc, i) =>
             <p key={i}>
               {desc}
             </p>
@@ -55,7 +55,7 @@ export default function AboutUs({ className, super_categories, ...props }) {
         </p>
 
         <ul className="flex flex-col gap-6">
-          {(t("home.about_us.highlights") as unknown as string[]).map((highlight, i) =>
+          {(t("home.about_us.highlights", { returnObjects: true }) as unknown as string[]).map((highlight, i) =>
             <li className="flex items-center gap-6" key={i}>
               {i18n.dir() === "ltr"
                 ? <CornerDownRight color="#FF005E" />
