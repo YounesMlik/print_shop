@@ -26,6 +26,10 @@ export default defineConfig({
         // },
         host: "0.0.0.0",
         port: 5173,
+        watch: {
+            // Make sure vendor, storage, node_modules aren’t watched
+            ignored: ['**/vendor/**', '**/storage/**', '**/node_modules/**', '**/.git/**'],
+        },
         // hmr: false,
         hmr: {
             protocol: "ws",
