@@ -52,7 +52,7 @@
         "cancel": "Cancel",
         "title": "Checkout Information",
         "description": "Please fill in your details to proceed with your order.",
-        "name": "Name",
+        "name": "Full name",
         "address": "Address",
         "email": "Email (optional)"
     },
