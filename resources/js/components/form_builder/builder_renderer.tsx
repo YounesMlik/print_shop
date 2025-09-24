@@ -94,7 +94,7 @@ export default function FormBuilderPage() {
                     onClick={() =>
                         builderStore.addEntity({
                             type: "textField",
-                            attributes: { label: { ar: "Text Field", fr: "Text Field" } },
+                            attributes: { label: { ar: "Text Field", fr: "Text Field", en: "Text Field" } },
                         })
                     }
                 >
@@ -105,7 +105,7 @@ export default function FormBuilderPage() {
                     onClick={() =>
                         builderStore.addEntity({
                             type: "textAreaField",
-                            attributes: { label: { ar: "Text Area Field", fr: "Text Area Field" } },
+                            attributes: { label: { ar: "Text Area Field", fr: "Text Area Field", en: "Text Area Field" } },
                         })
                     }
                 >
@@ -117,7 +117,7 @@ export default function FormBuilderPage() {
                         builderStore.addEntity({
                             type: "selectField",
                             attributes: {
-                                label: { ar: "Select Field", fr: "Select Field" },
+                                label: { ar: "Select Field", fr: "Select Field", en: "Select Field" },
                                 options: ["option"],
                             },
                         })
@@ -131,7 +131,7 @@ export default function FormBuilderPage() {
                         builderStore.addEntity({
                             type: "checkboxesField",
                             attributes: {
-                                label: { ar: "Checkboxes Field", fr: "Checkboxes Field" },
+                                label: { ar: "Checkboxes Field", fr: "Checkboxes Field", en: "Checkboxes Field" },
                                 options: ["option"],
                             },
                         })
@@ -145,7 +145,7 @@ export default function FormBuilderPage() {
                         builderStore.addEntity({
                             type: "radioField",
                             attributes: {
-                                label: { ar: "Radio Field", fr: "Radio Field" },
+                                label: { ar: "Radio Field", fr: "Radio Field", en: "Radio Field" },
                                 options: ["option"],
                             },
                         })
