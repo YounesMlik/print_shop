@@ -45,7 +45,7 @@ export default function WhyUs({ className, super_categories, ...props }) {
       </div>
 
       <ul className="grid grid-cols-1 grid-rows-6 sm:grid-cols-2 sm:grid-rows-3 lg:grid-cols-3 lg:grid-rows-2 gap-6 px-10 md:px-20 lg:px-30">
-        {(t("home.why_us.features") as unknown as [{ title: string, description: string }])
+        {(t("home.why_us.features", { returnObjects: true }) as unknown as [{ title: string, description: string }])
           .map(({ title, description }, i) => (
             <li className="flex flex-col gap-6 px-4 pt-4 pb-16 bg-card rounded-2xl" key={i}>
               <img src={images[i]} className="rounded-2xl" />
