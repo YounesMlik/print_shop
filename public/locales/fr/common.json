@@ -52,7 +52,7 @@
         "cancel": "Annuler",
         "title": "Informations de paiement",
         "description": "Veuillez remplir vos informations pour continuer votre commande.",
-        "name": "Nom",
+        "name": "Nom complet",
         "address": "Adresse",
         "email": "E-mail (optionnel)"
     },
