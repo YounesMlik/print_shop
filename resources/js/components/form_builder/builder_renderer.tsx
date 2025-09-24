@@ -20,7 +20,7 @@ import axios from "axios";
 import { usePage } from "@inertiajs/react";
 import { Schema } from "@coltorapps/builder";
 import z from "zod";
-import { objectMap } from "@/components/helpers";
+import { mapValues, omitBy } from "lodash-es";
 
 
 export default function FormBuilderPage() {
@@ -39,8 +39,8 @@ export default function FormBuilderPage() {
     const [schemaValidation, setSchemaValidation] = useState({ success: true, data: builderStore.getSchema() } as { success: boolean, data?: any, reason?: any });
     const errors = schemaValidation.success ?
         [] :
-        objectMap(schemaValidation.reason.payload.entitiesAttributesErrors,
-            ([id, data]) => [id, objectMap(data, (
+        mapValues(schemaValidation.reason.payload.entitiesAttributesErrors,
+            ([id, data]) => [id, mapValues(data, (
                 [attribute_name, err]) => [attribute_name, z.treeifyError(err as any).errors]
             )]
         )
@@ -87,72 +87,35 @@ export default function FormBuilderPage() {
     );
 
     function AddEntityButtons() {
+        const supported_languages = usePage().props.i18n.available;
+        const entities = [
+            { type: "textField", label: "Text Field", options: false },
+            { type: "textAreaField", label: "Text Area Field", options: false },
+            { type: "selectField", label: "Select Field", options: true },
+            { type: "checkboxesField", label: "Checkboxes Field", options: true },
+            { type: "radioField", label: "Radio Field", options: true },
+        ] as { type: any, label: string, options: boolean }[]
+
         return (
             <div className="flex gap-2">
-                <Button
-                    type="button"
-                    onClick={() =>
-                        builderStore.addEntity({
-                            type: "textField",
-                            attributes: { label: { ar: "Text Field", fr: "Text Field" } },
-                        })
-                    }
-                >
-                    Add Text Field
-                </Button>
-                <Button
-                    type="button"
-                    onClick={() =>
-                        builderStore.addEntity({
-                            type: "textAreaField",
-                            attributes: { label: { ar: "Text Area Field", fr: "Text Area Field" } },
-                        })
-                    }
-                >
-                    Add Text Area Field
-                </Button>
-                <Button
-                    type="button"
-                    onClick={() =>
-                        builderStore.addEntity({
-                            type: "selectField",
-                            attributes: {
-                                label: { ar: "Select Field", fr: "Select Field" },
-                                options: ["option"],
-                            },
-                        })
-                    }
-                >
-                    Add Select Field
-                </Button>
-                <Button
-                    type="button"
-                    onClick={() =>
-                        builderStore.addEntity({
-                            type: "checkboxesField",
-                            attributes: {
-                                label: { ar: "Checkboxes Field", fr: "Checkboxes Field" },
-                                options: ["option"],
-                            },
-                        })
-                    }
-                >
-                    Add Checkboxes Field
-                </Button>
-                <Button
-                    type="button"
-                    onClick={() =>
-                        builderStore.addEntity({
-                            type: "radioField",
-                            attributes: {
-                                label: { ar: "Radio Field", fr: "Radio Field" },
-                                options: ["option"],
-                            },
-                        })
-                    }
-                >
-                    Add Radio Field
-                </Button>
+                {entities.map(({ type, label, options }, i) => (
+                    <Button
+                        key={i}
+                        type="button"
+                        onClick={() =>
+                            builderStore.addEntity({
+                                type: type,
+                                attributes: omitBy({
+                                    label: Object.fromEntries(supported_languages.map(lang => [lang, label])),
+                                    options: options ? ["option"] : undefined,
+                                }, v => v === undefined) as any,
+
+                            })
+                        }
+                    >
+                        Add {label}
+                    </Button>
+                ))}
             </div>
         )
     }

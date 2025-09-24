@@ -33,8 +33,11 @@ export function setter<T extends object>(this: T, key: WritableKeysOf<T>, value:
     this[key] = value;
 }
 
-export function objectMap(object: object, fn: ([k, v]: [string, unknown]) => [string, unknown]) {
-    return Object.fromEntries(Object.entries(object).map(fn))
+export function objectMap<T extends object>(object: T, fn: ([k, v]: [keyof T, T[keyof T]]) => [keyof T, unknown]) {
+    return Object.fromEntries(
+        (Object.entries(object) as [keyof T, T[keyof T]][])
+            .map(([v, k]) => fn([v, k]))
+    )
 }
 
 export function tryCatch(fn: () => void) {
