@@ -7,7 +7,7 @@ import {
 import entity_components from "./entity_componenets";
 import { formBuilder } from "./builder";
 import { Button } from "@/components/ui/button";
-import { sendWhatsappMessage } from "@/components/helpers";
+import { sendWhatsappMessage, useLocalized } from "@/components/helpers";
 import { useTranslation } from "react-i18next";
 
 type FormBuilderSchema = Schema<typeof formBuilder>;
@@ -22,14 +22,34 @@ export function FormInterpreter({ schema }: { schema: FormBuilderSchema }) {
         },
     });
 
+    const localized_labels = Object.fromEntries(
+        Object.entries(schema.entities)
+            .map(([id, item]) => [id, useLocalized(item.attributes.label)])
+    );
+
     async function submitForm() {
         // We will cover server integration in the next section.
         const schema_entries = Object.entries(schema.entities);
         const form_data = interpreterStore.getEntitiesValues()
         const data = schema_entries.map(
-            ([id, value]) => [id, { ...value, value: form_data[id] }]
+            ([id, item]) =>
+                [
+                    id,
+                    {
+                        ...item,
+                        attributes: {
+                            ...item.attributes,
+                            label: localized_labels[id]
+                        },
+                        value: form_data[id],
+                    }
+                ]
+        ) as [string, { type: string, attributes?: { label?: string }, value: any }][];
+
+
+        sendWhatsappMessage("Custom Order:\n\n" +
+            generateReadableOrder(data, { includeEmpty: true })
         );
-        sendWhatsappMessage("Custom Order:\n\n" + generateReadableOrder(data, { includeEmpty: true }));
     }
 
     return (
@@ -63,7 +83,7 @@ export function FormInterpreter({ schema }: { schema: FormBuilderSchema }) {
  * @returns {string|Object}
  */
 function generateReadableOrder(
-    formOutput,
+    formOutput: [string, { type: string, attributes?: { label?: string }, value: any }][],
     opts: { format?: 'text' | 'markdown' | 'html' | 'object', includeEmpty?: boolean } = { format: 'text', includeEmpty: false }
 ) {
     const { format, includeEmpty } = opts;
