@@ -50,6 +50,11 @@ class Product extends Model implements HasMedia, Viewable
         );
     }
 
+    public function registerMediaCollections(): void{
+        $this->addMediaCollection('product_images')
+        ->useDisk('s3_media'); 
+    }
+
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('thumb')
