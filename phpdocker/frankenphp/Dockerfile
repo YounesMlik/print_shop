@@ -10,8 +10,8 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends nodejs \
     && rm -rf /var/lib/apt/lists/*
 
-# PHP extensions: intl, gd, zip, and pdo_sqlite (SQLite)
-RUN install-php-extensions intl gd zip pdo_sqlite
+# PHP extensions: intl, gd, zip, pdo_sqlite, exif
+RUN install-php-extensions intl gd zip pdo_sqlite exif
 
 # (Optional) create an empty SQLite DB inside the image so permissions are correct.
 # If you bind-mount your app at runtime, this may be overwritten—no problem.
