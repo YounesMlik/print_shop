@@ -8,7 +8,7 @@ return new class extends Migration {
     public function up(): void {
         Schema::create('options', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id')->constrained();
+            $table->foreignId('product_id')->constrained()->cascadeOnDelete();
             $table->jsonb('name');
             $table->jsonb('description')->nullable();
             $table->decimal('price', 10, 2)->default(0);
