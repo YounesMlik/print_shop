@@ -8,8 +8,8 @@ return new class extends Migration {
     public function up(): void {
         Schema::create('option_option_attribute', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('option_id')->constrained()->onDelete('cascade');
-            $table->foreignId('option_attribute_id')->constrained()->onDelete('cascade');
+            $table->foreignId('option_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('option_attribute_id')->constrained()->cascadeOnDelete();
             $table->jsonb('description')->nullable();
             $table->jsonb("value");
             $table->timestamps();
