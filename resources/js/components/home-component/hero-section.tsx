@@ -45,8 +45,8 @@ export default function HeroSection({ className, super_categories, ...props }) {
           "flex flex-row flex-wrap gap-8 transition-transform",
           animationState
             ? i18n.dir() === "ltr"
-              ? "-translate-x-1/1"
-              : "translate-x-1/1"
+              ? "-translate-x-2/1"
+              : "translate-x-2/1"
             : "translate-x-0"
         )}>
           {super_categories.map((super_category, i) => (
