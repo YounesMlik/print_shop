@@ -33,6 +33,13 @@ export function setter<T extends object>(this: T, key: WritableKeysOf<T>, value:
     this[key] = value;
 }
 
+export function mapEntries<T extends object, OutputK extends string | number, OutputV>(object: T, fn: ([k, v]: [keyof T, T[keyof T]]) => [OutputK, OutputV]): Record<OutputK, OutputV> {
+    return Object.fromEntries(
+        (Object.entries(object) as [keyof T, T[keyof T]][])
+            .map(fn)
+    ) as Record<OutputK, OutputV>;
+}
+
 export function tryCatch(fn: () => void) {
     let error;
     try {
