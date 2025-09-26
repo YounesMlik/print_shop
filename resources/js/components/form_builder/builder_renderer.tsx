@@ -108,6 +108,7 @@ export default function FormBuilderPage() {
                                 type: type,
                                 attributes: omitBy({
                                     label: Object.fromEntries(supported_languages.map(lang => [lang, label])),
+                                    required: false,
                                     options: options ? ["option"] : undefined,
                                 }, v => v === undefined) as any,
 

@@ -1,17 +1,18 @@
 import { createAttributeComponent } from "@coltorapps/builder-react";
-import { labelAttribute, optionsAttribute } from "./attributes";
+import { labelAttribute, requiredAttribute, optionsAttribute } from "./attributes";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { tryCatchZod, useLocalAttribute } from "@/components/helpers";
 import { Button } from "@/components/ui/button";
 import * as React from "react";
 import i18next from "i18next";
+import { Switch } from "@/components/ui/switch";
 
 export const LabelAttribute = createAttributeComponent(
   labelAttribute,
   (props) => {
     const baseId = `${props.entity.id}-${props.attribute.name}`;
-    
+
     // Support legacy string by wrapping into { [activeLocale]: value }
     const toRecord = (v: unknown): Record<string, string> => {
       if (typeof v === "string") return { [i18next.language || "en"]: v };
@@ -90,6 +91,50 @@ export const LabelAttribute = createAttributeComponent(
             ))}
           </div>
         )}
+
+        <div className="flex gap-2">
+          <Button type="submit" disabled={!valid || !dirty || saving}>
+            {saving ? "Saving..." : "Save"}
+          </Button>
+          <Button type="button" variant="outline" onClick={reset} disabled={!dirty || saving}>
+            Reset
+          </Button>
+        </div>
+      </form>
+    );
+  }
+);
+
+
+export const RequiredAttribute = createAttributeComponent(
+  requiredAttribute,
+  (props) => {
+    const { local, setLocal, valid, dirty, saving, save, reset, errors } =
+      useLocalAttribute<boolean>({
+        value: Boolean(props.attribute.value),
+        validate: (val) =>
+          tryCatchZod(() => requiredAttribute.validate(val as any, {} as any)),
+        onCommit: props.setValue,
+      });
+
+    return (
+      <form
+        className="grid gap-3"
+        onSubmit={async (e) => {
+          e.preventDefault();
+          await save();
+        }}
+      >
+        <Label className={!valid ? "text-destructive" : ""}>Required</Label>
+
+        <Switch checked={local} onCheckedChange={(e) => setLocal(e.valueOf())} />
+
+        {!valid &&
+          errors.map((err, i) => (
+            <p key={i} className="text-destructive text-sm">
+              {err}
+            </p>
+          ))}
 
         <div className="flex gap-2">
           <Button type="submit" disabled={!valid || !dirty || saving}>
