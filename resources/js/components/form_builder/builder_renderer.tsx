@@ -40,9 +40,10 @@ export default function FormBuilderPage() {
     const errors = schemaValidation.success ?
         [] :
         mapValues(schemaValidation.reason.payload.entitiesAttributesErrors,
-            ([id, data]) => [id, mapValues(data, (
-                [attribute_name, err]) => [attribute_name, z.treeifyError(err as any).errors]
-            )]
+            (data) => mapValues(
+                data,
+                (err) => z.treeifyError(err as any).errors
+            )
         )
 
     // console.log(errors);
