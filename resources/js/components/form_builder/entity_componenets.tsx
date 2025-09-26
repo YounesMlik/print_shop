@@ -98,7 +98,7 @@ export const CheckboxesFieldEntity = createEntityComponent(
     const options = props.entity.attributes.options ?? [];
     const value = props.entity.value ?? [];
 
-    function onToggle(val) {
+    function onToggle(val: string) {
       if (value.includes(val)) {
         props.setValue(value.filter((v) => v !== val));
       } else {
