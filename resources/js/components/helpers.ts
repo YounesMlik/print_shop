@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import z, { ZodError } from "zod";
 import { flatMap } from "lodash-es";
-import { WritableKeysOf } from "type-fest";
+import { Exact, WritableKeysOf } from "type-fest";
 
 /**
  * Set a **writable** property on the current instance with exact key/value typing.
@@ -33,7 +33,10 @@ export function setter<T extends object>(this: T, key: WritableKeysOf<T>, value:
     this[key] = value;
 }
 
-export function mapEntries<T extends object, OutputK extends string | number, OutputV>(object: T, fn: ([k, v]: [keyof T, T[keyof T]]) => [OutputK, OutputV]): Record<OutputK, OutputV> {
+/**
+ * Doesn't accept objects with symbol keys
+ */
+export function mapEntries<T extends Exact<Record<string | number, any>, T>, OutputK extends string | number, OutputV>(object: T, fn: ([k, v]: [keyof T, T[keyof T]]) => [OutputK, OutputV]): Record<OutputK, OutputV> {
     return Object.fromEntries(
         (Object.entries(object) as [keyof T, T[keyof T]][])
             .map(fn)
