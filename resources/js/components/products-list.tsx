@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { AspectRatio } from '@/components/ui/aspect-ratio'
 import { useTranslation } from 'react-i18next'
 import { SetRequired } from 'type-fest'
+import { truncate } from 'lodash-es'
 
 type ProductsListProps = { products: SetRequired<Product, "images">[] }
 export function ProductsList({ products }: ProductsListProps) {
@@ -30,7 +31,11 @@ export function ProductsList({ products }: ProductsListProps) {
 
             </CardHeader>
             <CardContent>
-              <p>{product.description}</p>
+              <p>
+                {product.description
+                  && truncate(product.description, { length: 100, separator: " " })
+                }
+              </p>
             </CardContent>
           </Card>
         </Link>
