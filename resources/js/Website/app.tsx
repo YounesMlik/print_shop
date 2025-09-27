@@ -1,4 +1,4 @@
-import { StrictMode, Suspense, useEffect } from "react";
+import { ReactNode, StrictMode, Suspense, useEffect } from "react";
 import { createRoot } from 'react-dom/client';
 import { createInertiaApp } from '@inertiajs/react';
 import { ThemeProvider } from "@/components/theme-provider";
@@ -14,7 +14,7 @@ createInertiaApp({
     const PageComponent = page.default;
     const PageLayout = page.Layout ?? Layout;
 
-    PageComponent.layout = (page) => <PageLayout>{page}</PageLayout>;
+    PageComponent.layout = (page: ReactNode) => <PageLayout>{page}</PageLayout>;
 
     return PageComponent;
   },
