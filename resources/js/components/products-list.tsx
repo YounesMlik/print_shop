@@ -10,7 +10,7 @@ type ProductsListProps = { products: SetRequired<Product, "images">[] }
 export function ProductsList({ products }: ProductsListProps) {
   const { t } = useTranslation();
   if (products.length === 0) {
-    return <p className="text-muted-foreground">{t("no_products_found")}</p>
+    return <p className="text-muted-foreground text-center">{t("no_products_found")}</p>
   }
 
   return (
