@@ -82,7 +82,7 @@ export default function ProductShow({ product_resource }) {
             </div>
 
             {product.description && (
-                <p className="mb-6 text-gray-600">{product.description}</p>
+                <p className="mb-6 text-foreground">{product.description}</p>
             )}
 
             <VariantPicker
