@@ -5,10 +5,11 @@ import { FilterSection } from '@/components/filter-section';
 import { ProductsList } from '@/components/products-list';
 import { useMemo, useState } from 'react';
 import { NavData } from '@/types/global';
+import { SetRequired } from 'type-fest';
 
 
 type ProductsTagFilterProps = {
-  products: Product[],
+  products: SetRequired<Product, "images">[],
   available_tags: Tag[],
   current_tags: Tag[],
   handleTagChange: (tags: Tag[]) => void,
