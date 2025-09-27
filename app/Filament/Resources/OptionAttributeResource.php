@@ -37,6 +37,8 @@ class OptionAttributeResource extends Resource
             Select::make('options')
                 ->relationship('options', 'name')
                 ->multiple()
+                ->disabled()
+                ->helperText('Options managed from their resource.')
                 ->preload(),
         ]);
     }
