@@ -11,7 +11,8 @@ export default function ProductsIndex({ products_collection, available_tags, cur
   current_tags = current_tags.data
 
   function handleTagChange(tags) {
-    const tagIds = tags.map(tag => tag.value)
+    const tagIds = tags.map(tag => tag.id)
+
 
     router.get(route(route().current()), { tags: tagIds }, {
       preserveState: true,
@@ -20,7 +21,7 @@ export default function ProductsIndex({ products_collection, available_tags, cur
   }
 
   function handlePageChange(page, selectedTags) {
-    const tagIds = selectedTags.map(t => t.value)
+    const tagIds = selectedTags.map(t => t.id)
 
     router.get(route(route().current()), { page, tags: tagIds }, {
       preserveState: true,
