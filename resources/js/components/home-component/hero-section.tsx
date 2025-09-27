@@ -23,7 +23,7 @@ export default function HeroSection({ className, super_categories, ...props }: H
 
   return (
     <div
-      className={cn(`relative z-0 flex justify-between px-24 py-12 text-shadow-lg/10 overflow-clip flex-col lg:flex-row`, className)}
+      className={cn(`relative z-0 bg-cover bg-center flex justify-between px-24 py-12 text-shadow-lg/10 overflow-clip flex-col lg:flex-row`, className)}
       style={{ backgroundImage: `url(${hero_bg})` }}
       {...props}
     >
