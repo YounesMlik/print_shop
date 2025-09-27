@@ -3,9 +3,10 @@ import { Link, } from '@inertiajs/react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { AspectRatio } from '@/components/ui/aspect-ratio'
 import { useTranslation } from 'react-i18next'
+import { SetRequired } from 'type-fest'
 
-
-export function ProductsList({ products }) {
+type ProductsListProps = { products: SetRequired<Product, "images">[] }
+export function ProductsList({ products }: ProductsListProps) {
   const { t } = useTranslation();
   if (products.length === 0) {
     return <p className="text-muted-foreground">{t("no_products_found")}</p>
