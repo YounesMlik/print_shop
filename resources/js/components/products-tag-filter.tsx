@@ -4,20 +4,28 @@ import SortPicker from '@/components/sort-picker'
 import { FilterSection } from '@/components/filter-section';
 import { ProductsList } from '@/components/products-list';
 import { useMemo, useState } from 'react';
+import { NavData } from '@/types/global';
 
-export function ProductsTagFilter({ products, available_tags, current_tags, handleTagChange, nav_data, handlePageChange }) {
-  const tagOptions = useMemo(() => mapTagsToSelectFormat(available_tags), [available_tags])
-  const [selectedTags, setSelectedTags] = useState(mapTagsToSelectFormat(current_tags))
 
-  function handleTagChange_local(newTags) {
+type ProductsTagFilterProps = {
+  products: Product[],
+  available_tags: Tag[],
+  current_tags: Tag[],
+  handleTagChange: (tags: Tag[]) => void,
+  nav_data: NavData,
+  handlePageChange: (page: number, selectedTags: Tag[]) => void,
+}
+export function ProductsTagFilter({ products, available_tags, current_tags, handleTagChange, nav_data, handlePageChange }: ProductsTagFilterProps) {
+  const [selectedTags, setSelectedTags] = useState(current_tags)
+
+  function handleTagChange_local(newTags: Tag[]) {
     const tags = newTags || []
     setSelectedTags(tags)
-    const tagIds = tags.map(tag => tag.value)
 
     handleTagChange(tags)
   }
 
-  function handlePageChange_local(page) {
+  function handlePageChange_local(page: number) {
     if (page != nav_data.current_page) {
       handlePageChange(page, selectedTags)
     }
@@ -27,7 +35,7 @@ export function ProductsTagFilter({ products, available_tags, current_tags, hand
     <>
       <FilterSection
         selectedTags={selectedTags}
-        tagOptions={tagOptions}
+        tagOptions={available_tags}
         onChange={handleTagChange_local}
       />
 
@@ -50,11 +58,4 @@ export function ProductsTagFilter({ products, available_tags, current_tags, hand
       )}
     </>
   )
-}
-
-function mapTagsToSelectFormat(tags = []) {
-  return tags.map(tag => ({
-    value: tag.id,
-    label: tag.name,
-  }))
 }
