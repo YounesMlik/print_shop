@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { ComponentProps, useState } from "react";
 import img_1 from "/public/img/home_page/why_us/1.jpg";
 import img_2 from "/public/img/home_page/why_us/2.jpg";
 import img_3 from "/public/img/home_page/why_us/3.jpg";
@@ -24,7 +24,10 @@ const images = [
   img_6,
 ]
 
-export default function WhyUs({ className, super_categories, ...props }) {
+type WhyUsProps = ComponentProps<"div"> & {
+  super_categories: SuperCategory[]
+}
+export default function WhyUs({ className, super_categories, ...props }: WhyUsProps) {
   const { t, i18n } = useTranslation();
 
   return (
