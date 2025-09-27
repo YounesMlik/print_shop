@@ -7,13 +7,15 @@ import {
 } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { ComponentProps, useState } from "react";
 import hero_bg from "/public/img/home_page/hero_bg.jpg";
 import hero_bg_circle from "/public/img/home_page/hero_bg_circle.svg";
 import hero_bg_star from "/public/img/home_page/hero_bg_star.svg";
+import { take } from "lodash-es";
+import { SetRequired } from "type-fest";
 
-
-export default function HeroSection({ className, super_categories, ...props }) {
+type HeroSectionProps = ComponentProps<"div"> & { super_categories: SetRequired<SuperCategory, "categories">[] }
+export default function HeroSection({ className, super_categories, ...props }: HeroSectionProps) {
   const { t, i18n } = useTranslation();
   const [hoverSide, setHoverSide] = useState<0 | 1 | null>(null);
   const animationState = hoverSide ?? 0;
@@ -49,7 +51,7 @@ export default function HeroSection({ className, super_categories, ...props }) {
               : "translate-x-2/1"
             : "translate-x-0"
         )}>
-          {super_categories.map((super_category, i) => (
+          {take(super_categories, 4).map((super_category, i) => (
             <li className="basis-1/1 md:basis-7/16" key={i}>
               <Link
                 href={route("super-categories.show", {
@@ -61,7 +63,7 @@ export default function HeroSection({ className, super_categories, ...props }) {
                 </p>
               </Link>
               <ul>
-                {super_category.categories.map((category, i) => (
+                {take(super_category.categories, 4).map((category, i) => (
                   <li key={i}>
                     <Link
                       href={route("categories.show", {
