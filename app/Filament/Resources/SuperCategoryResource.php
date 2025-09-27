@@ -37,9 +37,9 @@ class SuperCategoryResource extends Resource
             Select::make('children')
                 ->relationship('children', 'name')
                 ->multiple()
-                ->preload()
                 ->disabled()
-                ->helperText('Categories managed from the Category resource.'),
+                ->helperText('Categories managed from their resource.')
+                ->preload(),
         ]);
     }
 
