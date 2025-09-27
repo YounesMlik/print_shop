@@ -31,7 +31,7 @@ export function ProductsList({ products }: ProductsListProps) {
 
             </CardHeader>
             <CardContent>
-              <p className='text-muted-foreground'>
+              <p className='text-muted-foreground text-sm'>
                 {product.description
                   && truncate(product.description, { length: 100, separator: " " })
                 }
