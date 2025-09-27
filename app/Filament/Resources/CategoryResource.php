@@ -44,9 +44,9 @@ class CategoryResource extends Resource
             Select::make('products')
                 ->relationship('products', 'name')
                 ->multiple()
-                ->preload()
                 ->disabled()
-                ->helperText('Option attributes managed from their resource.'),
+                ->helperText('Products managed from their resource.')
+                ->preload(),
         ]);
     }
 
