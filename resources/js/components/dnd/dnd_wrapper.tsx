@@ -9,19 +9,20 @@ import {
     SortableContext,
     verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-
 import {
     restrictToParentElement,
     restrictToVerticalAxis,
 } from '@dnd-kit/modifiers';
-
 import {
     BuilderEntities,
     useBuilderStore,
     useBuilderStoreData,
 } from "@coltorapps/builder-react";
+import { ReactNode } from "react";
+import { BuilderStore } from "@coltorapps/builder";
 
-export function DndWrapper({ children, builderStore }) {
+
+export function DndWrapper({ children, builderStore }: { children: ReactNode, builderStore: BuilderStore }) {
 
     /*
     | We retrieve the `root` from the store's schema, which is
