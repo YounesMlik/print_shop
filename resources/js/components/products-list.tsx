@@ -1,4 +1,3 @@
-
 import { Link, } from '@inertiajs/react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { AspectRatio } from '@/components/ui/aspect-ratio'

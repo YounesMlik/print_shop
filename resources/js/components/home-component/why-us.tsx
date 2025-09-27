@@ -1,14 +1,6 @@
 import { useTranslation } from "react-i18next";
-import { Head, Link, usePage } from "@inertiajs/react";
-import {
-  ChevronLeft,
-  ChevronRight,
-  ChevronsDown,
-  CornerDownRight,
-} from "lucide-react";
-import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
-import { ComponentProps, useState } from "react";
+import { ComponentProps } from "react";
 import img_1 from "/public/img/home_page/why_us/1.jpg";
 import img_2 from "/public/img/home_page/why_us/2.jpg";
 import img_3 from "/public/img/home_page/why_us/3.jpg";

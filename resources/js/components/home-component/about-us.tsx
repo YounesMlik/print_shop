@@ -1,15 +1,10 @@
 import { useTranslation } from "react-i18next";
-import { Head, Link, usePage } from "@inertiajs/react";
 import {
-  ChevronLeft,
-  ChevronRight,
-  ChevronsDown,
   CornerDownLeft,
   CornerDownRight,
 } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
-import { ComponentProps, useState } from "react";
+import { ComponentProps } from "react";
 import about_us_bg from "/public/img/home_page/about_us_bg.jpg";
 
 

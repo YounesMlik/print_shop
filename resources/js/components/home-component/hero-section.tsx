@@ -1,8 +1,6 @@
 import { useTranslation } from "react-i18next";
-import { Head, Link, usePage } from "@inertiajs/react";
+import { Link } from "@inertiajs/react";
 import {
-  ChevronLeft,
-  ChevronRight,
   ChevronsDown,
 } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
