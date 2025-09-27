@@ -1,5 +1,6 @@
 import { Page } from '@inertiajs/core'
 import { route as routeFn } from 'ziggy-js';
+import { FixedLengthArray } from "type-fest"
 
 
 declare module '@inertiajs/core' {
@@ -24,6 +25,40 @@ type I18n = {
   namespaces: string[],
 }
 
+type ResourceCollection<T, L extends number> = {
+  data: FixedLengthArray<T, L>,
+  links: {
+    first: string,
+    last: string,
+    prev: string | null,
+    next: string | null,
+  },
+  meta: NavData,
+}
+
+type NavData = {
+  current_page: number,
+  from: number,
+  last_page: number,
+  links: NavLinks,
+  path: string,
+  per_page: number,
+  to: number,
+  total: number,
+}
+
+type NavLinks =
+  [
+    PreviousLink,
+    ...(NavLink | NavEllipsis)[],
+    NextLink,
+  ]
+
+type NavLink = { url: string, label: `${number}`, active: boolean }
+type PreviousLink = { url: string | null, label: string, active: false }
+type NextLink = { url: string | null, label: string, active: false }
+type NavEllipsis = { url: null, label: "...", active: false }
+
 declare global {
-  var route: typeof routeFn;
+  var route: typeof routeFn
 }
