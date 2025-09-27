@@ -9,11 +9,11 @@ import {
 } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { ComponentProps, useState } from "react";
 import about_us_bg from "/public/img/home_page/about_us_bg.jpg";
 
 
-export default function AboutUs({ className, super_categories, ...props }) {
+export default function AboutUs({ className, ...props }: ComponentProps<"div">) {
   const { t, i18n } = useTranslation();
 
   return (

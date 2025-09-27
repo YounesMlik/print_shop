@@ -8,12 +8,12 @@ import {
 } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { ComponentProps, useState } from "react";
 import custom_request_bg from "/public/img/home_page/custom_request_bg.jpg";
 import { Button } from "@/components/ui/button";
 
 
-export default function CustomRequest({ className, super_categories, ...props }) {
+export default function CustomRequest({ className, ...props }: ComponentProps<"div">) {
   const { t, i18n } = useTranslation();
 
   return (
