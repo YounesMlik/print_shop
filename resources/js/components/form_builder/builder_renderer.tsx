@@ -2,7 +2,7 @@ import { BuilderEntities, BuilderEntityAttributes, useBuilderStore } from "@colt
 import entity_components from "./entity_componenets";
 import entity_attribute_components from "./entity_attribute_components";
 import { formBuilder } from "./builder";
-import { useState } from "react";
+import { ReactElement, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
     Dialog,
@@ -18,7 +18,7 @@ import { DndItem } from "@/components/dnd/dnd_item";
 import { DndWrapper } from "@/components/dnd/dnd_wrapper";
 import axios from "axios";
 import { usePage } from "@inertiajs/react";
-import { Schema } from "@coltorapps/builder";
+import { Schema, SchemaEntityWithId } from "@coltorapps/builder";
 import z from "zod";
 import { mapValues, omitBy } from "lodash-es";
 
@@ -122,7 +122,7 @@ export default function FormBuilderPage() {
         )
     }
 
-    function getFormBuilderItem({ children, entity }) {
+    function getFormBuilderItem({ children, entity }: { children: ReactElement, entity: SchemaEntityWithId }) {
         const item_errors = Object.entries(errors[entity.id] ?? {}) as [[string, []]];
         return (
             <DndItem id={entity.id} key={entity.id}>
