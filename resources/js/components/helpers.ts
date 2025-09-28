@@ -155,7 +155,7 @@ export function useLocalized(
     return i18n.languages.map(lang => translations[lang]).find(value => value) ?? "[ERROR: missing translation]";
 }
 
-export function intersperse(arr: unknown[], sep: unknown) {
+export function intersperse<T, S>(arr: T[] | T, sep: S): (T | S)[] {
     if (!(arr instanceof Array)) {  // to make it work with react children
         return [arr];
     }
