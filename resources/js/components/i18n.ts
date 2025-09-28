@@ -1,20 +1,10 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import ICU from "i18next-icu";
 import HttpBackend from "i18next-http-backend";
+import { I18n } from "@/types/global";
 
-type I18nProps = {
-    locale: string;
-    isRtl: boolean;
-    available: string[];
-    fallback: string;
-    assetsBase: string;
-    assetsVersion?: string | null;
-    defaultNS: string;
-    namespaces: string[];
-};
 
-export function setupI18n(i18nProps: I18nProps) {
+export function setupI18n(i18nProps: I18n) {
     const { locale, available, fallback, assetsBase, assetsVersion, defaultNS, namespaces } = i18nProps;
 
     if (i18n.isInitialized) {
