@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import z, { ZodError } from "zod";
-import { flatMap } from "lodash-es";
+import { flatten } from "lodash-es";
 import { Exact, WritableKeysOf } from "type-fest";
 
 /**
@@ -156,13 +156,13 @@ export function useLocalized(
 }
 
 export function intersperse<T, S>(arr: T[] | T, sep: S): (T | S)[] {
-    if (!(arr instanceof Array)) {  // to make it work with react children
-        return [arr];
-    }
+    arr = Array.prototype.concat(arr) as T[]
 
-    return flatMap(arr, (value, index) =>
-        index !== arr.length - 1    // check for the last item
-            ? [value, sep]
-            : value
+    const [first, ...rest] = arr
+    return flatten(
+        [
+            first,
+            ...rest.map((value, index) => [sep, value]),
+        ]
     );
 }
