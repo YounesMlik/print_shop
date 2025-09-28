@@ -126,13 +126,14 @@ function generateReadableOrder(
     }
 
     if (format === 'html') {
-        const escape = s =>
-            String(s)
+        function escape(s: string) {
+            return String(s)
                 .replaceAll('&', '&amp;')
                 .replaceAll('<', '&lt;')
                 .replaceAll('>', '&gt;')
                 .replaceAll('"', '&quot;')
                 .replaceAll("'", '&#39;');
+        }
 
         return (
             '<ul>' +
