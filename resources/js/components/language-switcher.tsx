@@ -4,14 +4,9 @@ import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuIte
 import { usePage } from "@inertiajs/react";
 import { ChevronDown } from "lucide-react";
 
-const languages_labels = {
-    en: "English",
-    fr: "Français",
-    ar: "العربية",
-};
 
 export function LanguageSwitcher() {
-    const { i18n } = useTranslation();
+    const { t, i18n } = useTranslation();
     const languages = usePage().props.i18n.available;
 
     const switchTo = (code: string) => {
@@ -31,7 +26,7 @@ export function LanguageSwitcher() {
             <DropdownMenuContent align="end">
                 {languages.map((l) => (
                     <DropdownMenuItem key={l} onClick={() => switchTo(l)}>
-                        {languages_labels[l]}
+                        {t("language_label", { lng: l })}
                     </DropdownMenuItem>
                 ))}
             </DropdownMenuContent>
