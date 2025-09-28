@@ -19,16 +19,16 @@ export function Breadcrumbs({ className, children, ...props }: BreadcrumbsProps)
       <BreadcrumbList>
         {intersperse(
           items,
-          (key: number) => <BreadcrumbSeparator key={key} />
-        ).map((item, i, arr) => item(i, arr))}
+          BreadcrumbSeparator
+        ).map((Item, key) => <Item key={key} />)}
       </BreadcrumbList>
     </Breadcrumb>
   )
 }
 
-function BreadcrumbFactory(item: ReactNode) {
-  return (i: number, arr: any[]) => (
-    <BreadcrumbItem key={i}>
+function BreadcrumbFactory(item: ReactNode, i: number, arr: any[]) {
+  return ({ key }: { key: number }) => (
+    <BreadcrumbItem key={key}>
       {i === arr.length - 1 // if last item
         ? <BreadcrumbPage>
           {item}
