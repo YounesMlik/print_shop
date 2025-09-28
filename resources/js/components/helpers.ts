@@ -157,6 +157,9 @@ export function useLocalized(
 
 export function intersperse<T, S>(arr: T[] | T, sep: S): (T | S)[] {
     arr = Array.prototype.concat(arr) as T[]
+    if (arr.length === 0) {
+        return [];
+    }
 
     const [first, ...rest] = arr
     return flatten(
