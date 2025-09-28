@@ -155,8 +155,7 @@ export function useLocalized(
     return i18n.languages.map(lang => translations[lang]).find(value => value) ?? "[ERROR: missing translation]";
 }
 
-export function intersperse<T, S>(arr: T[] | T, sep: S): (T | S)[] {
-    arr = Array.prototype.concat(arr) as T[]
+export function intersperse<T, S>(arr: T[], sep: S): (T | S)[] {
     if (arr.length === 0) {
         return [];
     }
