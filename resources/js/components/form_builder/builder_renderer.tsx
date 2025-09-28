@@ -37,9 +37,9 @@ export default function FormBuilderPage() {
     });
 
     const [schemaValidation, setSchemaValidation] = useState({ success: true, data: builderStore.getSchema() } as { success: boolean, data?: any, reason?: any });
-    const errors = schemaValidation.success ?
-        [] :
-        mapValues(schemaValidation.reason.payload.entitiesAttributesErrors,
+    const errors = schemaValidation.success
+        ? {}
+        : mapValues(schemaValidation.reason.payload.entitiesAttributesErrors,
             (data) => mapValues(
                 data,
                 (err) => z.treeifyError(err as any).errors
