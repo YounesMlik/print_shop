@@ -89,7 +89,7 @@ export default function ProductShow({ product_resource }: ProductShowProps) {
             )}
 
             <VariantPicker
-                options={product.options}
+                options={product.options as SetRequired<Option, "option_attributes">[]}
                 selectedOption={selectedOption}
                 onOptionChange={setSelectedOption}
                 quantity={quantity}
