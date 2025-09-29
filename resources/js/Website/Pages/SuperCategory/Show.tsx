@@ -12,7 +12,7 @@ export default function SuperCategoryShow({ products_collection, super_category_
   current_tags = current_tags.data
 
   function handleTagChange(tags) {
-    const tagIds = tags.map(tag => tag.value)
+    const tagIds = tags.map(tag => tag.id)
 
     router.get(route(route().current(), { super_category: super_category.id }), { tags: tagIds }, {
       preserveState: true,
@@ -21,7 +21,7 @@ export default function SuperCategoryShow({ products_collection, super_category_
   }
 
   function handlePageChange(page, selectedTags) {
-    const tagIds = selectedTags.map(t => t.value)
+    const tagIds = selectedTags.map(t => t.id)
 
     router.get(route(route().current(), { super_category: super_category.id }), { page, tags: tagIds }, {
       preserveState: true,
