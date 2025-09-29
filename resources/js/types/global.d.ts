@@ -12,7 +12,8 @@ declare module '@inertiajs/core' {
       super_categories: {
         data: SetRequired<SuperCategory, "categories">[],
       },
-    }
+    },
+    schema: FormBuilderSchema,
   }
 }
 
