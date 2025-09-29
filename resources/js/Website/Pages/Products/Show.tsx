@@ -9,15 +9,12 @@ import {
     CarouselPrevious,
 } from "@/components/ui/_carousel"
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { sendWhatsappMessage } from "@/components/helpers";
 import { Badge } from "@/components/ui/badge";
-
 import VariantPicker from "@/components/variant-picker";
 import { useTranslation } from "react-i18next";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { CartLine, ShoppingCart, shoppingCart } from "@/components/shopping-cart/shopping-cart-store";
-import { toJS } from "mobx";
-import { CheckoutDialog } from "@/components/checkout";
+
 
 export default function ProductShow({ product_resource }) {
     const { t } = useTranslation();
