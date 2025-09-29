@@ -14,13 +14,20 @@ import VariantPicker from "@/components/variant-picker";
 import { useTranslation } from "react-i18next";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { CartLine, ShoppingCart, shoppingCart } from "@/components/shopping-cart/shopping-cart-store";
+import { SetRequired, SetRequiredDeep } from "type-fest";
 
 
-export default function ProductShow({ product_resource }) {
+type ProductShowProps = {
+    product_resource: {
+        data: SetRequiredDeep<Product, "images" | "tags" | "options" | "category" | "category.super_category">
+    }
+}
+export default function ProductShow({ product_resource }: ProductShowProps) {
     const { t } = useTranslation();
     const product = product_resource.data;
 
-    const [selectedOption, setSelectedOption] = React.useState(null);
+
+    const [selectedOption, setSelectedOption] = React.useState<SetRequired<Option, "option_attributes"> | null>(null);
     const [quantity, setQuantity] = React.useState(1);
     const local_shoppingCart = new ShoppingCart(
         !selectedOption
@@ -108,7 +115,7 @@ export default function ProductShow({ product_resource }) {
                 <Button
                     className="grow"
                     disabled={selectedOption === null}
-                    onClick={() => shoppingCart.add(product, selectedOption, quantity)}
+                    onClick={() => shoppingCart.add(product, selectedOption as NonNullable<typeof selectedOption>, quantity)}
                 >
                     {t("shopping_cart.add")}
                 </Button>
