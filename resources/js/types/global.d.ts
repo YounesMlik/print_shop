@@ -30,8 +30,8 @@ type I18n = {
   namespaces: string[],
 }
 
-type ResourceCollection<T, L extends number> = {
-  data: FixedLengthArray<T, L>,
+type ResourceCollection<T> = {
+  data: T[],
   links: {
     first: string,
     last: string,
