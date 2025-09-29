@@ -1,6 +1,6 @@
 import { Page } from '@inertiajs/core'
 import { route as routeFn } from 'ziggy-js';
-import { FixedLengthArray } from "type-fest"
+import { FixedLengthArray, SetRequired } from "type-fest"
 
 
 declare module '@inertiajs/core' {
@@ -8,7 +8,7 @@ declare module '@inertiajs/core' {
     i18n: I18n,
     navigation: {
       super_categories: {
-        data: SuperCategory[],
+        data: SetRequired<SuperCategory, "categories">[],
       },
     }
   }
