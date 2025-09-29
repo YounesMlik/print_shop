@@ -15,12 +15,11 @@ import { useTranslation } from "react-i18next";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { CartLine, ShoppingCart, shoppingCart } from "@/components/shopping-cart/shopping-cart-store";
 import { SetRequired, SetRequiredDeep } from "type-fest";
+import { Resource } from "@/types/global";
 
 
 type ProductShowProps = {
-    product_resource: {
-        data: SetRequiredDeep<Product, "images" | "tags" | "options" | "category" | "category.super_category">
-    }
+    product_resource: Resource<SetRequiredDeep<Product, "images" | "tags" | "options" | "category" | "category.super_category">>
 }
 export default function ProductShow({ product_resource }: ProductShowProps) {
     const { t } = useTranslation();
