@@ -6,10 +6,10 @@ import Layout from '@/Layouts/Layout';
 import { setupI18n } from '@/components/i18n';
 
 createInertiaApp({
-  resolve: name => {
+  resolve: async name => {
     // @ts-ignore
-    const pages = import.meta.glob('./Pages/*/*.tsx', { eager: true });
-    const page = pages[`./Pages/${name}.tsx`];
+    const pages = import.meta.glob('./Pages/*/*.tsx');
+    const page = await pages[`./Pages/${name}.tsx`]();
 
     const PageComponent = page.default;
     const PageLayout = page.Layout ?? Layout;
