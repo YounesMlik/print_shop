@@ -9,8 +9,9 @@ import { formBuilder } from "./builder";
 import { Button } from "@/components/ui/button";
 import { sendWhatsappMessage, useLocalized } from "@/components/helpers";
 import { useTranslation } from "react-i18next";
+import { FormBuilderSchema } from "@/types/global";
 
-type FormBuilderSchema = Schema<typeof formBuilder>;
+
 
 export function FormInterpreter({ schema }: { schema: FormBuilderSchema }) {
     const { t } = useTranslation();

@@ -1,6 +1,8 @@
 import { Page } from '@inertiajs/core'
 import { route as routeFn } from 'ziggy-js';
 import { FixedLengthArray, SetRequired } from "type-fest"
+import { Schema } from '@coltorapps/builder';
+import { formBuilder } from '@/components/form_builder/builder';
 
 
 declare module '@inertiajs/core' {
@@ -13,6 +15,8 @@ declare module '@inertiajs/core' {
     }
   }
 }
+
+type FormBuilderSchema = Schema<typeof formBuilder>;
 
 type I18n = {
   locale: string,
