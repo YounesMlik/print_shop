@@ -1,14 +1,6 @@
 import { useTranslation } from "react-i18next";
-import { Head, Link, usePage } from "@inertiajs/react";
-import {
-  ChevronLeft,
-  ChevronRight,
-  ChevronsDown,
-  CornerDownRight,
-} from "lucide-react";
-import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { ComponentProps } from "react";
 import img_1 from "/public/img/home_page/why_us/1.jpg";
 import img_2 from "/public/img/home_page/why_us/2.jpg";
 import img_3 from "/public/img/home_page/why_us/3.jpg";
@@ -24,7 +16,8 @@ const images = [
   img_6,
 ]
 
-export default function WhyUs({ className, super_categories, ...props }) {
+
+export default function WhyUs({ className, ...props }: ComponentProps<"div">) {
   const { t, i18n } = useTranslation();
 
   return (
@@ -47,7 +40,7 @@ export default function WhyUs({ className, super_categories, ...props }) {
       <ul className="grid grid-cols-1 grid-rows-6 sm:grid-cols-2 sm:grid-rows-3 lg:grid-cols-3 lg:grid-rows-2 gap-6 px-10 md:px-20 lg:px-30">
         {(t("home.why_us.features", { returnObjects: true }) as unknown as [{ title: string, description: string }])
           .map(({ title, description }, i) => (
-            <li className="flex flex-col gap-6 px-4 pt-4 pb-16 bg-card rounded-2xl" key={i}>
+            <li className="flex flex-col gap-6 px-4 pt-4 pb-16 bg-card rounded-4xl" key={i}>
               <img src={images[i]} className="rounded-2xl" />
               <div className="flex flex-col gap-2 px-2">
                 <p className="text-xl text-card-foreground">

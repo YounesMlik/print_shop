@@ -5,8 +5,9 @@ import { Separator } from '@/components/ui/separator'
 import { ChevronUp, Info, Mail, Phone } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import Footer from '../components/footer'
+import { ReactNode } from 'react'
 
-export default function BaseLayout({ children }) {
+export default function BaseLayout({ children }: { children: ReactNode }) {
     return (
         <>
             <div className="min-h-screen bg-gradient-to-b from-background via-background to-muted/40">

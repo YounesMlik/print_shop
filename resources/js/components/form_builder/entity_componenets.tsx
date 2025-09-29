@@ -15,9 +15,10 @@ export const TextFieldEntity = createEntityComponent(
     const isInvalid = errors.length > 0;
     return (
       <div className="grid gap-2">
-        <Label htmlFor={props.entity.id}>{useLocalized(props.entity.attributes.label)}</Label>
+        <Label htmlFor={props.entity.id}>{useLocalized(props.entity.attributes.label)} {props.entity.attributes.required && "*"}</Label>
         <Input
           id={props.entity.id}
+          required={props.entity.attributes.required}
           name={props.entity.id}
           aria-invalid={isInvalid}
           value={props.entity.value ?? ""}
@@ -38,9 +39,10 @@ export const TextAreaFieldEntity = createEntityComponent(
     const isInvalid = errors.length > 0;
     return (
       <div className="grid gap-2">
-        <Label htmlFor={props.entity.id}>{useLocalized(props.entity.attributes.label)}</Label>
+        <Label htmlFor={props.entity.id}>{useLocalized(props.entity.attributes.label)} {props.entity.attributes.required && "*"}</Label>
         <Textarea
           id={props.entity.id}
+          required={props.entity.attributes.required}
           name={props.entity.id}
           aria-invalid={isInvalid}
           value={props.entity.value ?? ""}
@@ -63,8 +65,9 @@ export const SelectFieldEntity = createEntityComponent(
 
     return (
       <div className="grid gap-2">
-        <Label htmlFor={props.entity.id}>{useLocalized(props.entity.attributes.label)}</Label>
+        <Label htmlFor={props.entity.id}>{useLocalized(props.entity.attributes.label)} {props.entity.attributes.required && "*"}</Label>
         <Select
+          required={props.entity.attributes.required}
           value={props.entity.value ?? ""}
           onValueChange={props.setValue}
         >
@@ -90,6 +93,7 @@ export const SelectFieldEntity = createEntityComponent(
   },
 );
 
+// The required attribute doesn't actually do anything
 export const CheckboxesFieldEntity = createEntityComponent(
   checkboxesFieldEntity,
   (props) => {
@@ -98,7 +102,7 @@ export const CheckboxesFieldEntity = createEntityComponent(
     const options = props.entity.attributes.options ?? [];
     const value = props.entity.value ?? [];
 
-    function onToggle(val) {
+    function onToggle(val: string) {
       if (value.includes(val)) {
         props.setValue(value.filter((v) => v !== val));
       } else {
@@ -108,7 +112,7 @@ export const CheckboxesFieldEntity = createEntityComponent(
 
     return (
       <div className="grid gap-2">
-        <Label>{useLocalized(props.entity.attributes.label)}</Label>
+        <Label htmlFor={props.entity.id}>{useLocalized(props.entity.attributes.label)} {props.entity.attributes.required && "*"}</Label>
         <div className="flex flex-col gap-1">
           {options.map((option, idx) => (
             <label key={idx} className="flex items-center gap-2 cursor-pointer">
@@ -129,6 +133,7 @@ export const CheckboxesFieldEntity = createEntityComponent(
   }
 );
 
+// The required attribute doesn't actually do anything
 export const RadioFieldEntity = createEntityComponent(
   radioFieldEntity,
   (props) => {
@@ -138,7 +143,7 @@ export const RadioFieldEntity = createEntityComponent(
 
     return (
       <div className="grid gap-2">
-        <Label>{useLocalized(props.entity.attributes.label)}</Label>
+        <Label htmlFor={props.entity.id}>{useLocalized(props.entity.attributes.label)} {props.entity.attributes.required && "*"}</Label>
         <RadioGroup
           value={props.entity.value ?? ""}
           onValueChange={props.setValue}

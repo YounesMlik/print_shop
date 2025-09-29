@@ -8,7 +8,7 @@ const languages_labels = {
     en: "English",
     fr: "Français",
     ar: "العربية",
-};
+} as Record<string, string>;
 
 export function LanguageSwitcher() {
     const { i18n } = useTranslation();

@@ -9,8 +9,9 @@ import { formBuilder } from "./builder";
 import { Button } from "@/components/ui/button";
 import { sendWhatsappMessage, useLocalized } from "@/components/helpers";
 import { useTranslation } from "react-i18next";
+import { FormBuilderSchema } from "@/types/global";
 
-type FormBuilderSchema = Schema<typeof formBuilder>;
+
 
 export function FormInterpreter({ schema }: { schema: FormBuilderSchema }) {
     const { t } = useTranslation();
@@ -126,13 +127,14 @@ function generateReadableOrder(
     }
 
     if (format === 'html') {
-        const escape = s =>
-            String(s)
+        function escape(s: string) {
+            return String(s)
                 .replaceAll('&', '&amp;')
                 .replaceAll('<', '&lt;')
                 .replaceAll('>', '&gt;')
                 .replaceAll('"', '&quot;')
                 .replaceAll("'", '&#39;');
+        }
 
         return (
             '<ul>' +

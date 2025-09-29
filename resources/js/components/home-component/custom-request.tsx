@@ -1,20 +1,13 @@
 import { useTranslation } from "react-i18next";
-import { Head, Link, usePage } from "@inertiajs/react";
-import {
-  ChevronLeft,
-  ChevronRight,
-  ChevronsDown,
-  CornerDownRight,
-} from "lucide-react";
-import { Separator } from "@/components/ui/separator";
+import { Link } from "@inertiajs/react";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { ComponentProps } from "react";
 import custom_request_bg from "/public/img/home_page/custom_request_bg.jpg";
 import { Button } from "@/components/ui/button";
 
 
-export default function CustomRequest({ className, super_categories, ...props }) {
-  const { t, i18n } = useTranslation();
+export default function CustomRequest({ className, ...props }: ComponentProps<"div">) {
+  const { t } = useTranslation();
 
   return (
     <div

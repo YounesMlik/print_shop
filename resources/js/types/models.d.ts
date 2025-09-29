@@ -47,7 +47,7 @@ declare global {
         category?: Category,
         options?: Option[],
         tags?: Tag[],
-        Images?: ProductImage[],
+        images?: ProductImage[],
         created_at: string,
         updated_at: string,
     }

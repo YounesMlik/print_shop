@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { ComponentProps, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { LanguageSwitcher } from '@/components/language-switcher'
 import under_print_wordmark_transparent from "/public/img/under_print_wordmark_transparent.svg";
@@ -18,7 +18,7 @@ import { Divider } from "@mui/material";
 import { makeWhatsappMessageUrl } from "@/components/helpers";
 
 
-export default function Footer({ className, super_categories, ...props }) {
+export default function Footer({ className, ...props }: ComponentProps<"footer">) {
     const { t, i18n } = useTranslation();
     // @ts-ignore
     const app_name = import.meta.env.VITE_APP_NAME

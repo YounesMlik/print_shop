@@ -24,6 +24,8 @@ class SuperCategoryResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?int $navigationSort = 1;
+
     public static function form(Form $form): Form
     {
         return $form->schema([
@@ -35,9 +37,9 @@ class SuperCategoryResource extends Resource
             Select::make('children')
                 ->relationship('children', 'name')
                 ->multiple()
-                ->preload()
                 ->disabled()
-                ->helperText('Categories managed from the Category resource.'),
+                ->helperText('Categories managed from their resource.')
+                ->preload(),
         ]);
     }
 

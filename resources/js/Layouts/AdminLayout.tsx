@@ -7,8 +7,9 @@ import {
 } from '@/components/ui/navigation-menu';
 
 import { ChevronLeftIcon } from "lucide-react"
+import { ReactNode } from 'react';
 
-export default function AdminLayout({ children }) {
+export default function AdminLayout({ children }: { children: ReactNode }) {
     return (
         <>
             <header className="border-b px-4 py-2">

@@ -24,6 +24,8 @@ class CategoryResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?int $navigationSort = 2;
+
     public static function form(Form $form): Form
     {
         return $form->schema([
@@ -42,9 +44,9 @@ class CategoryResource extends Resource
             Select::make('products')
                 ->relationship('products', 'name')
                 ->multiple()
-                ->preload()
                 ->disabled()
-                ->helperText('Option attributes managed from their resource.'),
+                ->helperText('Products managed from their resource.')
+                ->preload(),
         ]);
     }
 

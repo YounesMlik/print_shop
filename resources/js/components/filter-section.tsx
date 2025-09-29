@@ -3,11 +3,24 @@ import { useTranslation } from "react-i18next";
 import AsyncSelect from "react-select/async";
 
 
-export function FilterSection({ selectedTags, tagOptions, onChange }) {
+type FilterSectionProps = {
+    selectedTags: Tag[],
+    tagOptions: Tag[],
+    onChange: (tagIds: Tag[]) => void,
+}
+export function FilterSection({ selectedTags, tagOptions, onChange }: FilterSectionProps) {
     const { t } = useTranslation();
 
-    function loadTagOptions(inputValue) {
-        return Promise.resolve(filterTagsByInput(tagOptions, inputValue))
+    function loadTagOptions(inputValue: string) {
+        return Promise.resolve(mapTagsToWeirds(filterTagsByInput(tagOptions, inputValue)))
+    }
+
+    function mapWeirdsToTags(weird_tags: readonly WeirdTag[]): Tag[] {
+        return tagOptions.filter(tag => weird_tags.find(w => w.value === tag.id))
+    }
+
+    function onChange_local(weird_tags: readonly WeirdTag[]) {
+        onChange(mapWeirdsToTags(weird_tags))
     }
 
     return (
@@ -16,11 +29,11 @@ export function FilterSection({ selectedTags, tagOptions, onChange }) {
             <AsyncSelect
                 inputId="product-tags"
                 isMulti
-                defaultOptions={tagOptions}
+                defaultOptions={mapTagsToWeirds(tagOptions)}
                 cacheOptions
-                value={selectedTags}
+                value={mapTagsToWeirds(selectedTags)}
                 loadOptions={loadTagOptions}
-                onChange={onChange}
+                onChange={onChange_local}
                 placeholder={t("tags_search.placeholder")}
                 classNamePrefix="react-select"
                 styles={{
@@ -63,7 +76,21 @@ export function FilterSection({ selectedTags, tagOptions, onChange }) {
     )
 }
 
-function filterTagsByInput(tagOptions, inputValue) {
+function filterTagsByInput(tagOptions: Tag[], inputValue: string) {
     const lowerInput = inputValue.toLowerCase()
-    return tagOptions.filter(tag => tag.label.toLowerCase().includes(lowerInput))
+    return tagOptions.filter(tag => tag.name.toLowerCase().includes(lowerInput))
+}
+
+function mapTagsToWeirds(tags: Tag[]): WeirdTag[] {
+    return tags.map(tag => ({
+        value: tag.id,
+        label: tag.name,
+    }))
+}
+
+
+
+type WeirdTag = {
+    value: number;
+    label: string;
 }

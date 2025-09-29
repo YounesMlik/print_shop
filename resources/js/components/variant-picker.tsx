@@ -6,17 +6,18 @@ import { Badge } from "@/components/ui/badge";
 import { useTranslation } from "react-i18next";
 import { QuantitySelector } from "@/components/quantity-selector";
 import { cn } from "@/lib/utils";
+import { SetRequired } from "type-fest";
 
 
 type VariantPickerProps = {
   /** Your options array, as provided */
-  options: Option[],
+  options: OptionWithAttr[],
   /** Controlled selected option */
-  selectedOption: Option | null,
+  selectedOption: OptionWithAttr | null,
   /** Controlled quantity */
   quantity: number,
   /** Called with the full selected option object (or null) */
-  onOptionChange: (selected: Option | null) => void,
+  onOptionChange: (selected: OptionWithAttr | null) => void,
   /** Called with the quantity */
   onQuantityChange: (quantity: number) => void,
   /** Extra className for the outer Card */
@@ -76,19 +77,16 @@ export default function VariantPicker({
                   >
                     <div className="flex items-center gap-3">
                       <RadioGroupItem id={`opt-${o.id}`} value={o.id.toString()} />
-                      <div>
+                      <div className="flex flex-col gap-1">
                         <div className="font-medium">{o.name}</div>
-
-                        {o.option_attributes?.length ? (
-                          <div className="mt-1 flex flex-wrap gap-1">
-                            {o.option_attributes.map((a) => (
-                              <Badge variant="secondary" key={a.id}>
-                                <span className="text-muted-foreground">{a.name}:</span>
-                                {a.value}
-                              </Badge>
-                            ))}
-                          </div>
-                        ) : null}
+                        <div className="flex flex-wrap gap-1">
+                          {o.option_attributes.map((a) => (
+                            <Badge variant="secondary" key={a.id}>
+                              <span className="text-muted-foreground">{a.name}:</span>
+                              {a.value}
+                            </Badge>
+                          ))}
+                        </div>
                       </div>
                     </div>
 
@@ -144,3 +142,5 @@ export function ProductBuyBox({ options }: { options: any[] }) {
     </div>
   );
 }
+
+type OptionWithAttr = SetRequired<Option, "option_attributes">

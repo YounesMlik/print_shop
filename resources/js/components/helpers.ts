@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import z, { ZodError } from "zod";
-import { flatMap } from "lodash-es";
-import { WritableKeysOf } from "type-fest";
+import { flatten } from "lodash-es";
+import { Exact, WritableKeysOf } from "type-fest";
 
 /**
  * Set a **writable** property on the current instance with exact key/value typing.
@@ -31,6 +31,16 @@ import { WritableKeysOf } from "type-fest";
  */
 export function setter<T extends object>(this: T, key: WritableKeysOf<T>, value: T[WritableKeysOf<T>]) {
     this[key] = value;
+}
+
+/**
+ * Doesn't accept objects with symbol keys
+ */
+export function mapEntries<T extends Exact<Record<string | number, any>, T>, OutputK extends string | number, OutputV>(object: T, fn: ([k, v]: [keyof T, T[keyof T]]) => [OutputK, OutputV]): Record<OutputK, OutputV> {
+    return Object.fromEntries(
+        (Object.entries(object))
+            .map(fn)
+    ) as Record<OutputK, OutputV>;
 }
 
 export function tryCatch(fn: () => void) {
@@ -145,14 +155,16 @@ export function useLocalized(
     return i18n.languages.map(lang => translations[lang]).find(value => value) ?? "[ERROR: missing translation]";
 }
 
-export function intersperse(arr: unknown[], sep: unknown) {
-    if (!(arr instanceof Array)) {  // to make it work with react children
-        return [arr];
+export function intersperse<T, S>(arr: T[], sep: S): (T | S)[] {
+    if (arr.length === 0) {
+        return [];
     }
 
-    return flatMap(arr, (value, index) =>
-        index !== arr.length - 1    // check for the last item
-            ? [value, sep]
-            : value
+    const [first, ...rest] = arr
+    return flatten(
+        [
+            first,
+            ...rest.map((value) => [sep, value]),
+        ]
     );
 }

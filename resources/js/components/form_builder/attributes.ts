@@ -11,6 +11,15 @@ export const labelAttribute = createAttribute({
     },
 });
 
+export const requiredAttribute = createAttribute({
+    name: "required",
+    validate(value) {
+        return z
+            .boolean()
+            .parse(value);
+    },
+});
+
 export const optionsAttribute = createAttribute({
     name: "options",
     validate(value) {

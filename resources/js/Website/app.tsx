@@ -1,4 +1,4 @@
-import { StrictMode, Suspense, useEffect } from "react";
+import { ReactNode, StrictMode, Suspense, useEffect } from "react";
 import { createRoot } from 'react-dom/client';
 import { createInertiaApp } from '@inertiajs/react';
 import { ThemeProvider } from "@/components/theme-provider";
@@ -8,13 +8,13 @@ import { setupI18n } from '@/components/i18n';
 createInertiaApp({
   resolve: name => {
     // @ts-ignore
-    const pages = import.meta.glob('./Pages/*/*.jsx', { eager: true });
-    const page = pages[`./Pages/${name}.jsx`];
+    const pages = import.meta.glob('./Pages/*/*.tsx', { eager: true });
+    const page = pages[`./Pages/${name}.tsx`];
 
     const PageComponent = page.default;
     const PageLayout = page.Layout ?? Layout;
 
-    PageComponent.layout = (page) => <PageLayout>{page}</PageLayout>;
+    PageComponent.layout = (page: ReactNode) => <PageLayout>{page}</PageLayout>;
 
     return PageComponent;
   },
