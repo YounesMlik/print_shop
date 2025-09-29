@@ -13,7 +13,7 @@ export default function CategoryShow({ products_collection, category_resource, a
 
 
   function handleTagChange(tags) {
-    const tagIds = tags.map(tag => tag.value)
+    const tagIds = tags.map(tag => tag.id)
 
     router.get(route(route().current(), { category: category.id }), { tags: tagIds }, {
       preserveState: true,
@@ -22,7 +22,7 @@ export default function CategoryShow({ products_collection, category_resource, a
   }
 
   function handlePageChange(page, selectedTags) {
-    const tagIds = selectedTags.map(t => t.value)
+    const tagIds = selectedTags.map(t => t.id)
 
     router.get(route(route().current(), { category: category.id }), { page, tags: tagIds }, {
       preserveState: true,
