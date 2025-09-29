@@ -38,7 +38,7 @@ export function setter<T extends object>(this: T, key: WritableKeysOf<T>, value:
  */
 export function mapEntries<T extends Exact<Record<string | number, any>, T>, OutputK extends string | number, OutputV>(object: T, fn: ([k, v]: [keyof T, T[keyof T]]) => [OutputK, OutputV]): Record<OutputK, OutputV> {
     return Object.fromEntries(
-        (Object.entries(object) as [keyof T, T[keyof T]][])
+        (Object.entries(object))
             .map(fn)
     ) as Record<OutputK, OutputV>;
 }
