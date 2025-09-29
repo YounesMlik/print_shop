@@ -16,10 +16,8 @@ const images = [
   img_6,
 ]
 
-type WhyUsProps = ComponentProps<"div"> & {
-  super_categories: SuperCategory[]
-}
-export default function WhyUs({ className, super_categories, ...props }: WhyUsProps) {
+
+export default function WhyUs({ className, ...props }: ComponentProps<"div">) {
   const { t, i18n } = useTranslation();
 
   return (
