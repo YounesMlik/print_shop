@@ -77,19 +77,16 @@ export default function VariantPicker({
                   >
                     <div className="flex items-center gap-3">
                       <RadioGroupItem id={`opt-${o.id}`} value={o.id.toString()} />
-                      <div>
+                      <div className="flex flex-col gap-1">
                         <div className="font-medium">{o.name}</div>
-
-                        {o.option_attributes.length ? (
-                          <div className="mt-1 flex flex-wrap gap-1">
-                            {o.option_attributes.map((a) => (
-                              <Badge variant="secondary" key={a.id}>
-                                <span className="text-muted-foreground">{a.name}:</span>
-                                {a.value}
-                              </Badge>
-                            ))}
-                          </div>
-                        ) : null}
+                        <div className="flex flex-wrap gap-1">
+                          {o.option_attributes.map((a) => (
+                            <Badge variant="secondary" key={a.id}>
+                              <span className="text-muted-foreground">{a.name}:</span>
+                              {a.value}
+                            </Badge>
+                          ))}
+                        </div>
                       </div>
                     </div>
 
