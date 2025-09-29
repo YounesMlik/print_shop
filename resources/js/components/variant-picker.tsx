@@ -6,17 +6,18 @@ import { Badge } from "@/components/ui/badge";
 import { useTranslation } from "react-i18next";
 import { QuantitySelector } from "@/components/quantity-selector";
 import { cn } from "@/lib/utils";
+import { SetRequired } from "type-fest";
 
 
 type VariantPickerProps = {
   /** Your options array, as provided */
-  options: Option[],
+  options: OptionWithAttr[],
   /** Controlled selected option */
-  selectedOption: Option | null,
+  selectedOption: OptionWithAttr | null,
   /** Controlled quantity */
   quantity: number,
   /** Called with the full selected option object (or null) */
-  onOptionChange: (selected: Option | null) => void,
+  onOptionChange: (selected: OptionWithAttr | null) => void,
   /** Called with the quantity */
   onQuantityChange: (quantity: number) => void,
   /** Extra className for the outer Card */
@@ -79,7 +80,7 @@ export default function VariantPicker({
                       <div>
                         <div className="font-medium">{o.name}</div>
 
-                        {o.option_attributes?.length ? (
+                        {o.option_attributes.length ? (
                           <div className="mt-1 flex flex-wrap gap-1">
                             {o.option_attributes.map((a) => (
                               <Badge variant="secondary" key={a.id}>
@@ -144,3 +145,5 @@ export function ProductBuyBox({ options }: { options: any[] }) {
     </div>
   );
 }
+
+type OptionWithAttr = SetRequired<Option, "option_attributes">
