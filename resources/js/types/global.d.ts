@@ -30,8 +30,8 @@ type I18n = {
   namespaces: string[],
 }
 
-type ResourceCollection<T> = {
-  data: T[],
+type ResourceCollection<T> = Resource<T> &
+{
   links: {
     first: string,
     last: string,
@@ -39,6 +39,10 @@ type ResourceCollection<T> = {
     next: string | null,
   },
   meta: NavData,
+}
+
+type Resource<T> = {
+  data: T[],
 }
 
 type NavData = {
