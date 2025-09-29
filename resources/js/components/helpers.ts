@@ -164,7 +164,7 @@ export function intersperse<T, S>(arr: T[], sep: S): (T | S)[] {
     return flatten(
         [
             first,
-            ...rest.map((value, index) => [sep, value]),
+            ...rest.map((value) => [sep, value]),
         ]
     );
 }
