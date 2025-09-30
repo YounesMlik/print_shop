@@ -4,14 +4,16 @@ import { AspectRatio } from '@/components/ui/aspect-ratio'
 import { useTranslation } from 'react-i18next'
 import { SetRequired } from 'type-fest'
 import { truncate } from 'lodash-es'
+import { useMediaQuery } from '@mui/material'
 
 type ProductsListProps = { products: SetRequired<Product, "images">[] }
 export function ProductsList({ products }: ProductsListProps) {
   const { t } = useTranslation();
+  const is_mobile = useMediaQuery('(max-width:640px)');
+
   if (products.length === 0) {
     return <p className="text-muted-foreground text-center">{t("no_products_found")}</p>
   }
-
   return (
     <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4">
       {products.map(product => (
@@ -37,6 +39,7 @@ export function ProductsList({ products }: ProductsListProps) {
               </p>
             </CardContent>
           </Card>
+
         </Link>
       ))}
     </div>
