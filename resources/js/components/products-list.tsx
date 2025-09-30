@@ -6,6 +6,8 @@ import { SetRequired } from 'type-fest'
 import { max, min, truncate } from 'lodash-es'
 import { useMediaQuery } from '@mui/material'
 import { asCurrency } from '@/components/helpers'
+import { ComponentProps } from 'react'
+import { cn } from '@/lib/utils'
 
 type ProductsListProps = { products: SetRequired<Product, "images" | "options">[] }
 export function ProductsList({ products }: ProductsListProps) {
@@ -47,17 +49,29 @@ export function ProductsList({ products }: ProductsListProps) {
   )
 }
 
-function ProductPrice({ product }: { product: SetRequired<Product, "options"> }) {
+function ProductPrice({ product, className, ...props }: ComponentProps<"p"> & { product: SetRequired<Product, "options"> }) {
   const { t } = useTranslation()
   const prices = product.options.map(option => option.price);
 
   if (prices.length === 0) {
-    return <p className='text-destructive text-sm'>{t("option_picker.no_options_available")}</p>;
+    return (
+      <p className={cn('text-destructive text-sm', className)} {...props}>
+        {t("option_picker.no_options_available")}
+      </p>
+    );
   } else if (prices.length === 1) {
-    return <p>{asCurrency(prices[0])}</p>;
+    return (
+      <p className={className} {...props}>
+        {asCurrency(prices[0])}
+      </p>
+    );
   } else {
     const minimum = min(prices) as number
     const maximum = max(prices) as number
-    return <p>{asCurrency(minimum)}-{asCurrency(maximum)}</p>;
+    return (
+      <p className={className} {...props}>
+        {asCurrency(minimum)}-{asCurrency(maximum)}
+      </p>
+    );
   }
 }
