@@ -1,5 +1,3 @@
-// VariantPicker.tsx
-import * as React from "react";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Badge } from "@/components/ui/badge";
@@ -7,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { QuantitySelector } from "@/components/quantity-selector";
 import { cn } from "@/lib/utils";
 import { SetRequired } from "type-fest";
+import { useState } from "react";
 
 
 type VariantPickerProps = {
@@ -119,8 +118,8 @@ function asCurrency(price: Option["price"], currency = "MAD") {
 };
 
 export function ProductBuyBox({ options }: { options: any[] }) {
-  const [selected, setSelected] = React.useState<any | null>(null);
-  const [quantity, setQuantity] = React.useState<number>(1);
+  const [selected, setSelected] = useState<any | null>(null);
+  const [quantity, setQuantity] = useState<number>(1);
 
   return (
     <div className="space-y-4">
