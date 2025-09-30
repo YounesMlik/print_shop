@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import z, { ZodError } from "zod";
+import { ZodError } from "zod";
+import { z } from "zod/mini";
 import { flatten } from "lodash-es";
 import { Exact, WritableKeysOf } from "type-fest";
 
