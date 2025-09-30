@@ -25,19 +25,6 @@ type Props = {
     initialDir?: Direction;
 };
 
-function parseQuery(url: string) {
-    const qs = url.includes("?") ? url.split("?")[1] : "";
-    const params = new URLSearchParams(qs);
-    const data: Record<string, any> = {};
-    params.forEach((value, key) => {
-        const name = key.endsWith("[]") ? key.slice(0, -2) : key;
-        if (data[name] === undefined) data[name] = value;
-        else if (Array.isArray(data[name])) (data[name] as string[]).push(value);
-        else data[name] = [data[name], value];
-    });
-    return data;
-}
-
 export default function SortPicker({ className, initialSort, initialDir }: Props) {
     const { t } = useTranslation();
     const page = usePage();
@@ -45,10 +32,10 @@ export default function SortPicker({ className, initialSort, initialDir }: Props
 
     const query = useMemo(() => parseQuery(page.url), [page.url]);
     const [sort, setSort] = useState<Sort>(
-        (query.sort as any) || initialSort || "popular",
+        query.sort || initialSort || "popular",
     );
     const [dir, setDir] = useState<Direction>(
-        (query.dir as any) || initialDir || "desc",
+        query.dir || initialDir || "desc",
     );
 
     const visit = useCallback(
@@ -101,6 +88,18 @@ export default function SortPicker({ className, initialSort, initialDir }: Props
     );
 }
 
+function parseQuery(url: string) {
+    const qs = url.includes("?") ? url.split("?")[1] : "";
+    const params = new URLSearchParams(qs);
+    const data: Record<string, any> = {};
+    params.forEach((value, key) => {
+        const name = key.endsWith("[]") ? key.slice(0, -2) : key;
+        if (data[name] === undefined) data[name] = value;
+        else if (Array.isArray(data[name])) (data[name] as string[]).push(value);
+        else data[name] = [data[name], value];
+    });
+    return data;
+}
 
 const sort_icons = {
     "asc": {
