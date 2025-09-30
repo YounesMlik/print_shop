@@ -11,6 +11,14 @@
 
 	root * /app/public
 
+	# --- Inertia & caching rules -------------------------------------------
+	# 1) Never cache Inertia XHR responses (requests with X-Inertia header)
+	@inertia header X-Inertia *
+	header @inertia {
+		Vary "X-Inertia, X-Inertia-Partial-Component, X-Inertia-Partial-Data"
+	}
+	# -----------------------------------------------------------------------
+
 	php_server
 
 	file_server {
