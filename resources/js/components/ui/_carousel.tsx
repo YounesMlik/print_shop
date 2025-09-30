@@ -53,7 +53,7 @@ function Carousel({
     {
       ...opts,
       axis: orientation === "horizontal" ? "x" : "y",
-      direction: document.documentElement.getAttribute("dir").toLowerCase() === "ltr" ? "ltr" : "rtl",
+      direction: document?.documentElement?.getAttribute("dir")?.toLowerCase() === "ltr" ? "ltr" : "rtl",
     },
     plugins
   )
@@ -179,7 +179,7 @@ function CarouselPrevious({
   const { orientation, scrollPrev, canScrollPrev } = useCarousel()
 
   const isRTL =
-    document.documentElement.getAttribute("dir").toLowerCase() === "rtl";
+    document?.documentElement?.getAttribute("dir")?.toLowerCase() === "rtl";
 
   return (
     <Button
@@ -219,7 +219,7 @@ function CarouselNext({
   const { orientation, scrollNext, canScrollNext } = useCarousel()
 
   const isRTL =
-    document.documentElement.getAttribute("dir").toLowerCase() === "rtl";
+    document?.documentElement?.getAttribute("dir")?.toLowerCase() === "rtl";
 
   return (
     <Button
