@@ -68,7 +68,7 @@ class Product extends Model implements HasMedia, Viewable
     #[Scope]
     public function withCommonRelations(Builder $query)
     {
-        return $query->with(['options', 'tags', 'category', 'category.superCategory', 'media']);
+        return $query->with(['options.optionAttributes', 'tags', 'category', 'category.superCategory', 'media']);
     }
 
     /** Filter by ALL selected tag IDs (AND semantics), identical to the foreach+whereHas chain */
