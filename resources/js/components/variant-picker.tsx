@@ -6,6 +6,7 @@ import { QuantitySelector } from "@/components/quantity-selector";
 import { cn } from "@/lib/utils";
 import { SetRequired } from "type-fest";
 import { useState } from "react";
+import { asCurrency } from "@/components/helpers";
 
 
 type VariantPickerProps = {
@@ -105,17 +106,7 @@ export default function VariantPicker({
   );
 }
 
-function asCurrency(price: Option["price"], currency = "MAD") {
-  try {
-    return new Intl.NumberFormat(undefined, {
-      style: "currency",
-      currency,
-    }).format(price);
-  } catch {
-    // fallback if currency code is invalid
-    return `${price.toFixed(2)} ${currency}`;
-  }
-};
+
 
 export function ProductBuyBox({ options }: { options: any[] }) {
   const [selected, setSelected] = useState<any | null>(null);
