@@ -1,4 +1,4 @@
-import * as React from "react"
+import { forwardRef } from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
@@ -40,7 +40,7 @@ export interface HeadingProps
   as?: HeadingTag
 }
 
-const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
+const Heading = forwardRef<HTMLHeadingElement, HeadingProps>(
   ({ className, size, align, muted, asChild = false, as, ...props }, ref) => {
     const Component = asChild ? Slot : (as ?? size ?? "h1")
 
