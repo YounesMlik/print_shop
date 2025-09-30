@@ -3,10 +3,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { AspectRatio } from '@/components/ui/aspect-ratio'
 import { useTranslation } from 'react-i18next'
 import { SetRequired } from 'type-fest'
-import { truncate } from 'lodash-es'
+import { max, min, truncate } from 'lodash-es'
 import { useMediaQuery } from '@mui/material'
+import { asCurrency } from '@/components/helpers'
 
-type ProductsListProps = { products: SetRequired<Product, "images">[] }
+type ProductsListProps = { products: SetRequired<Product, "images" | "options">[] }
 export function ProductsList({ products }: ProductsListProps) {
   const { t } = useTranslation();
   const is_mobile = useMediaQuery('(max-width:640px)');
@@ -37,6 +38,7 @@ export function ProductsList({ products }: ProductsListProps) {
                   && truncate(product.description, { length: 100, separator: " " })
                 }
               </p>
+              <ProductPrice product={product} />
             </CardContent>
           </Card>
 
@@ -44,4 +46,18 @@ export function ProductsList({ products }: ProductsListProps) {
       ))}
     </div>
   )
+}
+
+function ProductPrice({ product }: { product: SetRequired<Product, "options"> }) {
+  const prices = product.options.map(option => option.price);
+
+  if (prices.length === 0) {
+    return "";
+  } else if (prices.length === 1) {
+    return <p>{asCurrency(prices[0])}</p>;
+  } else {
+    const minimum = min(prices) as number
+    const maximum = max(prices) as number
+    return <p>{asCurrency(minimum)}-{asCurrency(maximum)}</p>;
+  }
 }
