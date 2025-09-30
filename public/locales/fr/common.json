@@ -49,7 +49,7 @@
         "add": "Ajouter au panier"
     },
     "checkout": {
-        "open": "Passer à la caisse",
+        "open": "Passer à la commande",
         "cancel": "Annuler",
         "title": "Informations de paiement",
         "description": "Veuillez remplir vos informations pour continuer votre commande.",
