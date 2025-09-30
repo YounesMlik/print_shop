@@ -19,7 +19,7 @@ import { DndWrapper } from "@/components/dnd/dnd_wrapper";
 import axios from "axios";
 import { usePage } from "@inertiajs/react";
 import { Schema, SchemaEntityWithId } from "@coltorapps/builder";
-import z from "zod";
+import { z } from "zod/mini";
 import { mapValues, omitBy } from "lodash-es";
 
 

@@ -2,7 +2,7 @@ import {
     LabelAttribute,
     RequiredAttribute,
     OptionsAttribute,
-} from "@/components/form_builder/attribute_componenets";
+} from "@/components/form_builder/attribute_components";
 
 
 export function TextFieldAttributes() {

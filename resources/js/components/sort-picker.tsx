@@ -1,5 +1,3 @@
-// resources/js/components/SortPicker.tsx
-import * as React from "react";
 import { router, usePage } from "@inertiajs/react";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
@@ -15,6 +13,7 @@ import {
 } from "lucide-react";
 import { clsx } from "clsx";
 import { useTranslation } from "react-i18next";
+import { useCallback, useMemo, useState } from "react";
 
 type Sort = "popular" | "date" | "alpha";
 type Direction = "asc" | "desc";
@@ -26,33 +25,20 @@ type Props = {
     initialDir?: Direction;
 };
 
-function parseQuery(url: string) {
-    const qs = url.includes("?") ? url.split("?")[1] : "";
-    const params = new URLSearchParams(qs);
-    const data: Record<string, any> = {};
-    params.forEach((value, key) => {
-        const name = key.endsWith("[]") ? key.slice(0, -2) : key;
-        if (data[name] === undefined) data[name] = value;
-        else if (Array.isArray(data[name])) (data[name] as string[]).push(value);
-        else data[name] = [data[name], value];
-    });
-    return data;
-}
-
 export default function SortPicker({ className, initialSort, initialDir }: Props) {
     const { t } = useTranslation();
     const page = usePage();
     const path = page.url.split("?")[0];
 
-    const query = React.useMemo(() => parseQuery(page.url), [page.url]);
-    const [sort, setSort] = React.useState<Sort>(
-        (query.sort as any) || initialSort || "popular",
+    const query = useMemo(() => parseQuery(page.url), [page.url]);
+    const [sort, setSort] = useState<Sort>(
+        query.sort || initialSort || "popular",
     );
-    const [dir, setDir] = React.useState<Direction>(
-        (query.dir as any) || initialDir || "desc",
+    const [dir, setDir] = useState<Direction>(
+        query.dir || initialDir || "desc",
     );
 
-    const visit = React.useCallback(
+    const visit = useCallback(
         (next: Partial<{ sort: string; dir: string }>) => {
             const data = { ...query, ...next };
             delete (data as any).page; // reset pagination on sort change
@@ -102,6 +88,18 @@ export default function SortPicker({ className, initialSort, initialDir }: Props
     );
 }
 
+function parseQuery(url: string) {
+    const qs = url.includes("?") ? url.split("?")[1] : "";
+    const params = new URLSearchParams(qs);
+    const data: Record<string, any> = {};
+    params.forEach((value, key) => {
+        const name = key.endsWith("[]") ? key.slice(0, -2) : key;
+        if (data[name] === undefined) data[name] = value;
+        else if (Array.isArray(data[name])) (data[name] as string[]).push(value);
+        else data[name] = [data[name], value];
+    });
+    return data;
+}
 
 const sort_icons = {
     "asc": {

@@ -4,7 +4,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { tryCatchZod, useLocalAttribute } from "@/components/helpers";
 import { Button } from "@/components/ui/button";
-import * as React from "react";
+import { useCallback, useMemo } from "react";
 import i18next from "i18next";
 import { Switch } from "@/components/ui/switch";
 
@@ -19,20 +19,20 @@ export const LabelAttribute = createAttributeComponent(
       return (v as Record<string, string>) ?? {};
     };
 
-    const initialRecord = React.useMemo(
+    const initialRecord = useMemo(
       () => toRecord(props.attribute.value),
       [props.attribute.value]
     );
 
     // Locales = union(i18next.languages, existing keys)
-    const locales = React.useMemo(() => {
+    const locales = useMemo(() => {
       const fromI18n = Array.isArray(i18next.languages) ? i18next.languages : [];
       const fromValue = Object.keys(initialRecord);
       const uniq = Array.from(new Set([...fromI18n, ...fromValue])).filter(Boolean);
       return uniq.length ? uniq : ["en"];
     }, [initialRecord]);
 
-    const validate = React.useCallback(
+    const validate = useCallback(
       (val: Record<string, string>) =>
         tryCatchZod(() => labelAttribute.validate(val as any, {} as any)),
       []
@@ -48,7 +48,7 @@ export const LabelAttribute = createAttributeComponent(
         onCommit: props.setValue,
       });
 
-    const onSubmit = React.useCallback(
+    const onSubmit = useCallback(
       async (e: React.FormEvent) => {
         e.preventDefault();
         await save();
@@ -158,7 +158,7 @@ export const OptionsAttribute = createAttributeComponent(
     const coerce = (val: unknown): string[] =>
       Array.isArray(val) ? val.map(v => String(v ?? "")) : [""];
 
-    const validate = React.useCallback(
+    const validate = useCallback(
       (val: string[]) => tryCatchZod(() => optionsAttribute.validate(val, {} as any)),
       []
     );

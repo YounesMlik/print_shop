@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "zod/mini";
 import { createEntity } from "@coltorapps/builder";
 import { labelAttribute, requiredAttribute, optionsAttribute } from "./attributes";
 
@@ -6,7 +6,7 @@ export const textFieldEntity = createEntity({
     name: "textField",
     attributes: [labelAttribute, requiredAttribute],
     validate(value) {
-        return z.string().optional().parse(value);
+        return z.optional(z.string()).parse(value);
     },
 });
 
@@ -14,7 +14,7 @@ export const textAreaFieldEntity = createEntity({
     name: "textAreaField",
     attributes: [labelAttribute, requiredAttribute],
     validate(value) {
-        return z.string().optional().parse(value);
+        return z.optional(z.string()).parse(value);
     },
 });
 
@@ -23,7 +23,7 @@ export const selectFieldEntity = createEntity({
     attributes: [labelAttribute, requiredAttribute, optionsAttribute],
     validate(value) {
         // Value should be one of the option values or empty (if not required)
-        return z.string().optional().parse(value);
+        return z.optional(z.string()).parse(value);
     },
 });
 
@@ -32,7 +32,7 @@ export const checkboxesFieldEntity = createEntity({
     attributes: [labelAttribute, requiredAttribute, optionsAttribute],
     validate(value) {
         // Value should be an array of selected option values (or empty)
-        return z.array(z.string()).optional().parse(value);
+        return z.optional(z.array(z.string())).parse(value);
     },
 });
 
@@ -41,7 +41,7 @@ export const radioFieldEntity = createEntity({
     attributes: [labelAttribute, requiredAttribute, optionsAttribute],
     validate(value) {
         // Value should be one of the option values or empty
-        return z.string().optional().parse(value);
+        return z.optional(z.string()).parse(value);
     },
 });
 
