@@ -27,19 +27,18 @@ export function ProductsList({ products }: ProductsListProps) {
       {products.map(product => (
 
         <Link href={route('products.show', product.id)} key={product.id}>
-          <Card className='w-full h-full hover:outline-gray-500/50 hover:outline-2 flex max-sm:items-center max-sm:flex-row max-sm:py-0 max-sm:text-sm max-sm:gap-2'>
-            <CardHeader className='gap-0 max-sm:min-w-2/5 max-sm:p-0'>
+          <Card className='w-full h-full hover:outline-gray-500/50 hover:outline-2 flex max-sm:items-center max-sm:flex-row max-sm:py-0 max-sm:text-sm max-sm:gap-0'>
+            <CardHeader className='gap-0 max-sm:min-w-3/7 max-sm:p-0'>
               {product.images.length === 0 ? "" :
                 <AspectRatio className='' ratio={1}>
                   <img src={product.images[0].url} alt="product image" className="rounded-md w-full h-full object-cover max-sm:rounded-s-xl max-sm:rounded-e-none" />
                 </AspectRatio>
               }
             </CardHeader>
-            <CardContent className='h-full flex flex-col justify-between max-sm:basis-3/5 max-sm:ps-0 max-sm:py-2 max-sm:pe-2'>
-              <div className='flex flex-col max-sm:gap-0'>
+            <CardContent className='h-full flex flex-col justify-between max-sm:basis-4/7 max-sm:ps-0 max-sm:pt-1 max-sm:pe-0'>
+              <div className='flex flex-col max-sm:gap-0 max-sm:px-2'>
                 <p className='font-semibold line-clamp-3'>
                   {product.name}
-                  {/* Apple iPhone 13, 128GB, (PRODUCT)RED - Unlocked (Renewed Premium) */}
                 </p>
                 <p className='text-muted-foreground text-sm max-sm:hidden'>
                   {product.description
@@ -48,7 +47,7 @@ export function ProductsList({ products }: ProductsListProps) {
                 </p>
               </div>
               <div className='flex flex-col'>
-                <ProductPrice className='self-end-safe' product={product} />
+                <ProductPrice className='self-end-safe pe-2' product={product} />
                 {/* {product.options.length === 1 &&   // TODO: remove link from the whole card to prevent "interactive content descendant"
                   <Button
                     onClick={(e) => {
@@ -60,7 +59,7 @@ export function ProductsList({ products }: ProductsListProps) {
                   </Button>
                 } */}
                 {product.options.length > 0 &&
-                  <Button variant="secondary">
+                  <Button className='max-sm:rounded-s-none max-sm:rounded-se-none' variant="secondary">
                     {t("products_list.see_options")}
                     <div className='text-muted-foreground'>({product.options.length})</div>
                   </Button>
