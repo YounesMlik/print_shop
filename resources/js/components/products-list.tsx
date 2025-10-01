@@ -94,9 +94,9 @@ function ProductPrice({ product, className, ...props }: ComponentProps<"p"> & { 
     const minimum = min(prices) as number
     const maximum = max(prices) as number
     return (
-      <p className={className} {...props}>
-        {/* {asCurrency(minimum)} - {asCurrency(maximum)} */}
-        {asCurrencyRange(minimum, maximum)}
+      <p className={cn("w-full flex justify-between ps-2", className)} {...props}>
+        <span className='text-muted-foreground'>{t("products_list.price_starting_from")}</span>
+        <span>{asCurrency(minimum)}</span>
       </p>
     );
   }
