@@ -11,6 +11,9 @@
         "previous": "السابق",
         "next": "التالي"
     },
+    "products_list": {
+        "see_options": "عرض الخيارات"
+    },
     "no_products_found": "لم يتم العثور على منتجات",
     "tags_search": {
         "label": "تصفية حسب الوسوم",

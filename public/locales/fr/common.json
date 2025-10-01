@@ -11,6 +11,9 @@
         "previous": "Précédent",
         "next": "Suivant"
     },
+    "products_list": {
+        "see_options": "Voir les options"
+    },
     "no_products_found": "Aucun produit trouvé",
     "tags_search": {
         "label": "Filtrer par tags",
