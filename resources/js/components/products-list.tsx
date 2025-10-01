@@ -35,7 +35,7 @@ export function ProductsList({ products }: ProductsListProps) {
                 </AspectRatio>
               }
             </CardHeader>
-            <CardContent className='h-full flex flex-col justify-between max-sm:basis-4/7 max-sm:ps-0 max-sm:pt-1 max-sm:pe-0'>
+            <CardContent className='h-full flex flex-col justify-between gap-4 max-sm:gap-0 max-sm:basis-4/7 max-sm:ps-0 max-sm:pt-1 max-sm:pe-0'>
               <div className='flex flex-col max-sm:gap-0 max-sm:px-2'>
                 <p className='font-semibold line-clamp-3'>
                   {product.name}
