@@ -5,11 +5,16 @@ import { useTranslation } from 'react-i18next'
 import { SetRequired } from 'type-fest'
 import { max, min, truncate } from 'lodash-es'
 import { useMediaQuery } from '@mui/material'
-import { asCurrency } from '@/components/helpers'
+import { asCurrency, asCurrencyRange } from '@/components/helpers'
+import { Button } from '@/components/ui/button'
+import { shoppingCart } from '@/components/shopping-cart/shopping-cart-store'
 import { ComponentProps } from 'react'
 import { cn } from '@/lib/utils'
 
-type ProductsListProps = { products: SetRequired<Product, "images" | "options">[] }
+type MyProduct = Omit<SetRequired<Product, 'images'>, 'options'> & {
+  options: SetRequired<Option, 'option_attributes'>[]
+}
+type ProductsListProps = { products: MyProduct[] }
 export function ProductsList({ products }: ProductsListProps) {
   const { t } = useTranslation();
   const is_mobile = useMediaQuery('(max-width:640px)');
@@ -22,24 +27,45 @@ export function ProductsList({ products }: ProductsListProps) {
       {products.map(product => (
 
         <Link href={route('products.show', product.id)} key={product.id}>
-          <Card className='w-full h-full hover:outline-gray-500/50 hover:outline-2 flex max-sm:items-center max-sm:flex-row max-sm:h-40 max-sm:py-0'>
-            <CardHeader className='gap-0 max-sm:min-w-40 max-sm:p-0'>
+          <Card className='w-full h-full hover:outline-gray-500/50 hover:outline-2 flex max-sm:items-center max-sm:flex-row max-sm:py-0 max-sm:text-sm max-sm:gap-2'>
+            <CardHeader className='gap-0 max-sm:min-w-2/5 max-sm:p-0'>
               {product.images.length === 0 ? "" :
                 <AspectRatio className='' ratio={1}>
                   <img src={product.images[0].url} alt="product image" className="rounded-md w-full h-full object-cover max-sm:rounded-s-xl max-sm:rounded-e-none" />
                 </AspectRatio>
               }
             </CardHeader>
-            <CardContent className='max-sm:basis-2/3 max-sm:min-w-40 max-sm:ps-0'>
-              <p className='font-semibold'>
-                {product.name}
-              </p>
-              <p className='text-muted-foreground text-sm max-sm:truncate'>
-                {product.description
-                  && truncate(product.description, { length: 100, separator: " " })
+            <CardContent className='h-full flex flex-col justify-between max-sm:basis-3/5 max-sm:ps-0 max-sm:py-2 max-sm:pe-2'>
+              <div className='flex flex-col max-sm:gap-0'>
+                <p className='font-semibold line-clamp-3'>
+                  {product.name}
+                  {/* Apple iPhone 13, 128GB, (PRODUCT)RED - Unlocked (Renewed Premium) */}
+                </p>
+                <p className='text-muted-foreground text-sm max-sm:hidden'>
+                  {product.description
+                    && truncate(product.description, { length: 100, separator: " " })
+                  }
+                </p>
+              </div>
+              <div className='flex flex-col'>
+                <ProductPrice className='self-end-safe' product={product} />
+                {/* {product.options.length === 1 &&   // TODO: remove link from the whole card to prevent "interactive content descendant"
+                  <Button
+                    onClick={(e) => {
+                      shoppingCart.add(product, product.options[0], 1)
+                      e.stopPropagation()
+                    }}
+                  >
+                    {t("shopping_cart.add")}
+                  </Button>
+                } */}
+                {product.options.length > 0 &&
+                  <Button variant="secondary">
+                    {t("products_list.see_options")}
+                    <div className='text-muted-foreground'>({product.options.length})</div>
+                  </Button>
                 }
-              </p>
-              <ProductPrice product={product} />
+              </div>
             </CardContent>
           </Card>
 
