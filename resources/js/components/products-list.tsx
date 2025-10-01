@@ -70,7 +70,8 @@ function ProductPrice({ product, className, ...props }: ComponentProps<"p"> & { 
     const maximum = max(prices) as number
     return (
       <p className={className} {...props}>
-        {asCurrency(minimum)}-{asCurrency(maximum)}
+        {/* {asCurrency(minimum)} - {asCurrency(maximum)} */}
+        {asCurrencyRange(minimum, maximum)}
       </p>
     );
   }
