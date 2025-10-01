@@ -27,7 +27,7 @@ export function ProductsList({ products }: ProductsListProps) {
       {products.map(product => (
 
         <Link href={route('products.show', product.id)} key={product.id}>
-          <Card className='w-full h-full hover:outline-gray-500/50 hover:outline-2 flex max-sm:items-center max-sm:flex-row max-sm:py-0 max-sm:text-sm max-sm:gap-0'>
+          <Card className='w-full h-full flex rounded-3xl max-sm:rounded-2xl max-sm:items-center max-sm:flex-row max-sm:py-0 max-sm:text-sm max-sm:gap-0 hover:outline-gray-500/50 hover:outline-2'>
             <CardHeader className='gap-0 max-sm:min-w-3/7 max-sm:p-0'>
               {product.images.length === 0 ? "" :
                 <AspectRatio className='' ratio={1}>
