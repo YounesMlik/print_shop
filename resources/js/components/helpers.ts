@@ -169,3 +169,19 @@ export function intersperse<T, S>(arr: T[], sep: S): (T | S)[] {
         ]
     );
 }
+
+export function asCurrency(price: number, currency = "DH") {
+    try {
+        return new Intl.NumberFormat(undefined, {
+            style: "currency",
+            currency,
+        }).format(price);
+    } catch {
+        // fallback if currency code is invalid
+        return `${price.toFixed(2)} ${currency}`;
+    }
+};
+
+export function asCurrencyRange(minimum: number, maximum: number, currency = "DH") {
+    return `${minimum.toFixed(2)} - ${maximum.toFixed(2)} ${currency}`;
+};

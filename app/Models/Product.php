@@ -50,9 +50,10 @@ class Product extends Model implements HasMedia, Viewable
         );
     }
 
-    public function registerMediaCollections(): void{
+    public function registerMediaCollections(): void
+    {
         $this->addMediaCollection('product_images')
-        ->useDisk('s3_media'); 
+            ->useDisk('s3_media');
     }
 
     public function registerMediaConversions(Media $media = null): void
@@ -67,7 +68,7 @@ class Product extends Model implements HasMedia, Viewable
     #[Scope]
     public function withCommonRelations(Builder $query)
     {
-        return $query->with('tags', 'category', 'category.superCategory', 'media');
+        return $query->with(['options.optionAttributes', 'tags', 'category', 'category.superCategory', 'media']);
     }
 
     /** Filter by ALL selected tag IDs (AND semantics), identical to the foreach+whereHas chain */
