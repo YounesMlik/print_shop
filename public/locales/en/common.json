@@ -12,7 +12,8 @@
         "next": "next"
     },
     "products_list": {
-        "see_options": "See options"
+        "see_options": "See options",
+        "price_starting_from": "Starting at"
     },
     "no_products_found": "No products found",
     "tags_search": {

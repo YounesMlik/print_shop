@@ -27,7 +27,7 @@ export function ProductsList({ products }: ProductsListProps) {
       {products.map(product => (
 
         <Link href={route('products.show', product.id)} key={product.id}>
-          <Card className='w-full h-full hover:outline-gray-500/50 hover:outline-2 flex max-sm:items-center max-sm:flex-row max-sm:py-0 max-sm:text-sm max-sm:gap-0'>
+          <Card className='w-full h-full flex rounded-3xl max-sm:rounded-2xl max-sm:items-center max-sm:flex-row max-sm:py-0 max-sm:text-sm max-sm:gap-0 hover:outline-gray-500/50 hover:outline-2'>
             <CardHeader className='gap-0 max-sm:min-w-3/7 max-sm:p-0'>
               {product.images.length === 0 ? "" :
                 <AspectRatio className='' ratio={1}>
@@ -35,7 +35,7 @@ export function ProductsList({ products }: ProductsListProps) {
                 </AspectRatio>
               }
             </CardHeader>
-            <CardContent className='h-full flex flex-col justify-between max-sm:basis-4/7 max-sm:ps-0 max-sm:pt-1 max-sm:pe-0'>
+            <CardContent className='h-full flex flex-col justify-between gap-4 max-sm:gap-0 max-sm:basis-4/7 max-sm:ps-0 max-sm:pt-1 max-sm:pe-0'>
               <div className='flex flex-col max-sm:gap-0 max-sm:px-2'>
                 <p className='font-semibold line-clamp-3'>
                   {product.name}
@@ -94,9 +94,9 @@ function ProductPrice({ product, className, ...props }: ComponentProps<"p"> & { 
     const minimum = min(prices) as number
     const maximum = max(prices) as number
     return (
-      <p className={className} {...props}>
-        {/* {asCurrency(minimum)} - {asCurrency(maximum)} */}
-        {asCurrencyRange(minimum, maximum)}
+      <p className={cn("w-full flex justify-between ps-2", className)} {...props}>
+        <span className='text-muted-foreground'>{t("products_list.price_starting_from")}</span>
+        <span>{asCurrency(minimum)}</span>
       </p>
     );
   }
