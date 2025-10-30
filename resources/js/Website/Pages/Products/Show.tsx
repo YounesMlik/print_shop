@@ -16,6 +16,7 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 import { CartLine, ShoppingCart, shoppingCart } from "@/components/shopping-cart/shopping-cart-store";
 import { SetRequired, SetRequiredDeep } from "type-fest";
 import { Resource } from "@/types/global";
+import { demo_data, VectorSearchDemo } from "@/components/vector-search";
 
 
 type ProductShowProps = {
@@ -40,6 +41,7 @@ export default function ProductShow({ product_resource }: ProductShowProps) {
 
     return (
         <div className="container mx-auto p-4 max-w-xl grid gap-4">
+            <VectorSearchDemo data={demo_data} />
             <Head title={product.name} />
             <Breadcrumbs>
                 <Link href={route('products.index')} >
