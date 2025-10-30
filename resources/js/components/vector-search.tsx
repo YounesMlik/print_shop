@@ -51,6 +51,24 @@ function extractDimensions(data: Item[]): Dimension[] {
     );
 }
 
+function BuildIndex(dimensions: Dimension[]): Index {
+    return pipe(
+        dimensions,
+        map(
+            ({ name, values }) =>
+                [
+                    name,
+                    pipe(
+                        values,
+                        map(({ value, items }) => [value, items] as const),
+                        fromEntries(),
+                    )
+                ] as const
+        ),
+        fromEntries(),
+    );
+}
+
 function orderBySimilarity(data: Item[], query: Vector): Item[] {
     return pipe(
         data,
@@ -114,6 +132,7 @@ function filterData(
 }
 
 type Vector = Record<string, string>
+type Index = Record<string, Record<string, Item[]>>
 type Dimension = { name: string, values: Value[] }
 type Value = { value: string, items: Item[], }
 type Item = { id: number, v: Vector }
@@ -128,6 +147,7 @@ export function VectorSearchDemo({ data }: { data: Item[] }) {
 
     console.log(orderBySimilarity(data, query));
     console.log(extractDimensions(data));
+    console.log(BuildIndex(dimensions));
     // console.log(availableOptions(data, query));
     // console.log(displayDimensions(data, dimensions, selectedItem.v));
     // console.log(filteredDimensionCardinality(data, dimensions, "class", selectedItem.v));
