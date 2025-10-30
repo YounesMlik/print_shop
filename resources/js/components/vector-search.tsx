@@ -3,7 +3,9 @@ import { useState } from "react";
 import { entries, filter, find, flat, fromEntries, groupBy, map, omit, pipe, sortBy, sum, values, } from "remeda";
 import { ArrayValues } from "type-fest";
 
-const query: Partial<ArrayValues<typeof demo_data>["v"]> = { race: "elf", class: "mage" };
+const query: Query<typeof demo_data> = { race: "elf", class: "mage" };
+
+type Query<D extends readonly Item[]> = Partial<ArrayValues<D>["v"]>
 
 function categoricalSimilarity(vector: Vector, query: Vector): number {
     return pipe(
