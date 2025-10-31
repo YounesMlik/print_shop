@@ -1,7 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { entries, filter, find, flat, fromEntries, groupBy, map, omit, pipe, sortBy, sum, values, } from "remeda";
+import { entries, filter, find, flat, fromEntries, groupBy, map, omit, pipe, sortBy, sum, values, prop, piped, reduce, keys } from "remeda";
 import { ArrayValues } from "type-fest";
+// @ts-ignore
+import { assocPath, path } from "ramda";
+import { allRotations, mathMod } from "@/components/helpers";
 
 const query: Query<typeof demo_data> = { race: "elf", class: "mage" };
 
@@ -53,7 +56,7 @@ function extractDimensions(data: Item[]): Dimension[] {
     );
 }
 
-function BuildIndex(dimensions: Dimension[]): Index {
+function BuildDimensionIndex(dimensions: Dimension[]): DimensionIndex {
     return pipe(
         dimensions,
         map(
@@ -105,16 +108,17 @@ function availableOptions(
 //     )
 // }
 
-function filteredDimensionCardinality(
+function filterDimension(
     data: Item[],
     dimensions: Dimension[],
     dimension_name: string,
     selected: FullVector,
 ): Dimension {
     const original_dimension = dimensions.find(dimension => dimension.name === dimension_name)
+    const search_vector = omit(selected, [dimension_name])
     return pipe(
         data,
-        data => filterData(data, omit(selected, [dimension_name])),
+        data => filterData(data, search_vector),
         extractDimensions,
         find(dimension => dimension.name === dimension_name),
         dimension => original_dimension
@@ -133,8 +137,46 @@ function filterData(
     )
 }
 
+function BuildRecursiveIndex(
+    data: Item[],
+    order: string[]
+): RecursiveIndex {
+    if (order.length === 0) {
+        throw new Error("empty dimension order")
+    }
+
+    return pipe(
+        data,
+        map(
+            item => ({
+                arr: order.map(dimension_name => item.v[dimension_name]),
+                item: item,
+            })
+        ),
+        reduce(
+            (acc, { arr, item }) =>
+                assocPath(
+                    arr,
+                    [...path(arr, acc) ?? [], item],
+                    acc
+                ),
+            {} as object,
+        ),
+    ) as RecursiveIndex;
+}
+
+const order = [
+    "class",
+    "guild",
+    "race",
+    "region",
+    "weapon",
+]
+
 type Vector = Record<string, string>
-type Index = Record<string, Record<string, Item[]>>
+type DimensionIndex = Record<string, Record<string, Item[]>>
+type RecursiveIndex = { [K: string]: Item[] | RecursiveIndex }
+type ItemIndex = Record<string, Item[]>
 type Dimension = { name: string, values: Value[] }
 type Value = { value: string, items: Item[], }
 type Item = { id: number, v: Vector }
@@ -149,7 +191,10 @@ export function VectorSearchDemo({ data }: { data: Item[] }) {
 
     console.log(orderBySimilarity(data, query));
     console.log(extractDimensions(data));
-    console.log(BuildIndex(dimensions));
+    console.log(BuildDimensionIndex(dimensions));
+    console.log(BuildRecursiveIndex(data, order));
+
+
     // console.log(availableOptions(data, query));
     // console.log(displayDimensions(data, dimensions, selectedItem.v));
     // console.log(filteredDimensionCardinality(data, dimensions, "class", selectedItem.v));
