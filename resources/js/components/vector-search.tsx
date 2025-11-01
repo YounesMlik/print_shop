@@ -4,7 +4,7 @@ import { entries, filter, find, flat, fromEntries, groupBy, map, omit, pipe, sor
 import { ArrayValues } from "type-fest";
 // @ts-ignore
 import { assocPath, path } from "ramda";
-import { allRotations, mathMod } from "@/components/helpers";
+import { FastFlavor } from "@coderspirit/nominal"
 
 const query: Query<typeof demo_data> = { race: "elf", class: "mage" };
 
@@ -108,11 +108,11 @@ function availableOptions(
 //     )
 // }
 
-function filterDimension(
+function filterDimension<D extends Dimension[]>(
     data: Item[],
-    dimensions: Dimension[],
-    dimension_name: string,
-    selected: FullVector,
+    dimensions: D,
+    dimension_name: DimensionName,
+    selected: FullVector<ArrayValues<D>["name"]>,
 ): Dimension {
     const original_dimension = dimensions.find(dimension => dimension.name === dimension_name)
     const search_vector = omit(selected, [dimension_name])
@@ -139,7 +139,7 @@ function filterData(
 
 function BuildRecursiveIndex(
     data: Item[],
-    order: string[]
+    order: Order
 ): RecursiveIndex {
     if (order.length === 0) {
         throw new Error("empty dimension order")
@@ -172,16 +172,27 @@ const order = [
     "region",
     "weapon",
 ]
+const DimensionNameSymbol = Symbol()
+const ValueSymbol = Symbol()
+const IdSymbol = Symbol()
+type DimensionName = FastFlavor<string, typeof DimensionNameSymbol>
+type Value = FastFlavor<string, typeof ValueSymbol>
+type Id = FastFlavor<number, typeof IdSymbol>
 
-type Vector = Record<string, string>
-type DimensionIndex = Record<string, Record<string, Item[]>>
-type RecursiveIndex = { [K: string]: Item[] | RecursiveIndex }
-type ItemIndex = Record<string, Item[]>
-type Dimension = { name: string, values: Value[] }
-type Value = { value: string, items: Item[], }
-type Item = { id: number, v: Vector }
+type Vector<D extends DimensionName = DimensionName, V extends Value = Value> = Record<D, V>
+type FullVector<D extends DimensionName, V extends Value = Value> = Vector<D, V>
+type PartialVector<D extends DimensionName, V extends Value = Value> = Partial<Vector<D, V>>
+type Order = DimensionName[]
+type DimensionIndex = Record<DimensionName, Record<Value, Item[]>>
+type DisplayIndex = Record<DimensionName, RecursiveIndex>
+type RecursiveIndex = { [K: Value]: Item[] | RecursiveIndex }
+type ItemIndex = Record<Value, Item[]>
+type Dimension<N extends DimensionName = DimensionName> = {
+    name: N,
+    values: { value: Value, items: Item[] }[]
+}
+type Item<I extends Id = Id, V extends Vector = Vector> = { id: I, v: V }
 
-type FullVector = Vector
 
 export function VectorSearchDemo({ data }: { data: Item[] }) {
     const [selectedItem, setSelectedOption] = useState(() => data[0])
@@ -2892,4 +2903,4 @@ const demo_dimensions = [
             }
         ]
     }
-]
+] as const
