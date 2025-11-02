@@ -55,6 +55,7 @@
         "@sindresorhus/is": "^7.1.0",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
+        "effect": "^3.18.4",
         "embla-carousel-react": "^8.6.0",
         "i18next": "^25.4.2",
         "i18next-browser-languagedetector": "^8.2.0",
