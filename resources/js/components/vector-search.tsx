@@ -10,7 +10,7 @@ const query: Query<typeof demo_data> = { race: "elf", class: "mage" };
 
 type Query<D extends readonly Item[]> = Partial<ArrayValues<D>["v"]>
 
-function categoricalSimilarity(vector: Vector, query: Vector): number {
+function categoricalSimilarity<D extends DimensionName>(vector: FullVector<D, any>, query: PartialVector<D, any>): number {
     return pipe(
         vector,
         entries(),
