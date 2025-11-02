@@ -26,6 +26,7 @@
     },
     "dependencies": {
         "@coderspirit/nominal": "^4.1.1",
+        "@coderspirit/nominal-inputs": "^1.2.2",
         "@coltorapps/builder": "^0.2.4",
         "@coltorapps/builder-react": "^0.2.4",
         "@dnd-kit/core": "^6.3.1",
