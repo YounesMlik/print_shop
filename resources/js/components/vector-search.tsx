@@ -191,7 +191,7 @@ type Dimension<N extends DimensionName = DimensionName> = {
     name: N,
     values: { value: Value, items: Item[] }[]
 }
-type Item<I extends Id = Id, V extends Vector = Vector> = { id: I, v: V }
+type Item<I extends Id = Id, V extends Vector = Vector> = { id: I, v: V, [key: string]: any }
 
 
 export function VectorSearchDemo({ data }: { data: Item[] }) {
@@ -640,7 +640,7 @@ export const demo_data = [
             "guild": "Bloodmaw"
         }
     }
-] as const
+] as const satisfies Item[]
 
 const demo_dimensions = [
     {
@@ -2903,4 +2903,4 @@ const demo_dimensions = [
             }
         ]
     }
-] as const
+] as const satisfies Dimension[]
