@@ -21,7 +21,7 @@ type Item<Name extends ItemName = ItemName, Id extends ItemId = ItemId>
 type Dimension<Name extends DimensionName = DimensionName, Id extends DimensionId = DimensionId,>
     = { id: Id, name: Name }
 type ValueRow<V extends Value = Value, Id extends ValueId = ValueId, DimId extends DimensionId = DimensionId>
-    = { id: Id, dimension_id: DimId, value: V }
+    = { dimension_id: DimId, value_id: Id, value: V }
 type ItemValue<I extends ItemId = ItemId, D extends DimensionId = DimensionId, V extends ValueId = ValueId>
     = { item_id: I, dimension_id: D, value_id: V }
 
@@ -69,7 +69,7 @@ export function normalizeData<
         uniqueBy(([dimName, val]) => `${dimName}:${val}`), // unique per dimension+value
         map(([dimName, val], idx) => {
             const dim = dimensionsMap.get(dimName)!;
-            return { id: (idx + 1) as ValId, dimension_id: dim.id, value: val } satisfies ValueRow<V, ValId, DimId>;
+            return { value_id: (idx + 1) as ValId, dimension_id: dim.id, value: val } satisfies ValueRow<V, ValId, DimId>;
         })
     );
 
@@ -81,7 +81,7 @@ export function normalizeData<
             entries(item.v).map(([dimName, val]) => {
                 const dim = dimensionsMap.get(dimName)!;
                 const valueRow = valueMap.get(`${dim.id}:${val}`)!;
-                return { item_id: item.id, dimension_id: dim.id, value_id: valueRow.id } satisfies ItemValue<GItemId, DimId, ValId>;
+                return { item_id: item.id, dimension_id: dim.id, value_id: valueRow.value_id } satisfies ItemValue<GItemId, DimId, ValId>;
             })
         )
     );
