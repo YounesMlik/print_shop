@@ -16,7 +16,8 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 import { CartLine, ShoppingCart, shoppingCart } from "@/components/shopping-cart/shopping-cart-store";
 import { SetRequired, SetRequiredDeep } from "type-fest";
 import { Resource } from "@/types/global";
-import { demo_data, VectorSearchDemo } from "@/components/vector-search";
+import { VectorSearchDemo } from "@/components/vector-search";
+import { demo_data } from "@/components/vector-search-data";
 
 
 type ProductShowProps = {
