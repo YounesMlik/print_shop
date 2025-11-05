@@ -6,6 +6,10 @@ export const demo_data = [
         "name": "Aeliryn the Swift",
         "v": {
             "race": "elf",
+            "class": "rogue",
+            "weapon": "dagger",
+            "region": "east",
+            "guild": "Shadow Veil"
         }
     },
     {
