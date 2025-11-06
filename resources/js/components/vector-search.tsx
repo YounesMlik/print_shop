@@ -7,7 +7,8 @@ import { assocPath, path } from "ramda";
 import { FastFlavor } from "@coderspirit/nominal"
 import { DropFirst } from "type-plus";
 import { demo_data, demo_dimensions, demo_dimension_index } from "@/components/vector-search-data";
-import { normalizeData } from "@/components/vector-search-normalized";
+import { buildIndexes, normalizeData } from "@/components/vector-search-normalized";
+import { bench } from "@/components/vector-search-benchmark";
 
 const query: Query<typeof demo_data> = { race: "elf", class: "mage" };
 
@@ -202,11 +203,9 @@ export function VectorSearchDemo({ data }: { data: Item[] }) {
     const available_dimensions = extractDimensions(available_data)
 
 
-    const a = [{ name: "a" }, { name: "b" }]
-    const b = fromEntries(a.map(x => [x.name, x])) as Record<DimensionName, Dimension>
-
     console.log(normalizeData(data));
-
+    console.log(buildIndexes(normalizeData(data)));
+    // console.table(bench.table())
 
     // console.log(orderBySimilarity(data, query));
     // console.log(extractDimensions(data));
