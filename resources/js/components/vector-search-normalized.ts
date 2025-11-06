@@ -77,7 +77,6 @@ type DataIndexes<
     itemsByValue: Map<{ dimension_id: Did, value_id: Vid }, Iid[]>,
 
     itemVectors: Record<Iid, ItemVector<Did, Vid>>,
-    valuesByDim: Record<Did, Vid[]>,
 };
 
 
@@ -186,12 +185,6 @@ export function buildIndexes<
         )
     );
 
-    const valuesByDim = pipe(
-        data.values,
-        groupBy(v => v.dimension_id),
-        mapValues(vs => vs.map(v => v.value_id))
-    );
-
     return {
         items,
         dimensions,
@@ -202,7 +195,6 @@ export function buildIndexes<
         itemValuesByDimension,
         itemVectors,
         itemsByValue,
-        valuesByDim,
     };
 };
 
