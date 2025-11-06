@@ -204,3 +204,8 @@ export function rotate<T>(arr: T[], steps: number): T[] {
 export function mathMod(value: number, modulus: number) {
     return (value % modulus + modulus) % modulus;
 }
+
+export function log<T>(value: T): T {
+    console.log(value);
+    return value;
+}
