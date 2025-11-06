@@ -168,39 +168,11 @@ export function buildIndexes<
     const valuesByDimension = groupBy(data.values, v => v.dimension_id);
     const itemValuesByItem = groupBy(data.itemValues, iv => iv.item_id);
     const itemValuesByDimension = groupBy(data.itemValues, iv => iv.dimension_id);
-    type Key = { dimension_id: D["id"]; value_id: V["value_id"] };
-
-    const itemsByValue = pipe(
-        data.itemValues satisfies IV[],
-        reduce(
-            (state, iv) => {
-                const key: Key = { dimension_id: iv.dimension_id, value_id: iv.value_id };
-                const hash = `${key.dimension_id}:${key.value_id}`;
-                let realKey = state.index.get(hash);
-                if (!realKey) {
-                    // first time seeing this combination
-                    realKey = key;
-                    state.index.set(hash, realKey);
-                    state.map.set(realKey, []);
-                }
-                state.map.get(realKey)!.push(iv.item_id);
-                return state;
-            },
-            {
-                map: new Map<Key, I["id"][]>(),
-                index: new Map<string, Key>(), // internal lookup table
-            }
-        ),
-        state => state.map
-    );
-    const itemValuesByValue = groupByCompositeKey(
+    const itemsByValue = groupByCompositeKey(
         data.itemValues,
         iv => ({ dimension_id: iv.dimension_id, value_id: iv.value_id }),
         iv => iv.item_id,
     );
-    // console.log(itemValuesByValue);
-    console.log(isDeepEqual(itemsByValue.entries().toArray(), itemValuesByValue.entries().toArray()));
-
 
     const itemVectors = pipe(
         data.itemValues,
