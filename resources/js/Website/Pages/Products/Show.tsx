@@ -42,7 +42,7 @@ export default function ProductShow({ product_resource }: ProductShowProps) {
 
     return (
         <div className="container mx-auto p-4 max-w-xl grid gap-4">
-            <VectorSearchDemo data={demo_data} />
+            {/* <VectorSearchDemo data={demo_data} /> */}
             <Head title={product.name} />
             <Breadcrumbs>
                 <Link href={route('products.index')} >

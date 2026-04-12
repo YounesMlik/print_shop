@@ -13,6 +13,9 @@ RUN apt-get update \
 # PHP extensions: intl, gd, zip, pdo_sqlite, exif
 RUN install-php-extensions intl gd zip pdo_sqlite exif
 
+# Install composer
+COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+
 # (Optional) create an empty SQLite DB inside the image so permissions are correct.
 # If you bind-mount your app at runtime, this may be overwritten—no problem.
 RUN mkdir -p /app/database \

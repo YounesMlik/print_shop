@@ -1,18 +1,15 @@
 #!/bin/bash
 set -e
 
-docker_exec() {
-    docker compose exec -T app "$@"
-}
 
+docker compose -f 'docker-compose.yml' up -d --build
 
+./dex.sh npm install
+./dex.sh composer install --no-interaction
 
-# docker_exec npm install
-docker_exec composer install --no-interaction
+./dex.sh php artisan optimize:clear
+./dex.sh php artisan optimize:safe
 
-docker_exec php artisan optimize:clear
-docker_exec php artisan optimize:safe
+./dex.sh ./work.sh
 
-docker_exec ./work.sh
-
-docker_exec frankenphp reload
+./dex.sh frankenphp reload
