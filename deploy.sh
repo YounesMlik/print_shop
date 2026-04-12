@@ -17,7 +17,6 @@ if [ "$1" = "local" ]; then
 elif [ "$1" = "production" ]; then
     echo "deploying production"
     ./dex.sh cp .env.production .env
-    # ./dex.sh php artisan backup:restore --backup=latest --connection=pgsql --reset --no-interaction
     ./dex.sh php artisan migrate --force
     ./dex.sh npm run build
     rm public/hot
