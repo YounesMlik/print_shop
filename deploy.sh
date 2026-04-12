@@ -5,6 +5,7 @@ set -e
 docker compose -f 'docker-compose.yml' up -d --build
 ./dex.sh npm install
 ./dex.sh composer install --no-interaction
+./dex.sh php artisan storage:link
 
 
 
