@@ -6,15 +6,14 @@ docker compose -f 'docker-compose.yml' up -d --build
 ./dex.sh npm install
 ./dex.sh composer install --no-interaction
 ./dex.sh php artisan storage:link
-
-
+./dex.sh php artisan db:seed
 
 if [ "$1" = "local" ]; then
     echo "deploying local"
     ./dex.sh cp .env.local .env
     ./dex.sh php artisan migrate
     # ./dex.sh php artisan db:seed LocalSeeder
-    
+    ./dex.sh npm run build
 
 elif [ "$1" = "production" ]; then
     echo "deploying production"
@@ -22,8 +21,8 @@ elif [ "$1" = "production" ]; then
     ./dex.sh cp .env.production .env
     # ./dex.sh php artisan backup:restore --backup=latest --connection=pgsql --reset --no-interaction
     ./dex.sh php artisan migrate --force
-    ./dex.sh php artisan db:seed
     ./dex.sh npm run build
+
 else
     echo "$1 is not recognized as a valid APP_ENV value"
     exit
