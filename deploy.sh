@@ -1,18 +1,41 @@
 #!/bin/bash
 set -e
 
-docker_exec() {
-    docker compose exec -T app "$@"
-}
 
+docker compose -f 'docker-compose.yml' up -d --build
+./dex.sh npm install
+./dex.sh composer install --no-interaction
+./dex.sh php artisan storage:link
 
+if [ "$1" = "local" ]; then
+    echo "deploying local"
+    ./dex.sh cp .env.local .env
+    ./dex.sh php artisan migrate
+    # ./dex.sh php artisan db:seed LocalSeeder
+    ./dex.sh npm run build
 
-# docker_exec npm install
-docker_exec composer install --no-interaction
+elif [ "$1" = "production" ]; then
+    echo "deploying production"
+    ./dex.sh cp .env.production .env
+    ./dex.sh php artisan migrate --force
+    ./dex.sh npm run build
+    rm public/hot
 
-docker_exec php artisan optimize:clear
-docker_exec php artisan optimize:safe
+else
+    echo "$1 is not recognized as a valid APP_ENV value"
+    exit
+fi
 
-docker_exec ./work.sh
+./dex.sh php artisan db:seed --force
+./dex.sh php artisan i18n:bump
+./dex.sh php artisan config:clear
+./dex.sh php artisan key:generate
+./dex.sh php artisan config:cache
+./dex.sh php artisan optimize:clear
+./dex.sh php artisan optimize:safe
+./dex.sh frankenphp reload
 
-docker_exec frankenphp reload
+./dex.sh ./work.sh &
+wait
+
+echo "deployment successful"

@@ -37,13 +37,13 @@ function Root({ App, props }: any) {
   document.documentElement.dir = i18n.isRtl ? "rtl" : "ltr";
 
   return (
-    <StrictMode>
+    // <StrictMode>
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <Suspense fallback={<div className="p-4 text-sm opacity-60">Loading…</div>}>
           <App {...props} />
         </Suspense>
       </ThemeProvider>
-    </StrictMode>
+    // </StrictMode>
   );
 }
 

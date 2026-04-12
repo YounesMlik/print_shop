@@ -185,3 +185,27 @@ export function asCurrency(price: number, currency = "DH") {
 export function asCurrencyRange(minimum: number, maximum: number, currency = "DH") {
     return `${minimum.toFixed(2)} - ${maximum.toFixed(2)} ${currency}`;
 };
+
+export function allRotations<T>(arr: T[]): T[][] {
+    return arr.map((_, i) => rotate(arr, i))
+}
+
+export function rotate<T>(arr: T[], steps: number): T[] {
+    const normalized_steps = mathMod(steps, arr.length);
+    return [
+        ...arr.slice(normalized_steps, Infinity),
+        ...arr.slice(0, normalized_steps)
+    ]
+}
+
+/**
+ * Euclidean modulo function
+ */
+export function mathMod(value: number, modulus: number) {
+    return (value % modulus + modulus) % modulus;
+}
+
+export function log<T>(value: T): T {
+    console.log(value);
+    return value;
+}
